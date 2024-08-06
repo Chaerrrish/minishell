@@ -6,12 +6,12 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/06 12:45:50 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/06 20:17:42 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _MINISHELL_H_
-# define _MINISHELL_H_
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 #include <unistd.h>
 #include <stdio.h>
@@ -22,22 +22,19 @@
 
 #include "libft.h"
 #include "macro.h"
+#include "struct.h"
 
-typedef struct s_cmd
-{
-	char	**cmd_line; // cmdline[0] = "echo", cmdline[1] = "hi", cmdline[2] = NULL
-	int		pipe_flag; // flag 0: 세미콜론 또는 NULL, flag 1: 파이프
-	int		single_quote; // 파싱과정에서 ' 또는 " 를 저장, 짝을 찾으면 0으로 초기화 됨.
-	int				double_quote;
-	struct s_cmd	*next;
-}t_cmd;
 
-// minishell.c
-void	minishell();
+// parsing.c
+t_cmd	*create_new_cmd();
+void	tokenize(t_cmd *cmd, char *str);
 
 // check_quotes.c
-int	check_single_quotes(char *str);
-int	check_double_quotes(char *str);
+int		check_single_quotes(char *str);
+int		check_double_quotes(char *str);
+
+// signal.c
+void	init_signal();
 
 #endif
 
