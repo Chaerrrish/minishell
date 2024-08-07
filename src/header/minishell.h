@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/06 20:17:42 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/07 12:33:32 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,17 @@
 #include "macro.h"
 #include "struct.h"
 
-
+// ./parse
 // parsing.c
 t_cmd	*create_new_cmd();
 void	tokenize(t_cmd *cmd, char *str);
-
 // check_quotes.c
 int		check_single_quotes(char *str);
 int		check_double_quotes(char *str);
+// do_free.c
+void	do_free(t_cmd *cmd);
 
+// ./signal
 // signal.c
 void	init_signal();
 
