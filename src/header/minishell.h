@@ -6,7 +6,7 @@
 /*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/07 16:16:38 by chaerin          ###   ########.fr       */
+/*   Updated: 2024/08/07 16:45:19 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <string.h>
 # include <curses.h>
 
-# include "libft.h"
+# include "../../libft/libft.h"
 # include "macro.h"
 # include "struct.h"
 
