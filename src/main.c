@@ -6,11 +6,19 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:15:06 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/06 20:46:44 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/07 12:50:27 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// todo
+/*
+	0. free함수
+	1. 시그널 처리
+	2. 환경변수
+	3. 히어독
+*/
 
 static void	minishell()
 {
@@ -33,12 +41,13 @@ static void	minishell()
 		cmd->next = create_new_cmd();
 		if (cmd->next == NULL)
 		{
-			// todo: 이부분에 에러 처리 함수 만들기 (전부 다 free 해주는 함수 만들기)
+			do_free(cmd);
 			break;
 		}
 		cmd = cmd->next;
 		free(input);
 	}
+	do_free(cmd);
 }
 
 int	main(int argc, char **argv)

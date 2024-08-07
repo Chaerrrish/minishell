@@ -30,15 +30,17 @@
 # include "macro.h"
 # include "struct.h"
 
-
+// ./parse
 // parsing.c
 t_cmd	*create_new_cmd();
 void	tokenize(t_cmd *cmd, char *str);
-
 // check_quotes.c
 int		check_single_quotes(char *str);
 int		check_double_quotes(char *str);
+// do_free.c
+void	do_free(t_cmd *cmd);
 
+// ./signal
 // signal.c
 void	init_signal();
 
