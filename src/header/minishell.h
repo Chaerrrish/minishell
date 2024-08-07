@@ -3,26 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/07 12:33:32 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:16:38 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <termios.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <termios.h>
+# include <sys/wait.h>
+# include <signal.h>
+# include <sys/stat.h>
+# include <dirent.h>
+# include <string.h>
+# include <curses.h>
 
-#include "libft.h"
-#include "macro.h"
-#include "struct.h"
+# include "libft.h"
+# include "macro.h"
+# include "struct.h"
 
 // ./parse
 // parsing.c
