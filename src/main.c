@@ -6,54 +6,46 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:15:06 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/07 12:50:27 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/08 16:44:10 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// todo
-/*
-	0. free함수
-	1. 시그널 처리
-	2. 환경변수
-	3. 히어독
-*/
-
-static void	minishell()
+static void	minishell(char **envp)
 {
-	t_cmd	*cmd;
+	t_shell	minishell;
 	char	*input;
-	
-	cmd = create_new_cmd();
-	if (!cmd)
-		return ;
+	int		fd_backup[2];
+
+	init_envp_lst(minishell.env_list, envp); // 환경변수 리스트 초기화
 	while (1)
 	{
+		fd_backup[0] = dup(STDIN_FILENO);	// 표준 입력 백업
+		fd_backup[1] = dup(STDOUT_FILENO);	// 표준 출력 백업
 		input = readline("minishell $ ");
-		if (!input)
+		if (!input) // EOF(Ctrl + D) or readline 오류시 에러핸들링
 			break;
-		tokenize(cmd, input);
-		/*
-			이부분에 실행부로 패스하는 함수 제작
-		*/ 
+		// if (parsing(&minishell, input) != 0) // parsing
+		// {
+		// 	perror("parsing error\n");
+		// 	free(input);
+		// 	continue;
+		// }
+		// 명령어 경로 설정
+		// 명령어 실행
+		dup2(fd_backup[0], STDIN_FILENO);	// 백업
+		dup2(fd_backup[1], STDOUT_FILENO);	// 백업 
 		add_history(input);
-		cmd->next = create_new_cmd();
-		if (cmd->next == NULL)
-		{
-			do_free(cmd);
-			break;
-		}
-		cmd = cmd->next;
 		free(input);
 	}
-	do_free(cmd);
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **envp)
 {
 	struct termios	term;
 	
+	(void)argv;
 	if (argc >= 2)
 	{
 		printf("too many arguments!!!\n");
@@ -61,14 +53,14 @@ int	main(int argc, char **argv)
 	}  
 	if (tcgetattr(STDIN_FILENO, &term) != 0) // 터미널 속성 저장
 	{
-		perror("tcgetattr error!!!");
+		perror("tcgetattr error!!!\n");
 		exit(0);
 	}
 	init_signal(); // 시그널 초기화
-	minishell(); // 미니쉘 실행
+	minishell(envp); // 미니쉘 실행
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &term) != 0) // 터미널 속성 복원
 	{
-		perror("tcsetattr error!!!");
+		perror("tcsetattr error!!!\n");
 		exit(0);
 	}
 }
