@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:33:11 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/09 19:16:46 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/09 22:28:37 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	env(t_list	*env_list)
 	}
 }
 
-int main(int ac, char **av, char **envp)
-{
-	t_list *lst;
+// int main(int ac, char **av, char **envp)
+// {
+// 	t_list *lst;
 
-	init_envp_lst(&lst, envp);
-	env(lst);
-	return (0);
-}
+// 	init_envp_lst(&lst, envp);
+// 	env(lst);
+// 	return (0);
+// }
