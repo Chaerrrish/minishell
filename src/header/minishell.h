@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/09 13:30:02 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:34:20 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,6 @@
 # include <dirent.h>
 # include <string.h>
 # include <curses.h>
-
-// parsing.c
-t_cmd	*create_new_cmd();
-void	tokenize(t_cmd *cmd, char *str);
-
-// check_quotes.c
-int		check_single_quotes(char *str);
-int		check_double_quotes(char *str);
-
-// signal.c
-void	init_signal();
-
 
 # include "libft.h"
 # include "mini_macro.h"
