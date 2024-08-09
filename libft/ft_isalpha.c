@@ -3,27 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/06 15:15:13 by wonyocho          #+#    #+#             */
-/*   Updated: 2023/10/21 13:08:22 by wonyocho         ###   ########.fr       */
+/*   Created: 2023/10/19 14:43:08 by chaoh             #+#    #+#             */
+/*   Updated: 2023/10/24 15:38:29 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isalpha(int c)
 {
-	if ('A' <= c && c <= 'Z')
+	if (c >= 'A' && c <= 'Z')
 		return (1);
-	else if ('a' <= c && c <= 'z')
+	else if (c >= 'a' && c <= 'z')
 		return (1);
 	else
 		return (0);
 }
-/*
-#include <stdio.h>
-int main()
-{
-	int a = '{';
-	printf("%d", ft_isalpha(a));
-}
-*/

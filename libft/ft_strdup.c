@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/11 14:24:42 by wonyocho          #+#    #+#             */
-/*   Updated: 2023/10/16 11:47:38 by wonyocho         ###   ########.fr       */
+/*   Created: 2023/10/19 14:45:46 by chaoh             #+#    #+#             */
+/*   Updated: 2023/10/19 14:50:04 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,30 @@
 
 char	*ft_strdup(const char *s1)
 {
-	char			*dst;
-	unsigned char	*src;
-	size_t			len_src;
-	unsigned int	i;
+	int		len;
+	char	*ptr;
+	int		i;
 
 	i = 0;
-	src = (unsigned char *)s1;
-	len_src = ft_strlen(s1);
-	dst = (char *)malloc(len_src + 1);
-	if (!(dst))
+	len = ft_strlen(s1) + 1;
+	ptr = (char *)malloc(sizeof(char) * len);
+	if (ptr == NULL)
 		return (0);
-	else
+	while (s1[i] != '\0')
 	{
-		while (src[i])
-		{
-			dst[i] = src[i];
-			i++;
-		}
+		ptr[i] = s1[i];
+		i++;
 	}
-	dst[i] = '\0';
-	return (dst);
+	ptr[i] = '\0';
+	return (ptr);
 }
 /*
 #include <stdio.h>
-#include <string.h>
-
-int	main()
+int main(void)
 {
-	char	s1[] = "helloworld!";
-	char	*s2 = ft_strdup(s1);
+	char *src = "HELLO WORLD";
+	printf("%s\n", ft_strdup(src));
 
-	printf("%s", s2);
+	return (0);
 }
 */

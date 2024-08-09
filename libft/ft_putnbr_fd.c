@@ -3,44 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/13 20:00:51 by wonyocho          #+#    #+#             */
-/*   Updated: 2023/10/16 18:56:53 by wonyocho         ###   ########.fr       */
+/*   Created: 2023/10/19 14:45:06 by chaoh             #+#    #+#             */
+/*   Updated: 2023/10/19 14:49:52 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+static void	print_number(char *arr, int i, int fd)
+{
+	while (i >= 0)
+	{
+		write(fd, &arr[i], 1);
+		if (i == 0)
+			break ;
+		i--;
+	}
+}
+
+static void	print_int_min(int fd)
+{
+	write(fd, "-", 1);
+	write(fd, "2", 1);
+	write(fd, "147483648", 9);
+}
+
+static void	print_real_number(int nb, char *arr, int fd)
+{
+	int	n;
+	int	i;
+
+	i = 0;
+	while (1)
+	{
+		n = nb % 10;
+		nb = nb / 10;
+		arr[i] = n + '0';
+		if (nb != 0)
+		{
+			i++;
+		}
+		else if (nb == 0)
+			break ;
+	}
+	print_number(arr, i, fd);
+}
+
 void	ft_putnbr_fd(int n, int fd)
 {
-	if (n < 0)
-	{
-		if (n == -2147483648)
-			write(fd, "-2147483648", 11);
-		else
-		{
-			write(fd, "-", 1);
-			n = -n;
-			ft_putnbr_fd(n, fd);
-		}
-	}
-	else
-	{
-		if (n >= 10)
-		{
-			ft_putnbr_fd(n / 10, fd);
-			ft_putnbr_fd(n % 10, fd);
-		}
-		else
-			ft_putchar_fd(n + '0', fd);
-	}
-}
-/*
-#include <stdio.h>
+	char	arr[10];
 
-int	main()
-{
-	ft_putnbr_fd(2147483647, 1);
+	if (n < 0 && n != -2147483648)
+	{
+		n *= -1;
+		write(fd, "-", 1);
+	}
+	if (n == -2147483648)
+		print_int_min(fd);
+	else
+		print_real_number(n, arr, fd);
 }
-*/

@@ -3,54 +3,73 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/07 15:43:24 by wonyocho          #+#    #+#             */
-/*   Updated: 2023/10/18 12:44:49 by wonyocho         ###   ########.fr       */
+/*   Created: 2023/10/19 14:46:47 by chaoh             #+#    #+#             */
+/*   Updated: 2024/07/15 20:25:11 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t n)
+static char	*find_str(const char *haystack, const char *needle, size_t len)
 {
 	size_t	i;
 	size_t	j;
-	size_t	num;
 
+	i = 0;
 	j = 0;
-	if (*needle == '\0')
-		return ((char *)haystack);
-	if (ft_strlen(haystack) < ft_strlen(needle))
-		return (NULL);
-	while (n > 0 && haystack[j])
+	while (i < len)
 	{
-		num = n;
-		i = 0;
-		while (haystack[j + i] == needle[i] && needle[i] && num > 0)
+		j = 0;
+		while (1)
 		{
-			if (i + 1 == ft_strlen(needle))
-				return (&((char *)haystack)[j]);
-			i++;
-			num--;
+			if (needle[j] == '\0' && i + j <= len)
+				return ((char *)&haystack[i]);
+			if (haystack[i + j] != needle[j] || i + j > len)
+				break ;
+			else
+				j++;
 		}
-		j++;
-		n--;
+		i++;
 	}
-	return (NULL);
+	return (0);
+}
+
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+{
+	char	*rt;
+
+	if (needle[0] == '\0')
+		return ((char *)&haystack[0]);
+	if (haystack[0] == '\0')
+		return (0);
+	if (ft_strlen(haystack) < ft_strlen(needle))
+		return (0);
+	if (haystack == needle)
+		return ((char *)&haystack[0]);
+	rt = find_str(haystack, needle, len);
+	return (rt);
 }
 /*
-#include <string.h>
 #include <stdio.h>
-
-int main()
+#include <string.h>
+int main(void)
 {
-	char haystack[] = "aaabcabcd";
-	char needle[] = "abcd";
-	char *ptr1 = strnstr(haystack, needle, 9);
-	char *ptr2 = ft_strnstr(haystack, needle, 9);
-	
-	printf("\n   strnstr: %s\nft_strnstr: %s\n\n", ptr1, ptr2);
-	//printf("%s\n",ptr1);
-}
-*/
+	char str1[27] = "lorem ipsum dolor sit amet";
+	char str2[6] = "dolor";
+	int len = ft_strlen(str1);
+
+	// char str1[27] = "lorem ipsum dolor sit amet";
+	// char str2[6] = "ipsum";
+	// int len = 15;
+
+	char str[9] = "abcdefgh";
+
+	char *s1 = "FF";
+ 	char *s2 = "see FF your FF return FF now FF";
+
+	printf("%s\n", ft_strnstr("abc", "abcdef", 5));
+	printf("%s\n", strnstr("abc", "abcdef", 5));
+	return (0);
+}*/

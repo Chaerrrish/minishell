@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/11 15:13:57 by wonyocho          #+#    #+#             */
-/*   Updated: 2023/10/18 14:40:08 by wonyocho         ###   ########.fr       */
+/*   Created: 2023/10/19 14:47:32 by chaoh             #+#    #+#             */
+/*   Updated: 2024/07/15 20:24:01 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,31 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*arr;
 	size_t	i;
-	size_t	j;
+	char	*str;
 
+	i = 0;
 	if (start >= ft_strlen(s))
 		return (ft_strdup(""));
 	if (len + start > ft_strlen(s))
 		len = ft_strlen(s) - start;
-	arr = (char *)malloc(len + 1);
-	if (!(arr))
+	str = (char *)malloc(sizeof(char) * len + 1);
+	if (str == NULL)
 		return (0);
-	i = 0;
-	j = 0;
-	while (s[i])
+	while (i < len)
 	{
-		if (i >= start && j < len)
-		{
-			arr[j] = s[i];
-			j++;
-		}
+		str[i] = s[start];
 		i++;
+		start++;
 	}
-	arr[j] = '\0';
-	return (arr);
+	str[i] = '\0';
+	return (str);
 }
 /*
 #include <stdio.h>
-
-int	main()
+int main(void)
 {
-	char *s = "tripouille";
-	printf("ft_substr: %s\n", ft_substr(s, 0, 42000));
+	char s[6] = "012345";
+	printf("%s\n", ft_substr("hola", 0, 18446744073709551615));
 }
 */

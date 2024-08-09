@@ -3,35 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/12 14:13:58 by wonyocho          #+#    #+#             */
-/*   Updated: 2023/10/19 15:12:40 by wonyocho         ###   ########.fr       */
+/*   Created: 2023/10/19 14:45:31 by chaoh             #+#    #+#             */
+/*   Updated: 2024/07/15 20:38:15 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	check_sep(char str, char c)
+static int	count_size(char const *s, char c)
 {
-	if (str == c)
-		return (1);
-	else if (str == '\0')
-		return (1);
-	return (0);
-}
-
-static void	word_write(char *dest, char *src, char c)
-{
+	int	cnt;
 	int	i;
 
 	i = 0;
-	while (check_sep(src[i], c) == 0)
+	cnt = 0;
+	while (s[i] != '\0')
 	{
-		dest[i] = src[i];
-		i++;
+		if (s[i] != c)
+		{
+			cnt++;
+			while (s[i] != c && s[i] != '\0')
+				i++;
+		}
+		else
+			i++;
 	}
-	dest[i] = '\0';
+	return (cnt);
 }
 
 static char	**free_arr(char **arr)
@@ -39,7 +38,7 @@ static char	**free_arr(char **arr)
 	int	i;
 
 	i = 0;
-	while (arr[i])
+	while (arr[i] != 0)
 	{
 		free(arr[i]);
 		i++;
@@ -49,68 +48,98 @@ static char	**free_arr(char **arr)
 	return (arr);
 }
 
-static char	**write_split(char **array, char *str, char c)
+static char	*ft_strddup(char const *s, int len, int pos)
 {
-	int	i;
-	int	j;
-	int	word;
-
-	word = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (check_sep(str[i], c) == 1)
-			i++;
-		else
-		{
-			j = 0;
-			while (check_sep (str[i + j], c) == 0)
-				j++;
-			array[word] = (char *)malloc(sizeof(char) * (j + 1));
-			if (!array[word])
-				return (free_arr(array));
-			word_write(array[word++], str + i, c);
-			i = i + j;
-		}
-	}
-	return (array);
-}
-
-char	**ft_split(const char *s, char c)
-{
-	char	**array;
-	int		word;
-	char	*a;
+	char	*ptr;
 	int		i;
 
 	i = 0;
-	word = 0;
-	a = (char *)s;
-	while (a[i])
-	{
-		if (check_sep(a[i + 1], c) == 1 && (check_sep(a[i], c)) == 0)
-			word++;
-		i++;
-	}
-	array = (char **)malloc(sizeof(char *) * (word + 1));
-	if (!(array))
+	ptr = (char *)malloc((sizeof(char) * len) + 1);
+	if (ptr == NULL)
 		return (0);
-	array[word] = 0;
-	array = write_split(array, a, c);
-	return (array);
-}
-/*
-#include <stdio.h>
-
-int	main()
-{
-	char **a;
-
-	a = ft_split("\0aaaa\0bbb", '\0');
-	while (*a)
+	while (i < len)
 	{
-		printf("%s\n", *a);
-		a++;
+		ptr[i] = s[pos];
+		i++;
+		pos++;
 	}
+	ptr[i] = '\0';
+	return (ptr);
 }
-*/
+
+static char	**do_split(char const *s, char c, char **arr, int pos)
+{
+	int		i;
+	int		j;
+	int		len;
+
+	i = 0;
+	j = -1;
+	while (++j < count_size(s, c))
+	{
+		len = 0;
+		while (s[i] == c && s[i] != '\0')
+			i++;
+		pos = i;
+		while (s[i] != c && s[i++] != '\0')
+			len++;
+		arr[j] = ft_strddup(s, len, pos);
+		if (arr[j] == 0)
+		{
+			arr = free_arr(arr);
+			return (0);
+		}
+	}
+	arr[j] = 0;
+	return (arr);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**arr;
+	int		pos;
+
+	pos = 0;
+	arr = NULL;
+	if (count_size(s, c) == 0 && c == '\0')
+	{
+		arr = (char **)malloc(sizeof(char *) * 1);
+		if (arr == NULL)
+			return (0);
+		arr[0] = NULL;
+		return (arr);
+	}
+	arr = (char **)malloc(sizeof(char *) * (count_size(s, c) + 1));
+	if (arr == NULL)
+	{
+		free (arr);
+		return (0);
+	}
+	arr = do_split(s, c, arr, pos);
+	return (arr);
+}
+
+// #include <stdio.h>
+// int main(void)
+// {
+// 	char str[2] = "a";
+
+// 	int i = 0;
+// 	printf("size : %d\n", count_size("hello!", ' '));
+// 	char **rt = ft_split("hello!", ' ');
+// 	while (i < count_size("hello!", ' '))
+// 	{
+// 		printf("%s\n", rt[i]);
+// 		i++;
+// 	}
+// 	// char **expected = ft_split("\0aa\0bbb", '\0');
+
+//  	// for (int i = 0; expected[i]; i++)
+//  	// {
+//  	// 	if (expected[i] != ((void *)0))
+//  	// 		printf("fail");
+// 	// 		return(0);
+//  	// }
+// 	// printf("success");
+// 	return (0);
+// }

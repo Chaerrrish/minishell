@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/06 17:34:19 by wonyocho          #+#    #+#             */
-/*   Updated: 2023/10/18 12:15:28 by wonyocho         ###   ########.fr       */
+/*   Created: 2023/10/19 14:44:21 by chaoh             #+#    #+#             */
+/*   Updated: 2023/10/19 14:49:45 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,30 @@
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	unsigned int	i;
-	unsigned char	*str_dst;
-	unsigned char	*str_src;
+	size_t			i;
+	unsigned char	*dest;
+	unsigned char	*sorc;
 
 	i = 0;
-	if (!(src) && !(dst))
-		return (NULL);
-	str_dst = (unsigned char *)dst;
-	str_src = (unsigned char *)src;
+	dest = (unsigned char *)dst;
+	sorc = (unsigned char *)src;
+	if (dst == NULL && src == NULL)
+		return (0);
 	while (i < n)
 	{
-		str_dst[i] = str_src[i];
+		dest[i] = sorc[i];
 		i++;
 	}
-	return (dst);
+	return (dest);
 }
 /*
 #include <string.h>
 #include <stdio.h>
-
-int	main()
+int main(void)
 {
-	char src[] = "";
-	char dst[] = "";
-
-	//memcpy(dst, src, 5);
-	ft_memcpy((void *)0, (void *)0, 3);
-	printf("%s", dst);
-}
-*/
+	char arr[2] = "\0";
+	char dest[2];
+	//printf("%s\n", ft_memcpy((void *)0, "segfaulter tu dois", 17));
+	printf("%s\n", memcpy((void *)0, "segfaulter tu dois", 17));
+	return (0);
+}*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/11 14:07:11 by wonyocho          #+#    #+#             */
-/*   Updated: 2023/10/16 21:02:56 by wonyocho         ###   ########.fr       */
+/*   Created: 2023/10/09 16:29:37 by chaoh             #+#    #+#             */
+/*   Updated: 2023/10/24 15:18:10 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,23 @@
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	void			*mal;
-	char			*arr;
-	unsigned int	i;
+	unsigned char		*ptr;
+	unsigned long long	tmp;
+	size_t				len;	
+	size_t				i;
 
-	mal = (void *)malloc(size * count);
-	if (!(mal))
-		return (NULL);
-	arr = (char *)mal;
 	i = 0;
-	while (i < size * count)
+	tmp = count * size;
+	len = count * size;
+	if (tmp != len)
+		return (0);
+	ptr = (unsigned char *)malloc(count * size);
+	if (ptr == NULL)
+		return (0);
+	while (i < count * size)
 	{
-		arr[i] = '\0';
+		ptr[i] = 0;
 		i++;
 	}
-	return (arr);
+	return (ptr);
 }
-/*
-#include <stdio.h>
-
-int	main()
-{
-	char	*arr0;
-	char	*arr1;
-
-	arr0 = calloc(5, 4);
-	arr1 = ft_calloc(5, 4);
-	for (int i = 0; i < 20; i++)
-		printf("%d: %s |%d: %s\n", i, arr0, i, arr1);
-}
-*/

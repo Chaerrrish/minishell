@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/07 14:16:18 by wonyocho          #+#    #+#             */
-/*   Updated: 2023/10/16 18:52:43 by wonyocho         ###   ########.fr       */
+/*   Created: 2023/10/06 18:02:39 by chaoh             #+#    #+#             */
+/*   Updated: 2023/10/19 14:46:41 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,17 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	size_t	i;
 
 	i = 0;
-	while (n > 0 && (s1[i] || s2[i]))
+	if (n == 0)
+		return (0);
+	while (i < n)
 	{
 		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - ((unsigned char)s2[i]));
+			break ;
+		if (s1[i] == '\0' || s2[i] == '\0')
+			break ;
 		i++;
-		n--;
 	}
-	return (0);
+	if (i == n)
+		return (0);
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
-/*
-#include <string.h>
-#include <stdio.h>
-int	main()
-{
-	char s1[] = "helloworld";
-	char s2[] = "helloworlD";
-	int a = strncmp(s1, s2, 15);
-	int	b = ft_strncmp(s1, s2, 15);
-	printf("strncmp: %d, ft_strncmp: %d\n", a, b);
-
-}
-*/
