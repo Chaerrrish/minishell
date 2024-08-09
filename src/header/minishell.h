@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/08 16:13:45 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/09 13:30:02 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@
 # include <curses.h>
 
 # include "libft.h"
-# include "macro.h"
-# include "struct.h"
+# include "mini_macro.h"
+# include "mini_struct.h"
+# include "mini_signal.h"
 
 /* env 디렉토리 */
 // init_evnp.c
@@ -39,7 +40,7 @@ void	init_envp_lst(t_list *lst, char **envp);
 
 /* parse 디렉토리 */
 // parsing.c
-
+int	parsing(t_shell *minishell, char *input);
 
 
 

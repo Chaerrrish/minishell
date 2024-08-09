@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   mini_signal.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/02 13:29:32 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/09 13:22:09 by wonyocho         ###   ########.fr       */
+/*   Created: 2024/08/09 13:27:59 by wonyocho          #+#    #+#             */
+/*   Updated: 2024/08/09 14:57:10 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// 머 넘겨주지
-// 1. 일단 덩어리들?
-// 2. 파이프 유무?
-// 3. 따옴표 제대로 닫았나 확인?
+#ifndef MINI_SIGNAL_H
+# define MINI_SIGNAL_H
 
-#include "minishell.h"
+# include <signal.h>
+# include <termios.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <stdlib.h>
 
-int	parsing(t_shell *minishell, char *input)
-{
-	t_token	*token_lst;
-	int		result;
+# define DEFAULT 11
+# define IGNORE 12
+# define SHELL 13
+# define HEREDOC 14
 
-	token_lst = NULL; 
-	result = tokenize(minishell, token_lst, input);
+int	g_status_code;
+void	sig_shell(int sig);
+void	sig_heredoc(int sig);
+void	set_signal(int s_int, int s_quit);
+void	init_signal(void);
 
-}
+#endif
