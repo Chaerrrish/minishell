@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+         #
+#    By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 17:59:08 by wonyocho          #+#    #+#              #
-#    Updated: 2024/08/02 15:04:25 by wonyocho         ###   ########.fr        #
+#    Updated: 2024/08/09 17:24:41 by chaoh            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CFLAGS = -Wall -Wextra -Werror -I/opt/homebrew/opt/readline/include
 CFLAGS = -I/opt/homebrew/opt/readline/include
 LDFLAGS = -L/opt/homebrew/opt/readline/lib -lreadline
 
-LIBFT_DIR = libft
+LIBFT_DIR = Libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 INCLUDE = -I src/header -I $(LIBFT_DIR)

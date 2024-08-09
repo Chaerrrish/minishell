@@ -3,27 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/06 15:22:18 by wonyocho          #+#    #+#             */
-/*   Updated: 2023/10/21 12:16:09 by wonyocho         ###   ########.fr       */
+/*   Created: 2023/10/19 14:43:43 by chaoh             #+#    #+#             */
+/*   Updated: 2023/10/19 14:49:37 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isdigit(int c)
 {
-	if ('0' <= c && c <= '9')
+	if (c >= '0' && c <= '9')
 		return (1);
 	else
 		return (0);
 }
-/*
-#include <stdio.h>
-int main()
-{
-	int a = 'a';
-	int b = '1';
-	printf("%d\n", ft_isdigit(a));
-	printf("%d\n", ft_isdigit(b));
-}
-*/

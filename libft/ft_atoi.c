@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/07 16:12:06 by wonyocho          #+#    #+#             */
-/*   Updated: 2023/10/20 16:32:40 by wonyocho         ###   ########.fr       */
+/*   Created: 2023/10/19 14:52:47 by chaoh             #+#    #+#             */
+/*   Updated: 2023/10/24 15:04:38 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,36 @@
 
 int	ft_atoi(const char *str)
 {
-	long long	sign;
 	int			i;
-	long long	result;
+	long long	value;
+	long long	flag;
 
-	sign = 1;
 	i = 0;
-	result = 0;
-	while (str[i] == ' ' || (9 <= str[i] && str[i] <= 13))
+	flag = 1;
+	value = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
-			sign *= -1;
+			flag = -1;
 		i++;
 	}
-	if (!('0' <= str[i] && str[i] <= '9'))
-		return (0);
-	while ('0' <= str[i] && str[i] <= '9')
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		result = result * 10 + (str[i] - '0');
+		value = value * 10 + (str[i] - '0');
 		i++;
 	}
-	return ((int)(result * sign));
+	return ((int)(value * flag));
 }
-
 /*
 #include <stdio.h>
 #include <stdlib.h>
-int  main(int ac, char **av)
-{
-	printf("%d\n", ft_atoi(av[1]));
-	printf("%d\n", atoi(av[1]));
-
-	return (0);
-}
+// int main(int ac, char **av)
+// {
+// 	(void)ac;
+// 	printf("%d\n", ft_atoi(av[1]));
+// 	printf("%d\n", atoi(av[1]));
+// 	return (0);
+// }
 */

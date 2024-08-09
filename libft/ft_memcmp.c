@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/07 15:15:43 by wonyocho          #+#    #+#             */
-/*   Updated: 2023/10/17 12:57:28 by wonyocho         ###   ########.fr       */
+/*   Created: 2023/10/09 14:24:45 by chaoh             #+#    #+#             */
+/*   Updated: 2023/10/09 14:24:47 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,32 @@
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	unsigned char	*str1;
-	unsigned char	*str2;
-	int				i;
+	size_t			i;
+	unsigned char	*buf1;
+	unsigned char	*buf2;
 
-	str1 = (unsigned char *)s1;
-	str2 = (unsigned char *)s2;
 	i = 0;
-	while (n > 0)
+	buf1 = (unsigned char *)s1;
+	buf2 = (unsigned char *)s2;
+	while (i < n)
 	{
-		if (str1[i] != str2[i])
-			return (str1[i] - str2[i]);
+		if (*buf1 != *buf2)
+			return (*buf1 - *buf2);
+		else
+		{
+			buf1++;
+			buf2++;
+		}
 		i++;
-		n--;
 	}
 	return (0);
 }
 /*
-#include <string.h>
 #include <stdio.h>
-int	main()
+#include <string.h>
+int main(void)
 {
-	char s1[] = "\xff\0\0\xaa\0\xde\xffMACOSX\xff";
-	char s2[] = "\xff\0\0\xaa\0\xde\x00MBS";
-	int n = 8;
-	int a = ft_memcmp(s1, s2, n);
-	int b = memcmp(s1, s2, n);
-	printf("ft_memcmp: %d\n", a);
-	printf("memcmp: %d\n", b);
-}
-*/
+	printf("memcmp : %d", ft_memcmp("strcmp\0abc", "strcmp\0123", 10));
+	printf("strcmp : %d", strncmp("strcmp\0abc", "strcmp\0123", 10));
+	return (0);
+}*/

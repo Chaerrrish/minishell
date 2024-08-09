@@ -3,51 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/06 18:35:02 by wonyocho          #+#    #+#             */
-/*   Updated: 2023/10/16 16:51:56 by wonyocho         ###   ########.fr       */
+/*   Created: 2023/10/06 18:49:52 by chaoh             #+#    #+#             */
+/*   Updated: 2023/10/06 18:49:54 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+static void	reverse(unsigned char *dst, unsigned char *src, int i, int len)
 {
-	size_t	i;
+	i = len - 1;
+	while (i >= 0)
+	{
+		dst[i] = src[i];
+		if (i == 0)
+			break ;
+		i--;
+	}
+}
 
-	if (!src && !dst)
-		return (NULL);
+void	*ft_memmove(void *dest, const void *source, size_t len)
+{
+	size_t			i;
+	unsigned char	*dst;
+	unsigned char	*src;
+
 	i = 0;
-	if ((unsigned char *)dst < (unsigned char *)src)
+	dst = (unsigned char *)dest;
+	src = (unsigned char *)source;
+	if (dst < src)
 	{
 		while (i < len)
 		{
-			((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
+			dst[i] = src[i];
 			i++;
 		}
 	}
-	else
+	else if (dst > src)
 	{
-		while (i < len)
-		{
-			((unsigned char *)dst)[len - 1 - i]
-				= ((unsigned char *)src)[len - 1 - i];
-			i++;
-		}
-	}	
-	return ((unsigned char *)dst);
+		reverse(dst, src, i, len);
+	}
+	return (dst);
 }
 /*
 #include <string.h>
 #include <stdio.h>
-int	main()
+int main(void)
 {
-	char src[] = "aaaaa";
-	char dst[] = "cc";
-
-
-	printf("%s\n", ft_memmove(dst, src, 5));
-	printf("%s\n", memmove(dst, src, 5));
-}
-*/
+	char arr[5] = "abcd";
+	printf("%s\n", ft_memmove(arr+1, arr, 2));
+	return (0);
+}*/

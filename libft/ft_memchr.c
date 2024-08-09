@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/07 14:29:52 by wonyocho          #+#    #+#             */
-/*   Updated: 2023/10/17 12:41:34 by wonyocho         ###   ########.fr       */
+/*   Created: 2023/10/19 14:44:04 by chaoh             #+#    #+#             */
+/*   Updated: 2023/10/19 14:49:42 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,27 @@
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int				i;
-	unsigned char	*str;
+	size_t	i;
+	char	*str;
 
-	str = (unsigned char *)s;
 	i = 0;
-	while (n > 0)
+	str = (char *)s;
+	while (i < n)
 	{
-		if (str[i] == (unsigned char)c)
-			return (&str[i]);
+		if (str[i] == (char)c)
+			return ((char *)&str[i]);
 		i++;
-		n--;
 	}
 	return (0);
 }
 /*
-#include <string.h>
 #include <stdio.h>
-int main ()
+#include <string.h>
+int main(void)
 {
-	char *pch;
-	char *str = "/|\x12\xff\x09\x42\2002\42|\\";
-	pch = (char*)memchr("teste", '\200', 10);
-	if (pch != NULL)
-		printf("'p' found at position %ld.\n", pch - str + 1);
-	else
-		printf("'p' not found.\n");
+	char *s = "1234";
+	printf("memchr : %s\n", memchr(s, '2', 5));
+	printf("ft_memchr : %s\n", ft_memchr(s, '2', 5));
+
 }
 */

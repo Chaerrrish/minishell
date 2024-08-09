@@ -1,60 +1,58 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/10/19 16:44:56 by wonyocho          #+#    #+#              #
-#    Updated: 2023/10/23 11:28:27 by wonyocho         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-SRCS = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_strlen.c ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c ft_strlcat.c ft_toupper.c ft_tolower.c ft_strchr.c ft_strncmp.c ft_memchr.c ft_memcmp.c ft_strnstr.c ft_atoi.c ft_calloc.c ft_strdup.c ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_strlcpy.c ft_strrchr.c
-
-BSRCS = ft_lstnew_bonus.c ft_lstadd_back_bonus.c ft_lstadd_front_bonus.c ft_lstclear_bonus.c ft_lstdelone_bonus.c ft_lstiter_bonus.c ft_lstlast_bonus.c ft_lstsize_bonus.c ft_lstmap_bonus.c
-
-OBJS_MANDATORY = ${SRCS:.c=.o}
-
-OBJS_BONUS = ${BSRCS:.c=.o}
-
 NAME = libft.a
-
-HEAD = libft.h
-
 CC = cc
-
 CFLAGS = -Wall -Wextra -Werror
+HEAD = libft.h
+SRCS = 	ft_isalpha.c ft_memchr.c ft_putchar_fd.c ft_strchr.c ft_strlcpy.c \
+		ft_strrchr.c ft_atoi.c ft_isascii.c ft_memcmp.c ft_putendl_fd.c \
+		ft_strdup.c ft_strlen.c ft_strtrim.c ft_bzero.c ft_isdigit.c \
+		ft_memcpy.c ft_putnbr_fd.c ft_striteri.c ft_strmapi.c ft_substr.c \
+		ft_calloc.c ft_isprint.c ft_memmove.c ft_putstr_fd.c ft_strjoin.c \
+		ft_strncmp.c ft_tolower.c ft_isalnum.c ft_itoa.c ft_memset.c ft_split.c \
+		ft_strlcat.c ft_strnstr.c ft_toupper.c \
+		get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
+BSRCS = ft_lstadd_back_bonus.c ft_lstadd_front_bonus.c ft_lstclear_bonus.c \
+		ft_lstdelone_bonus.c ft_lstiter_bonus.c ft_lstlast_bonus.c \
+		ft_lstmap_bonus.c ft_lstnew_bonus.c ft_lstsize_bonus.c
+OBJS = $(SRCS:.c=.o)
+BOBJS = $(BSRCS:.c=.o)
 
-${NAME}:	all
+all : ft_printf LAST_ALL
 
-.c.o:
-	${CC} -c ${CFLAGS} $< -o $@
+bonus : ft_printf LAST_BONUS
 
-all:	LAST_ALL
+ft_printf:
+	$(MAKE) -C ft_printf
 
-bonus:	LAST_BONUS
+$(NAME) : $(OBJS)
+	ar -rc $(NAME) $(OBJS) $(HEAD)
 
-LAST_ALL: ${OBJS_MANDATORY} ${HEAD}
+.c.o :
+	$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
+
+LAST_ALL : $(OBJS) $(HEAD)
 	rm -f LAST_BONUS
-	ar -rc ${NAME} ${OBJS_MANDATORY}
+	ar -rc $(NAME) $(OBJS)
 	touch $@
 
-LAST_BONUS:	${OBJS_BONUS} ${HEAD}
+LAST_BONUS : $(BOBJS) $(HEAD)
 	rm -f LAST_ALL
-	ar -rc ${NAME} ${OBJS_BONUS}
+	ar -rc $(NAME) $(BOBJS)
 	touch $@
 
-clean:
-	rm -f ${OBJS_MANDATORY}
-	rm -f ${OBJS_BONUS}
-	rm -f LAST_ALL LAST_BONUS
+clean : ft_printf_clean
+	rm -rf $(OBJS)
+	rm -rf $(BOBJS)
+	rm -rf LAST_BONUS LAST_ALL
+	
+fclean: ft_printf_fclean clean
+	rm -rf $(NAME)
 
-fclean:	clean
-	rm -f ${NAME}
+re: fclean all
 
-re:
-	rm -f ${OBJS_MANDATORY}
-	${MAKE} all
+ft_printf_clean:
+	$(MAKE) -C ft_printf clean
 
-.PHONY: all bonus clean fclean re
+ft_printf_fclean:
+	$(MAKE) -C ft_printf fclean
+
+.PHONY: all clean fclean bonus re ft_printf ft_printf_clean ft_printf_fclean

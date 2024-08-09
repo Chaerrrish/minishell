@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/06 16:26:30 by wonyocho          #+#    #+#             */
-/*   Updated: 2023/10/11 16:49:43 by wonyocho         ###   ########.fr       */
+/*   Created: 2023/10/06 18:04:49 by chaoh             #+#    #+#             */
+/*   Updated: 2023/10/06 18:04:50 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,15 @@
 
 void	*ft_memset(void *b, int c, size_t len)
 {
-	int				i;
-	unsigned char	*str;
+	size_t			i;
+	unsigned char	*p;
 
 	i = 0;
-	str = (unsigned char *)b;
-	while (len > 0)
+	p = (unsigned char *)b;
+	while (i < len)
 	{
-		str[i] = (unsigned char)c;
+		p[i] = c;
 		i++;
-		len--;
 	}
-	return (str);
+	return (p);
 }
-/*
-#include <stdio.h>
-#include <string.h>
-
-int	main()
-{
-	char str[] = "helloworldwonyocho";
-
-	printf("%s\n", memset(str, '\0', 5));
-	printf("%s\n", ft_memset(str, '\0', 5));
-}
-*/

@@ -3,26 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/06 15:39:35 by wonyocho          #+#    #+#             */
-/*   Updated: 2023/10/06 15:48:50 by wonyocho         ###   ########.fr       */
+/*   Created: 2023/10/19 14:43:33 by chaoh             #+#    #+#             */
+/*   Updated: 2023/10/19 14:49:35 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isascii(int c)
 {
-	if (0 <= c && c <= 127)
+	if (c >= 0 && c <= 127)
 		return (1);
 	else
 		return (0);
 }
-/*
-#include <stdio.h>
-int main ()
-{
-	int a = 177;
-
-	printf("%d", ft_isascii(a));
-}
-*/

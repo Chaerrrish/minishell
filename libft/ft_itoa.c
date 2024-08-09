@@ -3,109 +3,93 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/13 11:37:10 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/02 13:08:17 by wonyocho         ###   ########.fr       */
+/*   Created: 2023/10/19 14:43:57 by chaoh             #+#    #+#             */
+/*   Updated: 2024/07/15 20:24:21 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	count_n(int n)
+static int	count_size(long long n)
 {
-	int	count;
+	int	cnt;
 
-	count = 0;
-	while (n / 10)
+	cnt = 0;
+	if (n < 0)
 	{
-		count++;
-		n /= 10;
+		cnt++;
+		n *= -1;
 	}
-	count++;
-	return (count);
+	if (n == 0)
+		return (1);
+	while (n > 0)
+	{
+		n /= 10;
+		cnt++;
+	}
+	return (cnt);
 }
 
-static char	*get_arr(char *arr, int n, int count)
+static char	*put_zero(void)
 {
-	if (n < 0)
-		arr = (char *)malloc(sizeof(char) * count + 2);
-	else
-		arr = (char *)malloc(sizeof(char) * count + 1);
+	char	*arr;
+
+	arr = (char *)malloc(sizeof(char) * 2);
+	if (arr == NULL)
+		return (0);
+	arr[0] = '0';
+	arr[1] = '\0';
 	return (arr);
 }
 
-static char	*put_arr(char *arr, int n, int count)
+static char	*put_arr(char *arr, int size, int idx, long long n)
 {
 	int	i;
-	int	num;
 
-	num = n;
 	i = 0;
-	if (n == -2147483648)
-	{
-		arr[i++] = '8';
-		num = num / 10;
-		num = -num;
-		count--;
-	}
-	else if (n < 0)
-		num = -n;
-	while (count > 0)
-	{
-		arr[i++] = num % 10 + '0';
-		num /= 10;
-		count--;
-	}
 	if (n < 0)
-		arr[i++] = '-';
-	arr[i] = '\0';
-	return (arr);
-}
-
-static char	*swap_arr(char *arr, int count)
-{
-	int		i;
-	char	temp;
-	int		time;
-
-	i = 0;
-	time = count / 2;
-	while (time > 0)
 	{
-		temp = arr[count - 1 - i];
-		arr[count - 1 - i] = arr[i];
-		arr[i] = temp;
+		arr[0] = '-';
+		n *= -1;
+		arr[size] = '\0';
+		size -= 1;
+	}
+	else
+		arr[size] = '\0';
+	while (i < size)
+	{
+		arr[idx] = n % 10 + '0';
+		n /= 10;
+		idx--;
 		i++;
-		time--;
 	}
 	return (arr);
 }
 
 char	*ft_itoa(int n)
 {
-	char	*arr;
-	int		count;
+	int			size;
+	char		*arr;
+	int			idx;
+	long long	ln;
 
-	arr = NULL;
-	count = count_n(n);
-	arr = get_arr(arr, n, count);
-	if (!arr)
-		return (NULL);
-	arr = put_arr(arr, n, count);
-	if (n < 0)
-		count++;
-	arr = swap_arr(arr, count);
+	ln = (long long)n;
+	if (ln == 0)
+		return (put_zero());
+	size = count_size(ln);
+	arr = (char *)malloc((sizeof(char) * size) + 1);
+	if (arr == NULL)
+		return (0);
+	idx = size - 1;
+	arr = put_arr(arr, size, idx, ln);
 	return (arr);
 }
 /*
 #include <stdio.h>
-
-int	main()
+int main(void)
 {
-	int	n = -2147483648;
-	
-	printf("자릿수: %d\n", count_n(n));
-	printf("결과: %s\n", ft_itoa(n));
-}
-*/
+	printf("%s\n", ft_itoa(-2147483648));
+	return (0);
+}*/

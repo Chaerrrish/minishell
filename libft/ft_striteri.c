@@ -3,37 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/13 15:03:17 by wonyocho          #+#    #+#             */
-/*   Updated: 2023/10/16 14:24:04 by wonyocho         ###   ########.fr       */
+/*   Created: 2023/10/19 14:45:58 by chaoh             #+#    #+#             */
+/*   Updated: 2023/10/19 14:50:07 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_striteri(char *s, void (*f)(unsigned int, char *))
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	unsigned int	i;
+	int	i;
 
 	i = 0;
-	while (s[i])
+	while (s[i] != '\0')
 	{
 		f(i, &s[i]);
 		i++;
 	}
 }
 /*
-void	ft_sunghoch(unsigned int n, char *s)
+void	ff(unsigned int a, char* b)
 {
-	printf("%d", n);
-	printf("%s\n", s);
+	write(1, &b[a], 1);
 }
 
-int	main()
+int main(void)
 {
-	char *s = "he";
-	
-	ft_striteri(s, &ft_sunghoch);
-}
-*/
+	void (*f)(unsigned int, char*);
+	f = ff;
+	char s[10] = "abcdefghi";
+
+	ft_striteri(s, f);
+	return (0);
+}*/

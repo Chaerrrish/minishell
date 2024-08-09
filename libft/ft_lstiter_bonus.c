@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/19 15:22:46 by wonyocho          #+#    #+#             */
-/*   Updated: 2023/10/23 11:24:00 by wonyocho         ###   ########.fr       */
+/*   Created: 2023/10/20 19:39:52 by chaoh             #+#    #+#             */
+/*   Updated: 2023/10/23 15:05:11 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	while (lst)
+	if (lst == NULL)
+		return ;
+	while (lst != NULL)
 	{
-		f(lst->content);
-		lst = lst->next;
+		f(lst -> content);
+		lst = lst -> next;
 	}
 }

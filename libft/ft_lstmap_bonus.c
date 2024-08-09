@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/19 15:52:27 by wonyocho          #+#    #+#             */
-/*   Updated: 2023/10/23 11:26:06 by wonyocho         ###   ########.fr       */
+/*   Created: 2023/10/20 19:39:58 by chaoh             #+#    #+#             */
+/*   Updated: 2023/10/25 16:53:11 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,27 @@
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*node_new;
-	t_list	*node_result;
-	void	*temp;
+	t_list	*n_list;
+	t_list	*rt_list;
+	void	*tmp;
 
-	if (!lst || !f || !del)
+	rt_list = 0;
+	if (lst == NULL || f == NULL || del == NULL)
 		return (0);
-	node_result = 0;
-	while (lst)
+	while (lst != NULL)
 	{
-		temp = f(lst->content);
-		if (!temp)
-			return (node_result);
-		node_new = ft_lstnew(temp);
-		if (!node_new)
+		tmp = f(lst -> content);
+		if (tmp == NULL)
+			return (0);
+		n_list = ft_lstnew(tmp);
+		if (n_list == NULL)
 		{
-			free(temp);
-			ft_lstclear(&node_result, del);
+			free(tmp);
+			ft_lstclear(&rt_list, del);
 			return (0);
 		}
-		ft_lstadd_back(&node_result, node_new);
-		lst = lst->next;
+		ft_lstadd_back(&rt_list, n_list);
+		lst = lst -> next;
 	}
-	node_new = 0;
-	return (node_result);
+	return (rt_list);
 }

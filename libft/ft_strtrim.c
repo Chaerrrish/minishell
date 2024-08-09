@@ -3,48 +3,96 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/12 13:28:54 by wonyocho          #+#    #+#             */
-/*   Updated: 2023/10/18 12:10:04 by wonyocho         ###   ########.fr       */
+/*   Created: 2023/10/19 14:47:14 by chaoh             #+#    #+#             */
+/*   Updated: 2024/07/15 20:23:28 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *s1, char const *set)
+static int	check(char const *set, char c)
 {
-	size_t	start;
-	size_t	end;
-	char	*str;
+	int	i;
 
-	str = 0;
-	start = 0;
-	end = ft_strlen(s1);
-	if (*s1)
+	i = 0;
+	while (set[i] != '\0')
 	{
-		while (s1[start] && ft_strchr(set, s1[start]))
-			start++;
-		while (s1[end - 1] && ft_strchr(set, s1[end - 1]) && end > start)
-			end--;
-		str = (char *)malloc(sizeof(char) * (end - start + 1));
-		if (!(str))
+		if (set[i] == c)
 			return (0);
-		else
-			ft_strlcpy(str, &s1[start], end - start + 1);
+		i++;
 	}
-	else
+	return (1);
+}
+
+static int	count_size(char const *s1, char const *set)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = ft_strlen(s1);
+	while (check(set, s1[i]) == 0)
 	{
-		str = ft_strdup("");
-		return (str);
+		len--;
+		i++;
 	}
+	i = ft_strlen(s1) - 1;
+	while (check(set, s1[i]) == 0)
+	{
+		len--;
+		i--;
+	}
+	if (len <= 0)
+		return (0);
+	return (len);
+}
+
+static char	*do_trim(char const *s1, char const *set, char *str, int size)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (check(set, s1[i]) == 0)
+		i++;
+	while (j < size)
+	{
+		str[j] = s1[i];
+		i++;
+		j++;
+	}
+	str[j] = '\0';
 	return (str);
 }
-/*
-#include <stdio.h>
 
-int	main()
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	printf("%s\n", ft_strtrim("", "cdef"));
+	char	*str;
+	int		size;
+	char	*s;
+
+	s = (char *)s1;
+	if ((s == NULL) && (set == NULL))
+		return (0);
+	size = count_size(s, set);
+	str = (char *)malloc((sizeof(char) * size) + 1);
+	if (str == NULL)
+		return (0);
+	str = do_trim(s, set, str, size);
+	return (str);
 }
-*/
+
+// #include <stdio.h>
+// #include <string.h>
+// int main(void)
+// {
+// 	char *s1 = "  \t \t \n   \n\nhello\tworld\t";
+// 	//char	*s1 = "\t\t\the\n  llo\n";
+// 	char set[] = "xyz";
+
+// 	printf("%s\n", ft_strtrim("", ""));
+// 	//printf("%s\n", ft_strtrim(s1, ""));
+// }
