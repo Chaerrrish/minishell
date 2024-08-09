@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/07 16:45:19 by chaerin          ###   ########.fr       */
+/*   Updated: 2024/08/09 13:30:02 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,6 @@
 # include <string.h>
 # include <curses.h>
 
-# include "../../libft/libft.h"
-# include "macro.h"
-# include "struct.h"
-
-
 // parsing.c
 t_cmd	*create_new_cmd();
 void	tokenize(t_cmd *cmd, char *str);
@@ -42,37 +37,33 @@ int		check_double_quotes(char *str);
 // signal.c
 void	init_signal();
 
+
+# include "libft.h"
+# include "mini_macro.h"
+# include "mini_struct.h"
+# include "mini_signal.h"
+
+/* env 디렉토리 */
+// init_evnp.c
+void	init_envp_lst(t_list *lst, char **envp);
+
+
+
+
+/* parse 디렉토리 */
+// parsing.c
+int	parsing(t_shell *minishell, char *input);
+
+
+
+/* signal 디렉토리 */
+// signal.c
+void	init_signal(void);
+
+
+
+/* utils */
+// lst_free.c
+void	lst_free(t_list *lst);
+
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-// void	exec_proc(t_list *head) // 인자는 연결리스트의 헤드포인터
-// {
-// 	t_list	*cur_proc;
-// 	t_cmd	*cmd;
-
-// 	cur_proc = head->next;
-// 	while (cur_proc != NULL)
-// 	{
-// 		cmd = cur_proc->content; // 각 노드의 content는 data->cmd의 주소를 갖는다.
-// 		if (cmd->cmdline[0]) // 명령어가 있으면 실행
-// 		{
-// 			if (cmd->flag == 1)
-// 			 	exec_pipe(cur_proc, cmd);
-//       else if (cmd->flag == 0)
-// 				exec_cmd(cmd->cmdline); // 인자는 cur_proc->content->cmdline
-// 		}
-// 		cur_proc = cur_proc->next; // 다음 노드로 이동
-// 	}
-// 	ft_lstclear(&head, free_cmdline); // 연결리스트 비워줌
-// }
