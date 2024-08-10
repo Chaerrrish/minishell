@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:27:13 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/09 22:48:15 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/10 15:51:21 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 void	swap_content(t_list *a, t_list *b)
 {
-	t_env	*tmp;
+	t_env	tmp;
 
-	// 리스트 노드의 content를 직접 교환
-	tmp = a->content;
-	a->content = b->content;
-	b->content = tmp;
+	tmp = *(t_env *)a->content;
+	*(t_env *)a->content = *(t_env *)b->content;
+	*(t_env *)b->content = tmp;
 }
 
 void	sort_export_list(t_list *export_list)

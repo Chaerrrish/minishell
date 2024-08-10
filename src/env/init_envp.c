@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_envp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 12:41:39 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/08 16:57:56 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/09 19:15:13 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../header/minishell.h"
 
 static t_env	*get_env()
 {
@@ -61,12 +61,12 @@ static t_env	*get_data_key_value(t_env *env, char **envp)
 }
 
 // envp에서 key, value 추출해서 리스트 만들기
-void	init_envp_lst(t_list *lst, char **envp)
+void	init_envp_lst(t_list **lst, char **envp)
 {
 	t_env	*env;
 	t_list	*tmp;
 	
-	lst = NULL;
+	*lst = NULL;
 	while (*envp)
 	{
 		env = get_env();
@@ -79,11 +79,11 @@ void	init_envp_lst(t_list *lst, char **envp)
 		tmp = ft_lstnew(env);
 		if (!tmp)
 		{
-			lst_free(lst);
+			lst_free(*lst);
 			perror("malloc failed\n");
 			exit(1);
 		}
-		ft_lstadd_back(&lst, tmp);
+		ft_lstadd_back(lst, tmp);
 		envp++;
 	}
 }

@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_free.c                                         :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/08 15:15:32 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/09 18:59:37 by chaoh            ###   ########.fr       */
+/*   Created: 2024/08/09 22:18:52 by chaoh             #+#    #+#             */
+/*   Updated: 2024/08/09 22:20:10 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
-void	lst_free(t_list *lst)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	t_list	*tmp;
-	t_env	*env;
+    int i;
 
-	while (lst != NULL)
+	i = 0;
+	while (s1[i] != '\0' && s2[i] != '\0')
 	{
-		tmp = lst;
-		env = (t_env *)lst->content; // content를 변환해줘서 free해줄것임미다
-		if (env)
-		{
-			free(env->data);
-			free(env->key);
-			free(env->value);
-			free(env);
-		}
-		lst = lst->content;
-		free(tmp);
-	}
+		if (s1[i] != s2[i])
+			return (unsigned char)s1[i] - (unsigned char)s2[i];
+        i++;
+    }
+    return (unsigned char)s1[i] - (unsigned char)s2[i];
 }

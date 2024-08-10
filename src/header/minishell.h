@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/09 17:34:20 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/09 22:20:35 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@
 # include <string.h>
 # include <curses.h>
 
-# include "libft.h"
+# include "../../Libft/libft.h"
 # include "mini_macro.h"
 # include "mini_struct.h"
 # include "mini_signal.h"
 
 /* env 디렉토리 */
 // init_evnp.c
-void	init_envp_lst(t_list *lst, char **envp);
+void	init_envp_lst(t_list **lst, char **envp);
 
 
 
@@ -53,5 +53,5 @@ void	init_signal(void);
 /* utils */
 // lst_free.c
 void	lst_free(t_list *lst);
-
+int		ft_strcmp(const char *s1, const char *s2);
 #endif
