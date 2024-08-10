@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 19:41:05 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/09 13:29:14 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/10 21:24:27 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,13 @@ typedef struct s_token {
 }	t_token;
 
 // 토큰 반복자
-typedef struct s_token_set
+typedef struct s_token_iter
 {
-	char	**set;
 	int	start;
 	int	end;
-	int	in_single_quote;
-	int	in_double_quote;
-}	t_token_set;
+	int	in_squote;
+	int	in_dquote;
+}	t_token_iter;
 
 // 커맨드(트리)
 typedef struct s_ASTNode
