@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   whitespace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/02 13:29:32 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/10 20:36:55 by wonyocho         ###   ########.fr       */
+/*   Created: 2024/08/10 20:30:09 by wonyocho          #+#    #+#             */
+/*   Updated: 2024/08/10 20:30:24 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parsing(t_shell *minishell, char *input)
+int	is_whitespace(const char c)
 {
-	t_token	*token_lst;
-	int		result;
+	if ((9 <= c && c <= 13) || c == ' ')
+		return (1);
+	else
+		return (0);
+}
 
-	if (check_quotes(input) == -1) // 짝이 맞는지 검사.
-		return (-1); // 에러 -1.
-	token_lst = NULL;
-	result = tokenize(minishell, token_lst, input);
-
+void	skip_whitespace(const char *input, t_token_iter *iter)
+{
+	while (input[iter->end] && is_whitespace(input[iter->end]))
+		iter->end++;
 }

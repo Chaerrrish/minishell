@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
 /*   Updated: 2024/08/10 16:39:57 by chaoh            ###   ########.fr       */
@@ -60,6 +60,24 @@ void	show_env(t_list *env_list, char *input);
 
 //env.c
 void	env(t_list	*env_list);
+
+
+
+/* parse 디렉토리 */
+// quote.c
+int	process_quotes(const char c, t_token_iter *iter);
+int	check_quotes(char *input);
+// tokenize_util.c
+void	process_token(t_shell *mini, t_token **token_lst, char *line, t_token_iter *iter);
+// tokenize.c
+int	tokenize(t_shell *minishell, t_token *token_lst, char *input);
+// whitespace.c
+int	is_whitespace(const char c);
+void	skip_whitespace(const char *input, t_token_iter *iter);
+
+
+
+
 
 /* utils */
 // lst_free.c

@@ -6,35 +6,44 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 12:42:32 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/09 15:00:40 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/10 20:41:38 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h" 
 
-static int	is_whitespace(char c)
+static void	init_iter(t_token_iter *token_iter)
 {
-	if ((9 <= c && c <= 13) || c == ' ')
-		return (1);
-	else
-		return (0);
-}
-
-static void	init_tmp(t_token_set *token_iter)
-{
-	token_iter->set = NULL;
 	token_iter->start = 0;
 	token_iter->end = 0;
-	token_iter->in_single_quote = 0;
-	token_iter->in_double_quote = 0;
+	token_iter->in_squote = 0;
+	token_iter->in_dquote = 0;
 }
 
 int	tokenize(t_shell *minishell, t_token *token_lst, char *input)
 {
-	t_token_set tmp;
+	t_token_iter	iter;
 
-	init_tmp(&tmp);
-	tmp.set = ft_split(input, ' ');
-	if (tmp.set == NULL)
-		return (0);
+	init_iter(&iter);
+	while (input[iter.end])
+	{
+		skip_whitespace(input, &iter);
+		iter.start = iter.end;
+		if (input[iter.end] == '|') // 현재 문자가 파이프라면
+			iter.end++;
+		else
+		{
+			while (input[iter.end] && (!is_whitespace(input[iter.end])
+				|| iter.in_squote || iter.in_dquote) && (input[iter.end] != '|'
+				|| iter.in_squote || iter.in_dquote))
+				{
+					if (process_quotes(input[iter.end], &iter) != 0)
+						break;
+					iter.end++;
+				}
+		}
+		process_token(minishell, token_lst, input, &iter);
+	}
+	tokenize_remove_quotes(*token_lst);
+	return (iter.in_squote || iter.in_dquote);
 }

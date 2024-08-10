@@ -31,14 +31,13 @@ typedef struct s_token {
 }	t_token;
 
 // 토큰 반복자
-typedef struct s_token_set
+typedef struct s_token_iter
 {
-	char	**set;
 	int	start;
 	int	end;
-	int	in_single_quote;
-	int	in_double_quote;
-}	t_token_set;
+	int	in_squote;
+	int	in_dquote;
+}	t_token_iter;
 
 // 커맨드(트리)
 typedef struct s_ASTNode

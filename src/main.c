@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:15:06 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/08 18:11:10 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/10 17:19:21 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	minishell(char **envp)
 		input = readline("minishell $ ");
 		if (!input) // EOF(Ctrl + D) or readline 오류시 에러핸들링
 			break;
-		if (parsing(&minishell, input) != 0) // parsing
+		if (parsing(&minishell, input) == -1) // parsing 에러시 -1
 		{
 			perror("parsing error\n");
 			free(input);
