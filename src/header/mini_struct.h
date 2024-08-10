@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_struct.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 19:41:05 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/09 13:29:14 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/10 20:48:16 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_ASTNode
 	char				*value;
 	struct s_ASTNode	*left;
 	struct s_ASTNode	*right;
-	t_cmd				*cmd;
+	t_cmd				*cmd; //명령어
 	struct s_ASTNode	*next;
 	int					pipefd[2];
 	pid_t				pid;

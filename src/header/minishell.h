@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/09 22:20:35 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/10 16:39:57 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,21 @@ int	parsing(t_shell *minishell, char *input);
 void	init_signal(void);
 
 
+/* builtins */
+//export.c, export_utils.c
+void	swap_content(t_list *a, t_list *b);
+void	sort_export_list(t_list *export_list);
+t_env	*copy_env(t_env *env);
+t_list	*copy_env_list(t_list *env_list);
+void	export(t_list *env_list);
+void	show_env(t_list *env_list, char *input);
+
+//env.c
+void	env(t_list	*env_list);
 
 /* utils */
 // lst_free.c
 void	lst_free(t_list *lst);
+void	split_free(char **str);
 int		ft_strcmp(const char *s1, const char *s2);
 #endif
