@@ -6,7 +6,7 @@
 /*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 21:04:39 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/13 17:24:09 by chaerin          ###   ########.fr       */
+/*   Updated: 2024/08/13 19:54:25 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,18 @@ void	update_pwd(t_list *env_list, char *current_path, char *old_path)
 	}
 }
 
+int	check_path(char *path, char *old_path)
+{
+	if (access(path, F_OK) != 0)
+	{
+		printf("minishell: cd: %s: No such file or directory\n", path);
+		free(old_path);
+		free(path);
+		return (0);
+	}
+	return (1);
+}
+
 void	cd(t_ASTNode *tree, t_list *env_list)
 {
 	char	*current_path;
@@ -67,20 +79,19 @@ void	cd(t_ASTNode *tree, t_list *env_list)
 		current_path = find_path(env_list, "HOME");
 	else
 	{
-		current_path = ft_strjoin(old_path, "/");
-		tmp = current_path;
-		current_path = ft_strjoin(current_path, tree->cmd->argv[0]);
-		free(tmp);
-		if (access(current_path, F_OK) != 0)
+		if (ft_strcmp(tree->cmd->argv[0], ".") == 0 || ft_strcmp(tree->cmd->argv[0], "..") == 0)
+			current_path = ft_strdup(tree->cmd->argv[0]);
+		else
 		{
-			printf("minishell: cd: %s: No such file or directory\n", current_path);
-			free(old_path);
-			free(current_path);
-			return ;
+			tmp = ft_strjoin(old_path, "/");
+			current_path = ft_strjoin(tmp, tree->cmd->argv[0]);
+			free(tmp);
 		}
-		update_pwd(env_list, current_path, old_path);
-		chdir(current_path);
-		free(old_path);
-		free(current_path);
+		if (check_path(current_path, old_path) == 0)
+			return ;
 	}
+	update_pwd(env_list, current_path, old_path);
+	chdir(current_path);
+	free(old_path);
+	free(current_path);
 }
