@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:33:11 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/09 22:28:37 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/13 13:27:34 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
-void	env(t_list	*env_list)
+void	env(t_ASTNode *tree, t_list *env_list)
 {
 	t_env	*env;
 	t_list	*current;
