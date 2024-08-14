@@ -6,7 +6,7 @@
 /*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 21:04:39 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/13 19:54:25 by chaerin          ###   ########.fr       */
+/*   Updated: 2024/08/14 19:22:58 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ int	check_path(char *path, char *old_path)
 {
 	if (access(path, F_OK) != 0)
 	{
-		printf("minishell: cd: %s: No such file or directory\n", path);
+		write(2, "tontoshell: cd: ", 16);
+		write(2, path, ft_strlen(path));
+		ft_putendl_fd(": No such file or directory", 2);
 		free(old_path);
 		free(path);
 		return (0);
@@ -79,7 +81,8 @@ void	cd(t_ASTNode *tree, t_list *env_list)
 		current_path = find_path(env_list, "HOME");
 	else
 	{
-		if (ft_strcmp(tree->cmd->argv[0], ".") == 0 || ft_strcmp(tree->cmd->argv[0], "..") == 0)
+		if (ft_strcmp(tree->cmd->argv[0], ".") == 0 \
+			|| ft_strcmp(tree->cmd->argv[0], "..") == 0)
 			current_path = ft_strdup(tree->cmd->argv[0]);
 		else
 		{

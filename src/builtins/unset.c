@@ -6,11 +6,19 @@
 /*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:32:07 by chaerin           #+#    #+#             */
-/*   Updated: 2024/08/14 15:28:29 by chaerin          ###   ########.fr       */
+/*   Updated: 2024/08/14 19:10:12 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
+
+int	check_builtin_argv(char	*str)
+{
+	if (str[0] == '-' || (str[0] >= 'a' && str[0] <= 'z') \
+		|| (str[0] >= 'A' && str[0] <= 'Z'))
+		return (1);
+	return (0);
+}
 
 void	remove_env_var(t_list **env_list, char *key)
 {
@@ -40,13 +48,21 @@ void	remove_env_var(t_list **env_list, char *key)
 	}
 }
 
-void    unset(t_ASTNode *tree, t_list **env_list)
+void	unset(t_ASTNode *tree, t_list **env_list)
 {
 	int		i;
 
 	i = 0;
 	while (tree->cmd->argv[i] != NULL)
 	{
+		if (!check_builtin_argv(tree->cmd->argv[i]))
+		{
+			write(2, "tontoshell: unset: ", 19);
+			write(2, tree->cmd->argv[0], ft_strlen(tree->cmd->argv[0]));
+			ft_putendl_fd(": not a valid identifier", 2);
+			i++;
+			continue ;
+		}
 		remove_env_var(env_list, tree->cmd->argv[i]);
 		i++;
 	}

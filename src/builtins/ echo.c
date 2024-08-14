@@ -6,7 +6,7 @@
 /*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 20:38:25 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/13 21:30:44 by chaerin          ###   ########.fr       */
+/*   Updated: 2024/08/14 19:20:50 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	show_env(t_list *env_list, char *input)
 	{
 		node = (t_env *)current->content;
 		if (ft_strcmp(node->key, input) == 0)
-		{	
+		{
 			printf("%s", node->value);
 			return ;
 		}
@@ -32,7 +32,7 @@ void	show_env(t_list *env_list, char *input)
 	}
 }
 
-void	echo(t_ASTNode *tree, t_list *env_list)
+void	ft_echo(t_ASTNode *tree, t_list *env_list)
 {
 	int	i;
 
@@ -49,7 +49,7 @@ void	echo(t_ASTNode *tree, t_list *env_list)
 		else
 			printf("%s", tree->cmd->argv[i]);
 		if (tree->cmd->argv[i + 1] != NULL)
-				printf(" ");
+			printf(" ");
 		i++;
 	}
 	printf("\n");
