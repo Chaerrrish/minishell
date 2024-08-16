@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 21:04:39 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/14 19:22:58 by chaerin          ###   ########.fr       */
+/*   Updated: 2024/08/16 15:35:55 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
-
-char	*find_path(t_list *env_list, char *envp)
-{
-	t_env	*env;
-	t_list	*current;
-	char	*path;
-
-	path = NULL;
-	current = env_list;
-	while (current)
-	{
-		env = (t_env *)current->content;
-		if (ft_strcmp(env->key, envp) == 0)
-		{
-			path = ft_strdup(env->value);
-			break ;
-		}
-		current = current->next;
-	}
-	return (path);
-}
 
 void	update_pwd(t_list *env_list, char *current_path, char *old_path)
 {
@@ -76,9 +55,9 @@ void	cd(t_ASTNode *tree, t_list *env_list)
 	char	*old_path;
 	char	*tmp;
 
-	old_path = find_path(env_list, "PWD");
+	old_path = find_env_value(env_list, "PWD");
 	if (tree->cmd->argv == NULL) // 인자가 없을 때 HOME으로 이동
-		current_path = find_path(env_list, "HOME");
+		current_path = find_env_value(env_list, "HOME");
 	else
 	{
 		if (ft_strcmp(tree->cmd->argv[0], ".") == 0 \
