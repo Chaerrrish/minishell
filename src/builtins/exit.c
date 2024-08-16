@@ -3,16 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:38:01 by chaerin           #+#    #+#             */
-/*   Updated: 2024/08/16 18:45:43 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:50:05 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
-
-void    exit(t_ASTNode *tree)
-{
-    
-}

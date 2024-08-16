@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_struct.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 19:41:05 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/16 18:31:14 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:58:43 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_token
 
 typedef struct s_cmd_list
 {	
-	t_list				*token_list;	// tokenized list
+	t_token				*token_list;	// tokenized list
 	
 	int					argc;
 	char				**argv;

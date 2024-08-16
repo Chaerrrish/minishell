@@ -10,18 +10,18 @@
 // /*                                                                            */
 // /* ************************************************************************** */
 
-// #include "../header/minishell.h"
+#include "../header/minishell.h"
 
-// void	pwd(void)
-// {
-// 	char	*str;
+void	pwd(void)
+{
+	char	*str;
 
-// 	str = getcwd(NULL, 0);
-// 	if (str != NULL)
-// 	{
-// 		printf("%s\n", str);
-// 	}
-// 	else
-// 		perror("pwd");
-// 	free(str);
-// }
+	str = getcwd(NULL, 0);
+	if (str != NULL)
+	{
+		printf("%s\n", str);
+	}
+	else
+		perror("pwd");
+	free(str);
+}
