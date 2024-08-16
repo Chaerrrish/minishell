@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:27:13 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/10 15:51:21 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/14 16:04:44 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,12 @@ void export(t_list *env_list)
 	}
 }
 
-int main(int ac, char **av, char **envp)
-{
-	t_list *lst;
+// int main(int ac, char **av, char **envp)
+// {
+// 	t_list *lst;
 
-	init_envp_lst(&lst, envp);
-	export(lst);
-	return (0);
-}
+// 	init_envp_lst(&lst, envp);
+// 	export(lst);
+// 	return (0);
+// }
 

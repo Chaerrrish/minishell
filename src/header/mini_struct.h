@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 19:41:05 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/10 21:24:27 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/16 14:16:24 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 # define MINI_STRUCT_H
 
 // 커맨드
-typedef struct s_command
+typedef struct s_cmd
 {
 	char	*name;
 	char	*path;
 	char	**argv;
 	int		argc;
 }	t_cmd;
-
 
 // 토큰
 typedef struct s_token {
@@ -39,20 +38,21 @@ typedef struct s_token_iter
 	int	in_dquote;
 }	t_token_iter;
 
-// 커맨드(트리)
+// 트리
 typedef struct s_ASTNode
 {
 	int					type;
 	char				*value;
+	
+	int					pipefd[2];
+	int					status;
+	t_cmd				*cmd;
+	pid_t				pid;
+	
 	struct s_ASTNode	*left;
 	struct s_ASTNode	*right;
-	t_cmd				*cmd;
 	struct s_ASTNode	*next;
-	int					pipefd[2];
-	pid_t				pid;
-	int					status;
 }	t_ASTNode;
-
 
 // 환경변수(리스트)
 typedef struct s_env
@@ -62,7 +62,7 @@ typedef struct s_env
 	char	*value; // /usr/bin:/bin
 }	t_env;
 
-// 환경변수(리스트) + 커맨드(트리)
+// 종합
 typedef struct s_shell
 {
 	t_list		*env_list;

@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:15:06 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/10 17:19:21 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/16 14:17:22 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	minishell(char **envp)
 	char	*input;
 	int		fd_backup[2];
 
-	init_envp_lst(minishell.env_list, envp); // 환경변수 리스트 초기화
+	init_envp_lst(&minishell.env_list, envp); // 환경변수 리스트 초기화
 	while (1)
 	{
 		fd_backup[0] = dup(STDIN_FILENO);	// 표준 입력 백업
