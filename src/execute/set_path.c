@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:08:50 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/16 16:54:00 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/16 19:29:42 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,16 +99,19 @@ char	*get_cmd_path(char *cmd, t_list *env_list)
 	return (cmd_path);
 }
 
-void	set_cmd_path(t_ASTNode *tree, t_list *env_list)
+void	set_cmd_path(t_cmd_list *list, t_list *env_list)
 {
-	if (tree->left != NULL)
-		set_cmd_path(tree->left, env_list);
-	if (tree->right != NULL)
-		set_cmd_path(tree->right, env_list);
-	if (tree->type == T_CMD)
+	t_cmd_list *current;
+	
+	current = list;
+	while (current)
 	{
-		if (tree->cmd->path)
-			free(tree->cmd->path);
-		tree->cmd->path = get_cmd_path(tree->cmd->name, env_list);
+		if (current->type == T_CMD)
+		{
+			if (current->path)
+				free(current->path);
+			current->path = get_cmd_path(current->argv[0], env_list);
+		}
+		current = current->next;
 	}
 } 	

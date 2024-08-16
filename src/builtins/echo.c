@@ -6,7 +6,7 @@
 /*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 20:38:25 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/16 19:12:04 by chaerin          ###   ########.fr       */
+/*   Updated: 2024/08/16 19:15:06 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,23 @@ void	show_env(t_list *env_list, char *input)
 	}
 }
 
-void	ft_echo(t_ASTNode *tree, t_list *env_list)
+void	ft_echo(t_cmd_list *list, t_list *env_list)
 {
 	int	i;
 
-	i = 0;
-	if (tree->cmd->argv == NULL)
+	i = 1;
+	if (list->argc == 1)
 	{
 		printf("\n");
 		return ;
 	}
-	while (tree->cmd->argv[i])
+	while (list->argv[i])
 	{
-		if (tree->cmd->argv[i][0] == '$')
-			show_env(env_list, tree->cmd->argv[i]);
+		if (list->argv[i][0] == '$')
+			show_env(env_list, list->argv[i]);
 		else
-			printf("%s", tree->cmd->argv[i]);
-		if (tree->cmd->argv[i + 1] != NULL)
+			printf("%s", list->argv[i]);
+		if (list->argv[i + 1] != NULL)
 			printf(" ");
 		i++;
 	}
