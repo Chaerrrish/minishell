@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/07 16:37:55 by chaerin           #+#    #+#             */
-/*   Updated: 2024/08/07 16:58:34 by chaerin          ###   ########.fr       */
+/*   Created: 2024/08/14 18:38:01 by chaerin           #+#    #+#             */
+/*   Updated: 2024/08/14 18:38:27 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
-void	pwd(void)
+void    exit(t_ASTNode *tree)
 {
-	char	*str;
-
-	str = getcwd(NULL, 0);
-	if (str != NULL)
-	{
-		printf("%s\n", str);
-	}
-	else
-		perror("pwd");
-	free(str);
+    
 }

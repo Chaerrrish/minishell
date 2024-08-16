@@ -12,108 +12,135 @@
 
 #include "../header/minishell.h"
 
-void	swap_content(t_list *a, t_list *b)
+int	check_update_env(t_list *env_list, char **split_input, char *input)
 {
-	t_env	tmp;
+	t_env	*new_env;
+	t_list 	*current;
 
-	tmp = *(t_env *)a->content;
-	*(t_env *)a->content = *(t_env *)b->content;
-	*(t_env *)b->content = tmp;
-}
-
-void	sort_export_list(t_list *export_list)
-{
-	t_list	*i;
-	t_list	*j;
-	t_env	*i_con;
-	t_env	*j_con;
-
-	if (export_list == NULL)
-		return ;
-	i = export_list;
-	while (i)
+	current = env_list;
+	while (current)
 	{
-		i_con = (t_env *)i->content;
-		j = i->next;
-		while (j)
+		new_env = (t_env *)current->content;
+		if (ft_strcmp(new_env->key, split_input[0]) == 0)
 		{
-			j_con = (t_env *)j->content;
-			if (ft_strcmp(i_con->key, j_con->key) > 0)
-				swap_content(i, j);
-			j = j->next;
+			free(new_env->value);
+			if (split_input[1] != NULL)
+				new_env->value = ft_strdup(split_input[1]);
+			else
+				new_env->value = ft_strdup("");
+			free(new_env->data);
+			new_env->data = ft_strdup(input);
+			split_free(split_input);
+			return (0);
 		}
-		i = i->next;
+		current = current->next;
 	}
+	return (1);
 }
 
-t_env	*copy_env(t_env *env)
+t_env	*add_env(t_list *env_list, char **split_input, char	*input)
 {
 	t_env	*new_env;
 
 	new_env = (t_env *)malloc(sizeof(t_env));
 	if (!new_env)
+	{
+		split_free(split_input);
 		return (NULL);
-	new_env->data = ft_strdup(env->data);
-	new_env->key = ft_strdup(env->key);
-	new_env->value = ft_strdup(env->value);
-	if (!new_env->data || !new_env->key || !new_env->value)
+	}
+	new_env->key = ft_strdup(split_input[0]);
+	if (split_input[1] != NULL)
+		new_env->value = ft_strdup(split_input[1]);
+	else
+		new_env->value = ft_strdup("");
+	new_env->data = ft_strdup(input);
+	return (new_env);
+}
+
+void	export_main(t_list **env_list, char *input)
+{
+	t_env	*new_env;
+	t_list	*new_node;
+	char	**split_input;
+
+	split_input = ft_split(input, '=');
+	if (!split_input)
+		return ;
+	if (check_update_env(env_list, split_input, input) == 0)
+		return ;
+	new_env = add_env(env_list, split_input, input);
+	if (new_env == NULL)
+		return ;
+	new_node = ft_lstnew(new_env);
+	if (!new_node)
 	{
 		free(new_env->data);
 		free(new_env->key);
 		free(new_env->value);
 		free(new_env);
-		return (NULL);
+		split_free(split_input);
+		return ;
 	}
-	return (new_env);
+	ft_lstadd_back(&env_list, new_node);
+	split_free(split_input);
+	sort_export_list(*env_list);
 }
 
-t_list	*copy_env_list(t_list *env_list)
+void	print_export_list(t_list *env_list)
 {
-	t_list	*new_list;
 	t_list	*current;
-	t_env	*new_env;
-	t_list	*new_node;
+	t_env	*node;
 
-	new_list = NULL;
 	current = env_list;
-
 	while (current != NULL)
 	{
-		new_env = copy_env((t_env *)current->content);
-		if (new_env == NULL)
-			return (NULL);
-		new_node = ft_lstnew(new_env);
-		if (new_node == NULL)
-			return (NULL);
-		ft_lstadd_back(&new_list, new_node);
+		node = (t_env *)current->content;
+		printf("declare -x %s\n", node->data);
 		current = current->next;
 	}
-	return (new_list);
 }
 
-void export(t_list *env_list)
+void	argv_export(t_ASTNode *tree, t_list **env_list)
+{
+	int	i;
+
+	i = 0;
+	while (tree->cmd->argv[i] != NULL)
+	{
+		if (check_builtin_argv(tree->cmd->argv[i]) == 0)
+		{
+			write(2, "tontoshell: export: ", 20);
+			wirte(2, tree->cmd->argv[i], ft_strlen(tree->cmd->argv[i]));
+			ft_putendl_fd(": not a valid identifier", 2);
+			i++;
+			continue ;
+		}
+		else
+			export_main(env_list, tree->cmd->argv[i]);
+		i++;
+	}
+}
+
+void	export(t_ASTNode *tree, t_list *env_list)
 {
 	t_list	*export_list;
-	t_list	*current;
 	t_env	*node;
 
 	export_list = copy_env_list(env_list);
 	sort_export_list(export_list);
-	current = export_list;
-	while (current != NULL)
-	{
-		node = (t_env *)current->content;
-		printf("%s\n", node->data);
-		current = current->next;
-	}
+	if (tree->cmd->argv[0] == NULL)
+		print_export_list(export_list);	
+	else
+		argv_export(tree, &export_list);
 }
 
-// int main(int ac, char **av, char **envp)
+// int	main(int ac, char **av, char **envp)
 // {
 // 	t_list *lst;
 
 // 	init_envp_lst(&lst, envp);
-// 	export(lst);
+// 	// export(lst);
+// 	show_env(lst, "HI=hi");
 // 	return (0);
 // }
 

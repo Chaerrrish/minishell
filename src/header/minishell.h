@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/16 13:18:45 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/14 19:21:01 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <string.h>
 # include <curses.h>
 
-# include "libft.h"
+# include "../../libft/libft.h"
 # include "mini_macro.h"
 # include "mini_struct.h"
 # include "mini_signal.h"
@@ -80,6 +80,19 @@ int			is_redirect(t_token *token);
 
 
 
+/* builtins */
+//export.c, export_utils.c
+void	swap_content(t_list *a, t_list *b);
+void	sort_export_list(t_list *export_list);
+t_env	*copy_env(t_env *env);
+t_list	*copy_env_list(t_list *env_list);
+void	export(t_ASTNode *tree, t_list *env_list);
+void	show_env(t_list *env_list, char *input);
+void	ft_echo(t_ASTNode *tree, t_list *env_list);
+int	    check_builtin_argv(char	*str);
+
+//env.c
+void	env(t_list	*env_list);
 
 
 
@@ -119,6 +132,7 @@ void	init_signal(void);
 /* utils */
 // lst_free.c
 void	lst_free(t_list *lst);
+void	split_free(char **str);
 int		ft_strcmp(const char *s1, const char *s2);
 void	memory_error(void);
 

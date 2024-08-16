@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_free.c                                         :+:      :+:    :+:   */
+/*   split_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/08 15:15:32 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/10 16:39:27 by chaoh            ###   ########.fr       */
+/*   Created: 2024/08/10 16:36:56 by chaoh             #+#    #+#             */
+/*   Updated: 2024/08/10 16:38:25 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
-void	lst_free(t_list *lst)
+void	split_free(char **str)
 {
-	t_list	*tmp;
-	t_env	*env;
+	int	i;
 
-	while (lst != NULL)
+	if (str == NULL)
+		return ;
+	while (str[i] != NULL)
 	{
-		tmp = lst;
-		env = (t_env *)lst->content; // content를 변환해줘서 free해줄것임미다
-		if (env)
-		{
-			free(env->data);
-			free(env->key);
-			free(env->value);
-			free(env);
-		}
-		lst = lst->next;
-		free(tmp);
+		free(str[i]);
+		i++;
 	}
+	free(str);
 }
