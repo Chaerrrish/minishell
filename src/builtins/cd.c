@@ -6,32 +6,11 @@
 /*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 21:04:39 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/16 18:56:46 by chaerin          ###   ########.fr       */
+/*   Updated: 2024/08/16 19:11:59 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
-
-char	*find_path(t_list *env_list, char *envp)
-{
-	t_env	*env;
-	t_list	*current;
-	char	*path;
-
-	path = NULL;
-	current = env_list;
-	while (current)
-	{
-		env = (t_env *)current->content;
-		if (ft_strcmp(env->key, envp) == 0)
-		{
-			path = ft_strdup(env->value);
-			break ;
-		}
-		current = current->next;
-	}
-	return (path);
-}
 
 void	update_pwd(t_list *env_list, char *current_path, char *old_path)
 {
