@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 12:42:32 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/16 14:16:41 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/16 16:00:17 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ int	tokenize(t_shell *minishell, t_token **token_lst, char *input)
 				|| iter.in_squote || iter.in_dquote) && (input[iter.end] != '|'
 				|| iter.in_squote || iter.in_dquote))
 				{
-					if (process_quotes(input[iter.end], &iter) != 0) // 얘가 0이 아닐 수가 잇냐?
-						break;
+					process_quotes(input[iter.end], &iter);
 					iter.end++;
 				}
 		}

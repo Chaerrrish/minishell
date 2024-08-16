@@ -6,19 +6,18 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 20:25:43 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/16 14:11:50 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/16 16:39:31 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	process_quotes(const char c, t_token_iter *iter)
+void	process_quotes(const char c, t_token_iter *iter)
 {
 	if (c == '\'' && !iter->in_dquote) // 현재 문자가 싱글 쿼터이고 더블 쿼터 내에 있지 않다면
 		iter->in_squote = !iter->in_squote; // 싱글 쿼터 상태 토글
-	else if (c == '"' && !iter->in_squote) // 현재 문자가 더블 쿼터이고 싱글 쿼터 내에 있지 않다면
+	else if (c == '\"' && !iter->in_squote) // 현재 문자가 더블 쿼터이고 싱글 쿼터 내에 있지 않다면
 		iter->in_dquote = !iter->in_dquote; // 더블 쿼터 상태 토글
-	return (0);
 }
 
 // 토큰을 생성하고 리스트에 추가함
