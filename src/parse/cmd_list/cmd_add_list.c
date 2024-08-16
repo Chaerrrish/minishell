@@ -1,32 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_macro.h                                       :+:      :+:    :+:   */
+/*   cmd_add_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/02 13:30:29 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/16 15:20:05 by wonyocho         ###   ########.fr       */
+/*   Created: 2024/08/16 18:36:49 by wonyocho          #+#    #+#             */
+/*   Updated: 2024/08/16 18:43:47 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MACRO_H
-# define MACRO_H
+#include "minishell.h"
 
-# define T_NULL 0
-# define T_WORD 1
-
-# define T_CMD 2
-# define T_ARG 3
-# define T_PIPE 4
-
-# define T_REDIR_IN 5
-# define T_REDIR_OUT 6
-# define T_REDIR_HERE 7
-# define T_REDIR_APPEND 8
-# define T_REDIR_ERR 9
-
-# define T_SINGLE_QUOTE 10
-# define T_DOUBLE_QUOTE 11
-
-#endif
+int	add_cmd_list(t_shell *minishell, t_list *current_token_list)
+{
+	while (minishell->cmd_list) // 맨뒤로 이동
+		minishell->cmd_list = minishell->cmd_list->next;
+	minishell->cmd_list->token_list = current_token_list;
+	return (0);
+}

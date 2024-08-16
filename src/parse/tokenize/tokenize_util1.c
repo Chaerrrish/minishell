@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:13:40 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/14 15:50:05 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:20:10 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,18 @@ void	token_free(t_token *token)
 	free(token);
 }
 
-void	token_lst_free(t_token **token_lst)
+void	token_lst_free(t_token *token_lst)
 {
-	t_token	*token;
-	t_token	*n_token;
+	t_token	*tmp;
 
-	token = *token_lst;
-	while (token)
+	while (token_lst)
 	{
-		n_token = token->next;
-		token_free(token);
-		token = n_token;
+		tmp = token_lst->next;
+		if (token_lst->str)
+			free(token_lst->str);
+		free(token_lst);
+		token_lst = tmp;
 	}
-	free(*token_lst);
-	*token_lst = NULL;
 }
 
 // token 리스트의 마지막 요소를 반환하는 함수
@@ -59,3 +57,4 @@ t_token	*expanded_new_token(char *line, int l, int r)
 	token->type = get_token_type(token->str);
 	return (token);
 }
+

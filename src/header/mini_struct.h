@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_struct.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 19:41:05 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/10 20:48:16 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/16 18:31:14 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,6 @@ typedef struct s_cmd
 	int		argc;
 }	t_cmd;
 
-// 토큰
-typedef struct s_token {
-	int				type;
-	char			*str;
-	struct s_token	*next;
-}	t_token;
-
 // 토큰 반복자
 typedef struct s_token_iter
 {
@@ -38,22 +31,6 @@ typedef struct s_token_iter
 	int	in_dquote;
 }	t_token_iter;
 
-// 트리
-typedef struct s_ASTNode
-{
-	int					type;
-	char				*value;
-	
-	int					pipefd[2];
-	int					status;
-	t_cmd				*cmd;
-	pid_t				pid;
-	
-	struct s_ASTNode	*left;
-	struct s_ASTNode	*right;
-	struct s_ASTNode	*next;
-}	t_ASTNode;
-
 // 환경변수(리스트)
 typedef struct s_env
 {
@@ -62,11 +39,33 @@ typedef struct s_env
 	char	*value; // /usr/bin:/bin
 }	t_env;
 
+// 토큰 리스트
+typedef struct s_token 
+{
+	int				type;
+	char			*str;
+	
+	struct s_token	*next;
+	
+}	t_token;
+
+typedef struct s_cmd_list
+{	
+	t_list				*token_list;	// tokenized list
+	
+	int					argc;
+	char				**argv;
+	int					pipe_cnt;
+	
+	struct s_cmd_list	*next;			// 다음 cmd_list
+	
+}	t_cmd_list;
+
 // 종합
 typedef struct s_shell
 {
-	t_list		*env_list;
-	t_ASTNode	*astree_root;
+	t_list			*env_list;	// 환경변수 리스트
+	t_cmd_list		*cmd_list;	// 커맨드 리스트
 }	t_shell;
 
 #endif
