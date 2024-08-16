@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/16 20:29:51 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/16 23:44:03 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ char	*get_env_value(t_list *env_list, char *key);
 
 // parsing.c
 int	parsing(t_shell *minishell, char *input);
-int	add_cmd_list(t_cmd_list **cmd_list, t_token **current_token_list);
-void get_cmd_data(t_cmd_list *cmd_list);
+int add_cmd_list(t_shell *minishell, t_token *token_list);
+int get_cmd_data(t_cmd_list *cmd_list);
 
 
 
