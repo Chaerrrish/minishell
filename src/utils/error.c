@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   whitespace.c                                       :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/10 20:30:09 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/10 20:30:24 by wonyocho         ###   ########.fr       */
+/*   Created: 2024/08/14 15:57:02 by wonyocho          #+#    #+#             */
+/*   Updated: 2024/08/14 15:57:17 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_whitespace(const char c)
+void	memory_error(void)
 {
-	if ((9 <= c && c <= 13) || c == ' ')
-		return (1);
-	else
-		return (0);
-}
-
-void	skip_whitespace(const char *input, t_token_iter *iter)
-{
-	while (input[iter->end] && is_whitespace(input[iter->end]))
-		iter->end++;
+	ft_putendl_fd("error: memory allocation error", STDERR_FILENO);
+	g_status_code = 137;
+	exit(137);
 }
