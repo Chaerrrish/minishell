@@ -1,28 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   cmd_get_data.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/02 13:29:32 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/16 20:30:15 by wonyocho         ###   ########.fr       */
+/*   Created: 2024/08/16 18:50:40 by wonyocho          #+#    #+#             */
+/*   Updated: 2024/08/16 20:11:06 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int parsing(t_shell *minishell, char *input)
-{
-	t_token	*token_list;
+int	get_argc(t_cmd_list *cmd_list);
+int get_pipe_count(t_cmd_list *cmd_list);
 
-	token_list = NULL;
-	if (tokenize(minishell, &token_list, input) != 0)
-		return (-1);
-	printf("%s\n", minishell->cmd_list);
-	if (add_cmd_list(&(minishell->cmd_list), &token_list) != 0)
-		return (-1);
-	printf("%s\n", minishell->cmd_list->token_list->str);
-	token_lst_free(token_list);
-	return (0);
+void get_cmd_data(t_cmd_list *cmd_list)
+{
+	cmd_list->argc = get_argc(cmd_list);
+}
+
+int	get_argc(t_cmd_list *cmd_list)
+{
+	int	argc_count;
+
+	argc_count = 0;
+	while (cmd_list->token_list)
+	{
+		argc_count++;
+		cmd_list->token_list = cmd_list->token_list->next;
+	}
+	return (argc_count);
+}
+
+int get_pipe_count(t_cmd_list *cmd_list)
+{
+	
 }
