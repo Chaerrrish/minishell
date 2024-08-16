@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:27:13 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/14 16:04:44 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/16 14:30:21 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	argv_export(t_ASTNode *tree, t_list **env_list)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	while (tree->cmd->argv[i] != NULL)
 	{
 		if (check_builtin_argv(tree->cmd->argv[i]) == 0)
@@ -128,7 +128,7 @@ void	export(t_ASTNode *tree, t_list *env_list)
 
 	export_list = copy_env_list(env_list);
 	sort_export_list(export_list);
-	if (tree->cmd->argv[0] == NULL)
+	if (tree->cmd->argc == 1)
 		print_export_list(export_list);	
 	else
 		argv_export(tree, &export_list);

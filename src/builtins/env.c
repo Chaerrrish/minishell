@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:33:11 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/14 20:38:47 by chaerin          ###   ########.fr       */
+/*   Updated: 2024/08/16 14:28:53 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	env(t_ASTNode *tree, t_list *env_list)
 	t_list	*current;
 
 	current = env_list;
-	if (tree->cmd->argv[0] != NULL)
+	if (tree->cmd->argv[1] != NULL)
 	{
 		write(2, "env: ", 5);
 		write(2, tree->cmd->argv[0], ft_strlen(tree->cmd->argv[0]));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*    echo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 20:38:25 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/14 19:20:50 by chaerin          ###   ########.fr       */
+/*   Updated: 2024/08/16 14:28:24 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_echo(t_ASTNode *tree, t_list *env_list)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	if (tree->cmd->argv == NULL)
 	{
 		printf("\n");

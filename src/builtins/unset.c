@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:32:07 by chaerin           #+#    #+#             */
-/*   Updated: 2024/08/14 19:10:12 by chaerin          ###   ########.fr       */
+/*   Updated: 2024/08/16 14:31:50 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ void	unset(t_ASTNode *tree, t_list **env_list)
 {
 	int		i;
 
-	i = 0;
+	i = 1;
+	if (tree->cmd->argc == 1)
+		return ;
 	while (tree->cmd->argv[i] != NULL)
 	{
 		if (!check_builtin_argv(tree->cmd->argv[i]))
