@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/18 16:47:59 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/18 14:53:36 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,15 @@
 
 
 /* builtins */
-//export.c, export_utils.c
-void	swap_content(t_list *a, t_list *b);
-void	sort_export_list(t_list *export_list);
-t_env	*copy_env(t_env *env);
+void	cd(t_cmd_list *list, t_list *env_list);
+void	ft_echo(t_cmd_list *list, t_list *env_list);
+void	env(t_cmd_list *list, t_list *env_list);
 t_list	*copy_env_list(t_list *env_list);
-void	show_env(t_list *env_list, char *input);
+t_env	*copy_env(t_env *env);
+void	sort_export_list(t_list *export_list);
+void	swap_content(t_list *a, t_list *b);
+void	export(t_cmd_list *list, t_list *env_list);
 int	    check_builtin_argv(char	*str);
-//env.c
-
-
-
-
-
-
-
-
-
 
 /*   ---------------- parsing ----------------*/
 

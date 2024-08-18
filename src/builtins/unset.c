@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:32:07 by chaerin           #+#    #+#             */
 /*   Updated: 2024/08/18 17:25:22 by wonyocho         ###   ########.fr       */
@@ -48,22 +48,22 @@ void	remove_env_var(t_list **env_list, char *key)
 	}
 }
 
-void	unset(t_ASTNode *tree, t_list **env_list)
+void	unset(t_cmd_list *list, t_list **env_list)
 {
 	int		i;
 
-	i = 0;
-	while (tree->cmd->argv[i] != NULL)
+	i = 1;
+	while (list->argv[i] != NULL)
 	{
-		if (!check_builtin_argv(tree->cmd->argv[i]))
+		if (!check_builtin_argv(list->argv[i]))
 		{
 			write(2, "tontoshell: unset: ", 19);
-			write(2, tree->cmd->argv[0], ft_strlen(tree->cmd->argv[0]));
+			write(2, list->argv[i], ft_strlen(list->argv[i]));
 			ft_putendl_fd(": not a valid identifier", 2);
 			i++;
 			continue ;
 		}
-		remove_env_var(env_list, tree->cmd->argv[i]);
+		remove_env_var(env_list, list->argv[i]);
 		i++;
 	}
 }

@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 21:04:39 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/18 17:25:07 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/18 14:59:51 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
-
-char	*find_path(t_list *env_list, char *envp)
-{
-	t_env	*env;
-	t_list	*current;
-	char	*path;
-
-	path = NULL;
-	current = env_list;
-	while (current)
-	{
-		env = (t_env *)current->content;
-		if (ft_strcmp(env->key, envp) == 0)
-		{
-			path = ft_strdup(env->value);
-			break ;
-		}
-		current = current->next;
-	}
-	return (path);
-}
 
 void	update_pwd(t_list *env_list, char *current_path, char *old_path)
 {
@@ -70,24 +49,24 @@ int	check_path(char *path, char *old_path)
 	return (1);
 }
 
-void	cd(t_ASTNode *tree, t_list *env_list)
+void	cd(t_cmd_list *list, t_list *env_list)
 {
 	char	*current_path;
 	char	*old_path;
 	char	*tmp;
 
-	old_path = find_path(env_list, "PWD");
-	if (tree->cmd->argv == NULL) // 인자가 없을 때 HOME으로 이동
-		current_path = find_path(env_list, "HOME");
+	old_path = getcwd(NULL, 0);
+	if (list->argc == 1) // 인자가 없을 때 HOME으로 이동
+		current_path = get_env_value(env_list, "HOME");
 	else
 	{
-		if (ft_strcmp(tree->cmd->argv[0], ".") == 0 \
-			|| ft_strcmp(tree->cmd->argv[0], "..") == 0)
-			current_path = ft_strdup(tree->cmd->argv[0]);
+		if (ft_strcmp(list->argv[1], ".") == 0 \
+			|| ft_strcmp(list->argv[1], "..") == 0)
+			current_path = ft_strdup(list->argv[1]);
 		else
 		{
 			tmp = ft_strjoin(old_path, "/");
-			current_path = ft_strjoin(tmp, tree->cmd->argv[0]);
+			current_path = ft_strjoin(tmp, list->argv[1]);
 			free(tmp);
 		}
 		if (check_path(current_path, old_path) == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:27:13 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/18 17:25:18 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/18 14:54:40 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ void	export_main(t_list **env_list, char *input)
 	split_input = ft_split(input, '=');
 	if (!split_input)
 		return ;
-	if (check_update_env(env_list, split_input, input) == 0)
+	if (check_update_env(*env_list, split_input, input) == 0)
 		return ;
-	new_env = add_env(env_list, split_input, input);
+	new_env = add_env(*env_list, split_input, input);
 	if (new_env == NULL)
 		return ;
 	new_node = ft_lstnew(new_env);
@@ -81,7 +81,7 @@ void	export_main(t_list **env_list, char *input)
 		split_free(split_input);
 		return ;
 	}
-	ft_lstadd_back(&env_list, new_node);
+	ft_lstadd_back(env_list, new_node);
 	split_free(split_input);
 	sort_export_list(*env_list);
 }
@@ -100,38 +100,38 @@ void	print_export_list(t_list *env_list)
 	}
 }
 
-void	argv_export(t_ASTNode *tree, t_list **env_list)
+void	argv_export(t_cmd_list *list, t_list **env_list)
 {
 	int	i;
 
-	i = 0;
-	while (tree->cmd->argv[i] != NULL)
+	i = 1;
+	while (list->argv[i] != NULL)
 	{
-		if (check_builtin_argv(tree->cmd->argv[i]) == 0)
+		if (check_builtin_argv(list->argv[i]) == 0)
 		{
 			write(2, "tontoshell: export: ", 20);
-			wirte(2, tree->cmd->argv[i], ft_strlen(tree->cmd->argv[i]));
+			write(2, list->argv[i], ft_strlen(list->argv[i]));
 			ft_putendl_fd(": not a valid identifier", 2);
 			i++;
 			continue ;
 		}
 		else
-			export_main(env_list, tree->cmd->argv[i]);
+			export_main(env_list, list->argv[i]);
 		i++;
 	}
 }
 
-void	export(t_ASTNode *tree, t_list *env_list)
+void	export(t_cmd_list *list, t_list *env_list)
 {
 	t_list	*export_list;
 	t_env	*node;
 
 	export_list = copy_env_list(env_list);
 	sort_export_list(export_list);
-	if (tree->cmd->argv[0] == NULL)
+	if (list->argc == 1)
 		print_export_list(export_list);	
 	else
-		argv_export(tree, &export_list);
+		argv_export(list, &export_list);
 }
 
 // int	main(int ac, char **av, char **envp)
