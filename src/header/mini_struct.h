@@ -6,21 +6,12 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 19:41:05 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/16 18:31:14 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/16 19:25:53 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINI_STRUCT_H
 # define MINI_STRUCT_H
-
-// 커맨드
-typedef struct s_cmd
-{
-	char	*name;
-	char	*path;
-	char	**argv;
-	int		argc;
-}	t_cmd;
 
 // 토큰 반복자
 typedef struct s_token_iter
@@ -51,7 +42,7 @@ typedef struct s_token
 
 typedef struct s_cmd_list
 {	
-	t_list				*token_list;	// tokenized list
+	t_token				*token_list;	// tokenized list
 	
 	int					argc;
 	char				**argv;
