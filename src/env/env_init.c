@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 12:41:39 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/16 20:01:41 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/18 20:20:58 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	init_envp_list(t_list **lst, char **envp)
 		tmp = ft_lstnew(env);
 		if (!tmp)
 		{
-			lst_free(*lst);
+			envlst_free(*lst);
 			perror("malloc failed\n");
 			exit(1);
 		}

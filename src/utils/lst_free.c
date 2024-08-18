@@ -6,13 +6,13 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 15:15:32 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/16 16:18:28 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/18 20:12:50 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
-void	lst_free(t_list *lst)
+void	envlst_free(t_list *lst)
 {
 	t_list	*tmp;
 	t_env	*env;

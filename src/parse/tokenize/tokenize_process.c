@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 20:25:43 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/18 09:02:24 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/18 20:24:25 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,22 +72,23 @@ int	tokenize_expand(t_shell *mini, t_token **token_lst, t_token *token)
 	last_token = token_lst_last(*token_lst);
 	if (last_token && (last_token->type == T_REDIR_HERE || token->type == T_SINGLE_QUOTE))
 		return (0);
-	new_line = expand_env(mini->env_list, token->str);
-	if (ft_strcmp(token->str, new_line) == 0)
-	{
-		free(new_line);
-		return (0);
-	}
-	splited = ft_split(new_line, ' ');
-	i = 0;
-	while (splited[i])
-	{
-		token_tmp = expanded_new_token(splited[i], 0, ft_strlen(splited[i]));
-		add_token(token_lst, token_tmp);
-		i++;
-	}
-	token_free(token);
-	return (1);
+	// new_line = expand_env(mini->env_list, token->str);
+	// if (ft_strcmp(token->str, new_line) == 0)
+	// {
+	// 	free(new_line);
+	// 	return (0);
+	// }
+	// splited = ft_split(new_line, ' ');
+	// i = 0;
+	// while (splited[i])
+	// {
+	// 	token_tmp = expanded_new_token(splited[i], 0, ft_strlen(splited[i]));
+	// 	add_token(token_lst, token_tmp);
+	// 	i++;
+	// }
+	// token_free(token);
+	// return (1);
+	return (0);
 }
 
 // token 리스트에 새로운 token을 추가하는 함수

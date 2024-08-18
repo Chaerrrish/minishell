@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 16:00:19 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/18 17:25:04 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/18 19:33:19 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static char	*make_expand_data(t_list *env_list, char *origin, int start, int end
 	char	*result;
 
 	key = ft_substr(origin, start + 1, end - start);
+	printf("key: %s\n", key);
 	if (ft_strcmp(key, "?") == 0)
 		value = ft_itoa(g_status_code);
 	else
@@ -55,7 +56,7 @@ static char	*make_expand_data(t_list *env_list, char *origin, int start, int end
 	return (result);
 }
 
-char	*expand_env(t_list *env_list, char *str)
+char	*expand_env(t_list *env_list, char *str) // $ 으로 시작
 {
 	int		start;
 	int		end;
@@ -63,12 +64,16 @@ char	*expand_env(t_list *env_list, char *str)
 	char	*expand_str;
 
 	expand_str = ft_strdup(str);
+	printf("expand str: %s\n", expand_str);
 	start = find_start_pos(expand_str);
+	printf("start: %d\n", start);
 	while (start != -1)
 	{
 		end = find_end_pos(expand_str, start + 1);
+		printf("end: %d\n", end);
 		temp = expand_str;
 		expand_str = make_expand_data(env_list, expand_str, start, end);
+		printf("new_expand str: %s\n", expand_str);
 		free(temp);
 		start = find_start_pos(expand_str);
 	}
