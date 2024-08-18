@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 16:23:54 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/18 17:25:16 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/18 19:31:07 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,18 @@ t_list	*copy_env_list(t_list *env_list)
 		current = current->next;
 	}
 	return (new_list);
+}
+
+void	print_export_list(t_list *env_list)
+{
+	t_list	*current;
+	t_env	*node;
+
+	current = env_list;
+	while (current != NULL)
+	{
+		node = (t_env *)current->content;
+		printf("declare -x %s\n", node->data);
+		current = current->next;
+	}
 }

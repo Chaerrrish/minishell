@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:27:13 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/18 14:54:40 by chaerin          ###   ########.fr       */
+/*   Updated: 2024/08/18 19:51:50 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	check_update_env(t_list *env_list, char **split_input, char *input)
 t_env	*add_env(t_list *env_list, char **split_input, char	*input)
 {
 	t_env	*new_env;
+	char	*temp;
 
 	new_env = (t_env *)malloc(sizeof(t_env));
 	if (!new_env)
@@ -50,10 +51,16 @@ t_env	*add_env(t_list *env_list, char **split_input, char	*input)
 	}
 	new_env->key = ft_strdup(split_input[0]);
 	if (split_input[1] != NULL)
-		new_env->value = ft_strdup(split_input[1]);
+	{
+		temp = ft_strjoin("\"", split_input[1]);
+		new_env->value = ft_strjoin(temp, "\"");
+		free(temp);
+	}
 	else
 		new_env->value = ft_strdup("");
-	new_env->data = ft_strdup(input);
+	temp = ft_strjoin(split_input[0], "=");
+	new_env->data = ft_strjoin(temp, new_env->value);
+	free(temp);
 	return (new_env);
 }
 
@@ -84,20 +91,6 @@ void	export_main(t_list **env_list, char *input)
 	ft_lstadd_back(env_list, new_node);
 	split_free(split_input);
 	sort_export_list(*env_list);
-}
-
-void	print_export_list(t_list *env_list)
-{
-	t_list	*current;
-	t_env	*node;
-
-	current = env_list;
-	while (current != NULL)
-	{
-		node = (t_env *)current->content;
-		printf("declare -x %s\n", node->data);
-		current = current->next;
-	}
 }
 
 void	argv_export(t_cmd_list *list, t_list **env_list)
@@ -131,7 +124,8 @@ void	export(t_cmd_list *list, t_list *env_list)
 	if (list->argc == 1)
 		print_export_list(export_list);	
 	else
-		argv_export(list, &export_list);
+		argv_export(list, &env_list);
+	ft_lstclear(&export_list, free_env);
 }
 
 // int	main(int ac, char **av, char **envp)

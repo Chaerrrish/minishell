@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 20:38:25 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/18 17:25:09 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/18 20:14:20 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,12 @@ void	show_env(t_list *env_list, char *input)
 void	ft_echo(t_cmd_list *list, t_list *env_list)
 {
 	int	i;
+	int	flag;
 
 	i = 1;
+	flag = 1;
+	if (ft_strcmp(list->argv[1], "-n") == 0)
+		flag = 0;
 	if (list->argc == 1)
 	{
 		printf("\n");
@@ -46,11 +50,17 @@ void	ft_echo(t_cmd_list *list, t_list *env_list)
 	{
 		if (list->argv[i][0] == '$')
 			show_env(env_list, list->argv[i]);
+		else if (ft_strcmp(list->argv[i], "-n") == 0)
+		{
+			i++;
+			continue;
+		}
 		else
 			printf("%s", list->argv[i]);
 		if (list->argv[i + 1] != NULL)
 			printf(" ");
 		i++;
 	}
-	printf("\n");
+	if (flag == 1)
+		printf("\n");
 }

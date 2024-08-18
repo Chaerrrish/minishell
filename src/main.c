@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:15:06 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/18 14:50:13 by chaerin          ###   ########.fr       */
+/*   Updated: 2024/08/18 19:54:01 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	minishell(char **envp)
 	{
 		fd_backup[0] = dup(STDIN_FILENO);	// 표준 입력 백업
 		fd_backup[1] = dup(STDOUT_FILENO);	// 표준 출력 백업
-		input = readline("tontoshell $ ");
+		input = readline("tontoshell🌝 $ ");
 		if (!input) // EOF(Ctrl + D) or readline 오류시 에러핸들링
 			break;
 		if (parsing(&minishell, input) == -1) // parsing 에러시 -1
@@ -34,11 +34,13 @@ static void	minishell(char **envp)
 			continue;
 		}
 		// 명령어 경로 설정
-		// 명령어 실행
+		if (minishell.cmd_list->token_list->type == T_BULTIN)
+			execute_builtin(&minishell);
 		dup2(fd_backup[0], STDIN_FILENO);	// 백업
 		dup2(fd_backup[1], STDOUT_FILENO);	// 백업 
 		add_history(input);
 		free(input);
+		minishell.cmd_list = minishell.cmd_list->next;
 	}
 }
 

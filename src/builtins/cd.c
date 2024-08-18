@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 21:04:39 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/18 14:59:51 by chaerin          ###   ########.fr       */
+/*   Updated: 2024/08/18 18:57:05 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	update_pwd(t_list *env_list, char *current_path, char *old_path)
 		if (ft_strcmp(env->key, "PWD") == 0)
 		{
 			free(env->value);
-			env->value = current_path;
+			env->value = ft_strdup(current_path);
 		}
 		else if (ft_strcmp(env->key, "OLDPWD") == 0)
 		{
 			free(env->value);
-			env->value = old_path;
+			env->value = ft_strdup(old_path);
 		}
 		current = current->next;
 	}
