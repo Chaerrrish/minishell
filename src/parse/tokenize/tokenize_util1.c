@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:13:40 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/16 18:20:10 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:54:18 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	token_lst_free(t_token *token_lst)
 }
 
 // token 리스트의 마지막 요소를 반환하는 함수
-t_token	*token_lst_back(t_token *token_lst)
+t_token	*token_lst_last(t_token *token_lst)
 {
 	if (token_lst == NULL) // token 리스트가 비어있다면
 		return (NULL); // NULL 반환
@@ -57,4 +57,3 @@ t_token	*expanded_new_token(char *line, int l, int r)
 	token->type = get_token_type(token->str);
 	return (token);
 }
-

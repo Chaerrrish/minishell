@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/16 23:44:03 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:47:59 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void		remove_quotes(t_token *token_lst);
 // tokenize_util1.c
 void		token_free(t_token *token);
 void		token_lst_free(t_token *token_lst);
-t_token		*token_lst_back(t_token *token_lst);
+t_token		*token_lst_last(t_token *token_lst);
 t_token		*expanded_new_token(char *line, int l, int r);
 // tokenize_util2.c
 int			is_whitespace(const char c);
@@ -96,6 +96,7 @@ void		skip_whitespace(const char *input, t_token_iter *iter);
 int			is_quotation_str(char *str, int l, int r);
 int			check_token_type(char c);
 int			get_token_type(const char *str);
+int is_builtin(const char *str);
 
 
 

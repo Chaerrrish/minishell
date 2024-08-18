@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 16:00:19 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/16 13:17:07 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:25:04 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,14 @@ static char	*make_expand_data(t_list *env_list, char *origin, int start, int end
 	return (result);
 }
 
-char	*expand_env(t_list *env_list, char *origin)
+char	*expand_env(t_list *env_list, char *str)
 {
 	int		start;
 	int		end;
 	char	*temp;
 	char	*expand_str;
 
-	expand_str = ft_strdup(origin);
+	expand_str = ft_strdup(str);
 	start = find_start_pos(expand_str);
 	while (start != -1)
 	{
