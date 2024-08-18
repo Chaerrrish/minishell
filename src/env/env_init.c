@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 12:41:39 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/16 18:32:41 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/16 20:01:41 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static t_env	*get_data_key_value(t_env *env, char **envp)
 }
 
 // envp에서 key, value 추출해서 리스트 만들기
-void	init_envp_lst(t_list **lst, char **envp)
+void	init_envp_list(t_list **lst, char **envp)
 {
 	t_env	*env;
 	t_list	*tmp;

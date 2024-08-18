@@ -6,7 +6,7 @@
 /*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/16 19:12:59 by chaerin          ###   ########.fr       */
+/*   Updated: 2024/08/16 23:44:03 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	export(t_cmd_list *list, t_list *env_list);
 /*   ---------------- parsing ----------------*/
 
 // env_init.c
-void	init_envp_lst(t_list **lst, char **envp);
+void	init_envp_list(t_list **lst, char **envp);
 // env_expand.c
 char	*expand_env(t_list *env_list, char *origin);
 // env_util.c
@@ -61,7 +61,8 @@ char	*get_env_value(t_list *env_list, char *key);
 
 // parsing.c
 int	parsing(t_shell *minishell, char *input);
-int	add_cmd_list(t_shell *minishell, t_list *current_token_list);
+int add_cmd_list(t_shell *minishell, t_token *token_list);
+int get_cmd_data(t_cmd_list *cmd_list);
 
 
 
@@ -101,4 +102,4 @@ int		ft_strcmp(const char *s1, const char *s2);
 void	memory_error(void);
 
 
-#endif
+#endif 

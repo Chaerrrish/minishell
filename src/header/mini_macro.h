@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 13:30:29 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/16 15:20:05 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/16 19:49:53 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # define T_NULL 0
 # define T_WORD 1
+# define T_BULTIN 2
 
-# define T_CMD 2
 # define T_ARG 3
 # define T_PIPE 4
 
