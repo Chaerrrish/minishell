@@ -6,13 +6,13 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 20:38:25 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/18 20:14:20 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/18 20:30:22 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
-void	show_env(t_list *env_list, char *input)
+void	show_env(t_list *env_list, char *input, int *flag)
 {
 	t_list	*current;
 	t_env	*node;
@@ -30,6 +30,7 @@ void	show_env(t_list *env_list, char *input)
 		}
 		current = current->next;
 	}
+	*flag = 0;
 }
 
 void	ft_echo(t_cmd_list *list, t_list *env_list)
@@ -49,7 +50,7 @@ void	ft_echo(t_cmd_list *list, t_list *env_list)
 	while (list->argv[i])
 	{
 		if (list->argv[i][0] == '$')
-			show_env(env_list, list->argv[i]);
+			show_env(env_list, list->argv[i], &flag);
 		else if (ft_strcmp(list->argv[i], "-n") == 0)
 		{
 			i++;
@@ -57,7 +58,7 @@ void	ft_echo(t_cmd_list *list, t_list *env_list)
 		}
 		else
 			printf("%s", list->argv[i]);
-		if (list->argv[i + 1] != NULL)
+		if (flag && list->argv[i + 1] != NULL)
 			printf(" ");
 		i++;
 	}
