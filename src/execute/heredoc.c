@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:26:21 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/18 16:55:42 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/18 17:45:10 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,13 @@ void	check_heredoc(t_cmd_list *list, t_token *token)
 {
 	char	*delimeter;
 
-	if (token->next->type == T_WORD)
-		delimeter = ft_strdup(token->next->str);
-	else
+	if (token->next->type == T_NULL)
 	{
 		ft_putendl_fd("tontoshell: syntax error near \
 						unexpected token 'newline'", 2);
 		return ;
 	}
+	delimeter = ft_strdup(token->next->str);
 	if (delimeter == NULL)
 		return ;
 	execute_heredoc(delimeter);
