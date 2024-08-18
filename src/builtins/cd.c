@@ -6,7 +6,7 @@
 /*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 21:04:39 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/17 00:03:41 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/18 14:59:51 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	cd(t_cmd_list *list, t_list *env_list)
 	char	*old_path;
 	char	*tmp;
 
-	old_path = getcwd(0, NULL);
+	old_path = getcwd(NULL, 0);
 	if (list->argc == 1) // 인자가 없을 때 HOME으로 이동
-		current_path = find_path(env_list, "HOME");
+		current_path = get_env_value(env_list, "HOME");
 	else
 	{
 		if (ft_strcmp(list->argv[1], ".") == 0 \

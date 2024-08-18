@@ -6,7 +6,7 @@
 /*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:08:50 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/16 19:54:53 by chaerin          ###   ########.fr       */
+/*   Updated: 2024/08/18 15:00:07 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**get_path_arr(t_list *env_list)
 	full_path = get_env_value(env_list, "PATH");
 	if (full_path == NULL)
 		return (NULL);
-	path_arr = ft_split(full_path + 5, ":");
+	path_arr = ft_split(full_path + 5, ':');
 	free(full_path);
 	if (!path_arr)
 		return (NULL);
@@ -106,7 +106,7 @@ void	set_cmd_path(t_cmd_list *list, t_list *env_list)
 	current = list;
 	while (current)
 	{
-		if (current->token->type == T_CMD)
+		if (current->token_list->type == T_ARG)
 		{
 			if (current->path)
 				free(current->path);
@@ -114,4 +114,4 @@ void	set_cmd_path(t_cmd_list *list, t_list *env_list)
 		}
 		current = current->next;
 	}
-} 	
+}

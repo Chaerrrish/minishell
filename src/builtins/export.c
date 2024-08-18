@@ -6,7 +6,7 @@
 /*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:27:13 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/17 00:03:54 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/18 14:54:40 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ void	export_main(t_list **env_list, char *input)
 	split_input = ft_split(input, '=');
 	if (!split_input)
 		return ;
-	if (check_update_env(env_list, split_input, input) == 0)
+	if (check_update_env(*env_list, split_input, input) == 0)
 		return ;
-	new_env = add_env(env_list, split_input, input);
+	new_env = add_env(*env_list, split_input, input);
 	if (new_env == NULL)
 		return ;
 	new_node = ft_lstnew(new_env);
@@ -81,7 +81,7 @@ void	export_main(t_list **env_list, char *input)
 		split_free(split_input);
 		return ;
 	}
-	ft_lstadd_back(&env_list, new_node);
+	ft_lstadd_back(env_list, new_node);
 	split_free(split_input);
 	sort_export_list(*env_list);
 }
@@ -110,7 +110,7 @@ void	argv_export(t_cmd_list *list, t_list **env_list)
 		if (check_builtin_argv(list->argv[i]) == 0)
 		{
 			write(2, "tontoshell: export: ", 20);
-			wirte(2, list->argv[i], ft_strlen(list->argv[i]));
+			write(2, list->argv[i], ft_strlen(list->argv[i]));
 			ft_putendl_fd(": not a valid identifier", 2);
 			i++;
 			continue ;

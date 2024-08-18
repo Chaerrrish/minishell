@@ -6,7 +6,7 @@
 /*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:33:11 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/17 00:03:47 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/18 14:50:03 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,3 +33,4 @@ void	env(t_cmd_list *list, t_list *env_list)
 		current = current->next;
 	}
 }
+
