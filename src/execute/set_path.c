@@ -6,7 +6,7 @@
 /*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:08:50 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/16 19:29:42 by chaerin          ###   ########.fr       */
+/*   Updated: 2024/08/16 19:54:53 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	set_cmd_path(t_cmd_list *list, t_list *env_list)
 	current = list;
 	while (current)
 	{
-		if (current->type == T_CMD)
+		if (current->token->type == T_CMD)
 		{
 			if (current->path)
 				free(current->path);

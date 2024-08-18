@@ -6,7 +6,7 @@
 /*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 19:41:05 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/16 19:26:04 by chaerin          ###   ########.fr       */
+/*   Updated: 2024/08/16 19:49:50 by chaerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_env
 typedef struct s_token 
 {
 	char			*str;
+	int				type;
 	
 	struct s_token	*next;
 	
@@ -50,9 +51,8 @@ typedef struct s_token
 
 typedef struct s_cmd_list
 {	
-	t_token				*token_list;	// tokenized list
+	t_token				*token;	// tokenized list
 	
-	int					type;
 	int					argc;
 	char				**argv;
 	char				*path;
