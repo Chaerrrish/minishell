@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   mini_struct.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 19:41:05 by wonyocho          #+#    #+#             */
 /*   Updated: 2024/08/16 19:25:53 by wonyocho         ###   ########.fr       */
@@ -33,8 +33,8 @@ typedef struct s_env
 // 토큰 리스트
 typedef struct s_token 
 {
-	int				type;
 	char			*str;
+	int				type;
 	
 	struct s_token	*next;
 	
@@ -46,6 +46,7 @@ typedef struct s_cmd_list
 	
 	int					argc;
 	char				**argv;
+	char				*path;
 	int					pipe_cnt;
 	
 	struct s_cmd_list	*next;			// 다음 cmd_list
