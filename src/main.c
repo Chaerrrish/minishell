@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:15:06 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/19 17:04:24 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/19 20:08:30 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ static void	minishell(char **envp)
 		if (!input) // EOF(Ctrl + D) or readline 오류시 에러핸들링
 			break;
 		if (ft_strlen(input) == 0)
+		{
+			free(input);
 			continue;
+		}
 		if (parsing(&minishell, input) == -1) // parsing 에러시 -1
 		{
 			perror("parsing error\n");
@@ -36,18 +39,16 @@ static void	minishell(char **envp)
 			continue;
 		}
 		// 명령어 경로 설정
-		if (minishell.cmd_list->token_list->type == T_BULTIN)
-			execute_builtin(&minishell);
-		else
-			set_cmd_path(minishell.cmd_list, minishell.env_list);
-		printf("%s\n", minishell.cmd_list->path);
+		// if (minishell.cmd_list->token_list->type == T_BULTIN)
+		// 	execute_builtin(&minishell);
+		// else
+		// 	set_cmd_path(minishell.cmd_list, minishell.env_list);
 		dup2(fd_backup[0], STDIN_FILENO);	// 백업
 		dup2(fd_backup[1], STDOUT_FILENO);	// 백업 
 		add_history(input);
 		free(input);
-		minishell.cmd_list = minishell.cmd_list->next;
 	}
-	tonto_is_free(&minishell);
+	system("leaks minishell");
 }
 
 int	main(int argc, char **argv, char **envp)

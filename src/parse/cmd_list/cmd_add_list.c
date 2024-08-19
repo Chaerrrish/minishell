@@ -6,13 +6,13 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:36:49 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/19 17:10:10 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/19 19:05:48 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_cmd_list	*create_cmd_node(t_token *start_token, int argc)
+t_cmd_list	*new_cmd_node(t_token *start_token, int argc)
 {
 	t_cmd_list	*new_cmd;
 	t_token 	*temp_token;
@@ -21,14 +21,16 @@ t_cmd_list	*create_cmd_node(t_token *start_token, int argc)
 	new_cmd = malloc(sizeof(t_cmd_list));
 	if (!new_cmd)
 		return (NULL);
-	temp_token = start_token;
 	new_cmd->token_list = start_token;
 	new_cmd->argc = argc;
 	new_cmd->argv = malloc((argc + 1) * sizeof(char *));
+	if (!new_cmd->argv)
+		return (NULL);
+	temp_token = start_token;
 	i = 0;
 	while (temp_token && i < argc)
 	{
-		new_cmd->argv[i++] = strdup(temp_token->str);
+		new_cmd->argv[i++] = ft_strdup(temp_token->str);
 		temp_token = temp_token->next;
 	}
 	new_cmd->argv[argc] = NULL;
@@ -40,6 +42,7 @@ void	add_cmd_node(t_cmd_list **cmd_list, t_cmd_list *new_cmd)
 {
 	t_cmd_list *current_cmd;
 
+	new_cmd->token_list = recreate_token(new_cmd->argv, new_cmd->argc);
 	current_cmd = *cmd_list;
 	if (!current_cmd)
 		*cmd_list = new_cmd;
@@ -51,7 +54,7 @@ void	add_cmd_node(t_cmd_list **cmd_list, t_cmd_list *new_cmd)
 	}
 }
 
-t_token	*create_token_list_from_argv(char **argv, int argc)
+t_token	*recreate_token(char **argv, int argc)
 {
 	t_token *result;
 	t_token *current_token;
@@ -79,7 +82,7 @@ t_token	*create_token_list_from_argv(char **argv, int argc)
 	return (result);
 }
 
-t_cmd_list	*create_cmd_list_from_tokens(t_token *token_list)
+t_cmd_list	*create_cmd_list(t_token *token_list)
 {
 	t_cmd_list	*cmd_list;
 	t_token		*start_token;
@@ -92,8 +95,7 @@ t_cmd_list	*create_cmd_list_from_tokens(t_token *token_list)
 	{
 		if (token_list->type == T_PIPE)
 		{
-			add_cmd_node(&cmd_list, create_cmd_node(start_token, argc));
-			cmd_list->token_list = create_token_list_from_argv(cmd_list->argv, cmd_list->argc);
+			add_cmd_node(&cmd_list, new_cmd_node(start_token, argc));
 			start_token = token_list->next;
 			argc = 0;
 		}
@@ -102,9 +104,6 @@ t_cmd_list	*create_cmd_list_from_tokens(t_token *token_list)
 		token_list = token_list->next;
 	}
 	if (start_token)
-	{
-		add_cmd_node(&cmd_list, create_cmd_node(start_token, argc));
-		cmd_list->token_list = create_token_list_from_argv(cmd_list->argv, cmd_list->argc);
-	}
+		add_cmd_node(&cmd_list, new_cmd_node(start_token, argc));
 	return (cmd_list);
 }
