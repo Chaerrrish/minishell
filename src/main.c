@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:15:06 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/19 20:20:47 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/19 21:35:47 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,11 @@ static void	minishell(char **envp)
 		}
 		if (parsing(&minishell, input) == -1) // parsing 에러시 -1
 		{
-			perror("parsing error\n");
+			perror("parsing error");
 			free(input);
 			continue;
 		}
-		// 명령어 경로 설정
-		// if (minishell.cmd_list->token_list->type == T_BULTIN)
-		// 	execute_builtin(&minishell);
-		// else
-		// 	set_cmd_path(minishell.cmd_list, minishell.env_list);
+		execute(&minishell);
 		dup2(fd_backup[0], STDIN_FILENO);	// 백업
 		dup2(fd_backup[1], STDOUT_FILENO);	// 백업 
 		add_history(input);

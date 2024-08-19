@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:26:21 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/19 18:56:59 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/19 21:23:21 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ void	heredoc(t_cmd_list *list)
 void	check_heredoc(t_cmd_list *list, t_token *token)
 {
 	char	*delimeter;
+	char	*err_str;
 
-	if (token->next->type == T_NULL)
+	err_str = "tontoshell: syntax error near unexpected token 'newline'";
+	if (token->next == NULL)
 	{
-		ft_putendl_fd("tontoshell: syntax error near \
-						unexpected token 'newline'", 2);
+		ft_putendl_fd(err_str, 2);
 		return ;
 	}
 	delimeter = ft_strdup(token->next->str);
@@ -116,9 +117,11 @@ void	heredoc_parent(int fd, char *delimeter)
 				free(line);
 			}
 			else
+			{
+				free(line);
 				return ;
+			}
 		}
-		free(line);
 	}
 }
 

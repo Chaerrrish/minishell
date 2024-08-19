@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/19 20:20:23 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/19 20:37:03 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,15 @@ void	heredoc_parent(int fd, char *delimeter);
 void	check_heredoc(t_cmd_list *list, t_token *token);
 void	execute_heredoc(char *delimeter);
 
+/* execute */
+//set_path.c
+void	set_cmd_path(t_cmd_list *list, t_list *env_list);
+
+//execute.c
+void	execute(t_shell	*shell);
+void	execute_cmd(t_cmd_list *cmd, t_shell *shell);
+void	execute_child(t_cmd_list *cmd, t_shell *shell, char  **envp);
+
 /*   ---------------- parsing ----------------*/
 
 // env_init.c
@@ -69,8 +78,6 @@ int		find_end_pos(char *s, int i);
 char	*get_env_value(t_list *env_list, char *key);
 
 
-//execute
-void	set_cmd_path(t_cmd_list *list, t_list *env_list);
 
 // parsing.c
 int	parsing(t_shell *minishell, char *input);
@@ -124,5 +131,6 @@ char	**list_to_array(t_list *list);
 void	split_free(char **str);
 int		ft_strcmp(const char *s1, const char *s2);
 void	memory_error(void);
+void	print_cmd_error(char *str);
 
 #endif 
