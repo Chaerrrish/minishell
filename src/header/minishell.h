@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/18 16:34:35 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/18 19:36:19 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 
 
 /* builtins */
+void	pwd(void);
 void	cd(t_cmd_list *list, t_list *env_list);
 void	ft_echo(t_cmd_list *list, t_list *env_list);
 void	env(t_cmd_list *list, t_list *env_list);
@@ -44,8 +45,11 @@ t_env	*copy_env(t_env *env);
 void	sort_export_list(t_list *export_list);
 void	swap_content(t_list *a, t_list *b);
 void	export(t_cmd_list *list, t_list *env_list);
+void	print_export_list(t_list *env_list);
 int	    check_builtin_argv(char	*str);
-
+void	ft_exit(t_cmd_list *list, t_list *env_list);
+int		execute_builtin(t_shell *minishell);
+void	unset(t_cmd_list *list, t_list **env_list);
 /*   ---------------- parsing ----------------*/
 
 // env_init.c
@@ -60,6 +64,8 @@ int		find_end_pos(char *s, int i);
 char	*get_env_value(t_list *env_list, char *key);
 
 
+//execute
+void	set_cmd_path(t_cmd_list *list, t_list *env_list);
 
 // parsing.c
 int	parsing(t_shell *minishell, char *input);
@@ -103,6 +109,7 @@ void	lst_free(t_list *lst);
 void	split_free(char **str);
 int		ft_strcmp(const char *s1, const char *s2);
 void	memory_error(void);
+void	free_env(void *content);
 
 
 #endif 
