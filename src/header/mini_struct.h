@@ -47,7 +47,9 @@ typedef struct s_cmd_list
 	int					argc;
 	char				**argv;
 	char				*path;
-	
+	int					pipe_cnt;
+	int					pipe_fd[2];
+	pid_t				pid;
 	struct s_cmd_list	*next;			// 다음 cmd_list
 		
 }	t_cmd_list;
