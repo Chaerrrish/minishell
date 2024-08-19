@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/19 13:49:14 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:42:04 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void	set_cmd_path(t_cmd_list *list, t_list *env_list);
 // parsing.c
 int	parsing(t_shell *minishell, char *input);
 int add_cmd_list(t_shell *minishell, t_token *token_list);
-int get_cmd_data(t_cmd_list *cmd_list);
 
 
 
@@ -104,18 +103,31 @@ int			get_token_type(const char *str);
 int 		is_builtin(const char *str);
 
 
+// cmd_list
+t_cmd_list	*create_cmd_list_from_tokens(t_token *token_list);
+void	add_cmd_node(t_cmd_list **cmd_list, t_cmd_list *new_cmd);
+t_cmd_list	*create_cmd_node(t_token *start_token, int argc);
+
+
+
 
 
 
 // signal.c
 void	init_signal(void);
 
-// lst_free.c
-void	envlst_free(t_list *lst);
+
+// utils
+void	tonto_is_free(t_shell *minishell);
+void	free_env_list(t_list *lst);
+void	free_cmd_list(t_cmd_list *cmd_list);
+void	free_token_list(t_token *token_list);
+void	free_env(void *content);
+
+
+
 void	split_free(char **str);
 int		ft_strcmp(const char *s1, const char *s2);
 void	memory_error(void);
-void	free_env(void *content);
-
 
 #endif 

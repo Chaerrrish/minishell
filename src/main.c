@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:15:06 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/19 13:57:01 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/19 17:04:24 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static void	minishell(char **envp)
 		input = readline("tontoshell🌝 $ ");
 		if (!input) // EOF(Ctrl + D) or readline 오류시 에러핸들링
 			break;
+		if (ft_strlen(input) == 0)
+			continue;
 		if (parsing(&minishell, input) == -1) // parsing 에러시 -1
 		{
 			perror("parsing error\n");
@@ -42,6 +44,7 @@ static void	minishell(char **envp)
 		free(input);
 		minishell.cmd_list = minishell.cmd_list->next;
 	}
+	tonto_is_free(&minishell);
 }
 
 int	main(int argc, char **argv, char **envp)
