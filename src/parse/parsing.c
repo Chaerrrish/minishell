@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 13:29:32 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/18 18:16:58 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/19 13:37:12 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,19 @@ int parsing(t_shell *minishell, char *input)
 	// 	while (minishell->cmd_list->token_list != NULL)
 	// 	{
 	// 		printf("str: %s\n", minishell->cmd_list->token_list->str);
-	// 		printf("type: %d\n", minishell->cmd_list->token_list->type);
+	// 		printf("type: %d\n\n", minishell->cmd_list->token_list->type);
 	// 		minishell->cmd_list->token_list = minishell->cmd_list->token_list->next;
 	// 	}
-	// 	printf("argc: %d\n", minishell->cmd_list->argc);
+	// 	printf("argc: %d\n\n", minishell->cmd_list->argc);
 	// 	int i = 0;
 	// 	while (minishell->cmd_list->argv[i])
 	// 	{
 	// 		printf("argv[%d]: %s\n", i, minishell->cmd_list->argv[i]);
 	// 		i++;
 	// 	}
-	// 	printf("pipe_cnt: %d\n", minishell->cmd_list->pipe_cnt);
+	// 	printf("\npipe_cnt: %d\n", minishell->cmd_list->pipe_cnt);
 	// 	minishell->cmd_list = minishell->cmd_list->next;	
 	// }
-
-	
 
 	
     return (0);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lst_free.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 15:15:32 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/18 19:35:57 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/19 13:37:01 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
-void	lst_free(t_list *lst)
+void	envlst_free(t_list *lst)
 {
 	t_list	*tmp;
 	t_env	*env;

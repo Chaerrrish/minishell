@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/18 19:36:19 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/19 13:49:14 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 
 
 /* builtins */
+int		execute_builtin(t_shell *minishell);
 void	pwd(void);
 void	cd(t_cmd_list *list, t_list *env_list);
 void	ft_echo(t_cmd_list *list, t_list *env_list);
@@ -48,8 +49,14 @@ void	export(t_cmd_list *list, t_list *env_list);
 void	print_export_list(t_list *env_list);
 int	    check_builtin_argv(char	*str);
 void	ft_exit(t_cmd_list *list, t_list *env_list);
-int		execute_builtin(t_shell *minishell);
 void	unset(t_cmd_list *list, t_list **env_list);
+
+
+void	heredoc(t_cmd_list *list);
+void	heredoc_parent(int fd, char *delimeter);
+void	check_heredoc(t_cmd_list *list, t_token *token);
+void	execute_heredoc(char *delimeter);
+
 /*   ---------------- parsing ----------------*/
 
 // env_init.c
@@ -80,7 +87,6 @@ int			tokenize(t_shell *minishell, t_token **token_lst, char *input);
 void		process_quotes(const char c, t_token_iter *iter);
 void		process_token(t_shell *mini, t_token **token_lst, char *line, t_token_iter *iter);
 t_token		*new_token(char *line, int l, int r);
-int			tokenize_expand(t_shell *mini, t_token **token_lst, t_token *token);
 void		add_token(t_token **token_lst, t_token *token);
 // tokenize_remove.c
 void		remove_quotes(t_token *token_lst);
@@ -95,7 +101,7 @@ void		skip_whitespace(const char *input, t_token_iter *iter);
 int			is_quotation_str(char *str, int l, int r);
 int			check_token_type(char c);
 int			get_token_type(const char *str);
-int is_builtin(const char *str);
+int 		is_builtin(const char *str);
 
 
 
@@ -105,7 +111,7 @@ int is_builtin(const char *str);
 void	init_signal(void);
 
 // lst_free.c
-void	lst_free(t_list *lst);
+void	envlst_free(t_list *lst);
 void	split_free(char **str);
 int		ft_strcmp(const char *s1, const char *s2);
 void	memory_error(void);

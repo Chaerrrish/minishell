@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:50:40 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/17 00:03:13 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/18 18:29:12 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,6 @@ int get_cmd_data(t_cmd_list *cmd_list)
 	cmd_list->argc = get_argc(cmd_list->token_list);
 	if (get_argv(cmd_list, cmd_list->argc) != 0)
 		return (-1);
-	// int i = 0;
-	// while(cmd_list->argv[i])
-	// {
-	// 	printf("argv[%d]: %s\n",i, cmd_list->argv[i]);
-	// 	i++;
-	// }
 	get_pipe_count(cmd_list);
-	// printf("pipe_count: %d\n", cmd_list->pipe_cnt);
 	return (0);
 }

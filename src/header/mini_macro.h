@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 13:30:29 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/18 15:20:35 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/19 14:00:25 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@
 # define T_NULL 0
 # define T_WORD 1
 # define T_BULTIN 2
+# define T_EXECUTE 3
 
-# define T_ARG 3
 # define T_PIPE 4
-
 # define T_REDIR_IN 5
 # define T_REDIR_OUT 6
 # define T_REDIR_HERE 7

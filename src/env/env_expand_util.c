@@ -6,20 +6,20 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:59:20 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/18 17:22:15 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/19 13:41:16 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../header/minishell.h"
 
-t_env	*find_by_key(t_list *env_list, char *target_key)
+t_env	*find_by_key(t_list *env_list, char *target)
 {
 	t_list	*list;
 
 	list = env_list;
 	while (list)
 	{
-		if (ft_strcmp(((t_env *)list->content)->key, target_key) == 0)
+		if (ft_strcmp(((t_env *)list->content)->key, target) == 0)
 			return (list->content);
 		list = list->next;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:26:10 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/18 19:28:29 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/19 13:43:26 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	execute_builtin(t_shell *minishell)
 	else if (!(ft_strcmp(cmd->argv[0], "env")) \
 				|| ft_strcmp(cmd->argv[0], "ENV") == 0)
 		env(cmd, minishell->env_list);
-	else if (ft_strcmp(cmd->argv[0], "exit") == 0)
-		ft_exit(cmd, minishell->env_list);
+	// else if (ft_strcmp(cmd->argv[0], "exit") == 0)
+		// ft_exit(cmd, minishell->env_list);
 	else if (ft_strcmp(cmd->argv[0], "export") == 0)
 		export(cmd, minishell->env_list);
 	else if (!(ft_strcmp(cmd->argv[0], "pwd")) \
