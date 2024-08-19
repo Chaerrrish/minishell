@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 19:41:05 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/18 15:29:19 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/19 17:03:59 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct s_cmd_list
 	char				**argv;
 	char				*path;
 	int					pipe_cnt;
+	int					pipe_fd[2];
+	pid_t				pid;
 	
 	struct s_cmd_list	*next;			// 다음 cmd_list
 	

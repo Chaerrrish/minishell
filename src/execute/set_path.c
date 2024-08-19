@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/08/19 14:05:35 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/19 14:12:43 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,22 +97,27 @@ char	*get_cmd_path(char *cmd, t_list *env_list)
 			return (NULL);
 		cmd_path = find_path_in_envp(cmd, path_arr);
 	}
-	printf("cmd_path : %s\n", cmd_path);
 	return (cmd_path);
 }
 
 void	set_cmd_path(t_cmd_list *list, t_list *env_list)
 {
 	t_cmd_list *current;
+	t_token		*token;
 	
 	current = list;
 	while (current)
 	{
-		if (current->token_list->type == T_EXECUTE)
+		token = current->token_list;
+		while (token)
 		{
-			if (current->path)
-				free(current->path);
-			current->path = get_cmd_path(current->argv[0], env_list);
+			if (current->token_list->type != T_BULTIN)
+			{
+				if (current->path)
+					free(current->path);
+				current->path = get_cmd_path(current->argv[0], env_list);
+			}
+			token = token->next;
 		}
 		current = current->next;
 	}
