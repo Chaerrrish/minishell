@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 13:30:29 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/19 14:05:54 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/19 14:07:59 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define T_NULL 0
 # define T_WORD 1
+
 # define T_BULTIN 2
 # define T_EXECUTE 3
 

@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:13:40 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/18 16:54:18 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/19 14:26:12 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,4 @@ t_token	*token_lst_last(t_token *token_lst)
 	while (token_lst->next != NULL) // 마지막 요소를 찾을 때까지
 		token_lst = token_lst->next; // 다음 요소로 이동
 	return (token_lst); // 마지막 요소 반환
-}
-
-t_token	*expanded_new_token(char *line, int l, int r)
-{
-	t_token	*token;
-	char	*tmp;
-
-	token = (t_token *)ft_calloc(1, sizeof(t_token));
-	if (token == NULL)
-		memory_error();
-	token->str = ft_substr(line, l, r - l);
-	if (token->str == NULL)
-		memory_error();
-	token->type = get_token_type(token->str);
-	return (token);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_struct.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 19:41:05 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/19 17:03:59 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/19 15:35:21 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,8 @@ typedef struct s_cmd_list
 	int					pipe_cnt;
 	int					pipe_fd[2];
 	pid_t				pid;
-	
 	struct s_cmd_list	*next;			// 다음 cmd_list
-	
+		
 }	t_cmd_list;
 
 // 종합
