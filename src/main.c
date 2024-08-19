@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:15:06 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/19 20:08:30 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/19 20:16:52 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	minishell(char **envp)
 	{
 		fd_backup[0] = dup(STDIN_FILENO);	// 표준 입력 백업
 		fd_backup[1] = dup(STDOUT_FILENO);	// 표준 출력 백업
-		input = readline("tontoshell🌝 $ ");
+		input = readline("tontoshell ༼⍤༽ $ ");
 		if (!input) // EOF(Ctrl + D) or readline 오류시 에러핸들링
 			break;
 		if (ft_strlen(input) == 0)
