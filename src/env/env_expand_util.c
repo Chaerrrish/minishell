@@ -6,11 +6,11 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:59:20 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/18 19:31:54 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/19 13:41:16 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../header/minishell.h"
 
 t_env	*find_by_key(t_list *env_list, char *target)
 {

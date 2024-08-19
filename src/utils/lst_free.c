@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 15:15:32 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/18 20:12:50 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/19 13:37:01 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,22 @@ void	envlst_free(t_list *lst)
 		}
 		lst = lst->next;
 		free(tmp);
+	}
+}
+
+void	free_env(void *content)
+{
+	t_env *env;
+
+	env = (t_env *)content;
+	if (env)
+	{
+		if (env->key)
+			free(env->key);
+		if (env->value)
+			free(env->value);
+		if (env->data)
+			free(env->data);
+		free(env);
 	}
 }

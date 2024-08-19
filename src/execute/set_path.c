@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:08:50 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/18 15:00:07 by chaerin          ###   ########.fr       */
+/*   Updated: 2024/08/19 13:56:19 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	set_cmd_path(t_cmd_list *list, t_list *env_list)
 	current = list;
 	while (current)
 	{
-		if (current->token_list->type == T_ARG)
+		if (current->token_list->type == T_EXECUTE)
 		{
 			if (current->path)
 				free(current->path);

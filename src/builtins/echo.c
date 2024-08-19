@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaerin <chaerin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 20:38:25 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/18 17:25:09 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/18 20:30:22 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
-void	show_env(t_list *env_list, char *input)
+void	show_env(t_list *env_list, char *input, int *flag)
 {
 	t_list	*current;
 	t_env	*node;
@@ -30,13 +30,18 @@ void	show_env(t_list *env_list, char *input)
 		}
 		current = current->next;
 	}
+	*flag = 0;
 }
 
 void	ft_echo(t_cmd_list *list, t_list *env_list)
 {
 	int	i;
+	int	flag;
 
 	i = 1;
+	flag = 1;
+	if (ft_strcmp(list->argv[1], "-n") == 0)
+		flag = 0;
 	if (list->argc == 1)
 	{
 		printf("\n");
@@ -45,12 +50,18 @@ void	ft_echo(t_cmd_list *list, t_list *env_list)
 	while (list->argv[i])
 	{
 		if (list->argv[i][0] == '$')
-			show_env(env_list, list->argv[i]);
+			show_env(env_list, list->argv[i], &flag);
+		else if (ft_strcmp(list->argv[i], "-n") == 0)
+		{
+			i++;
+			continue;
+		}
 		else
 			printf("%s", list->argv[i]);
-		if (list->argv[i + 1] != NULL)
+		if (flag && list->argv[i + 1] != NULL)
 			printf(" ");
 		i++;
 	}
-	printf("\n");
+	if (flag == 1)
+		printf("\n");
 }
