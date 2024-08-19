@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   mini_macro.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 13:30:29 by wonyocho          #+#    #+#             */
 /*   Updated: 2024/08/19 14:07:59 by wonyocho         ###   ########.fr       */

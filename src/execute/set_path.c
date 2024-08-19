@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   set_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/16 15:08:50 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/19 13:56:19 by wonyocho         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/08/19 14:05:35 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../header/minishell.h"
 
@@ -96,6 +97,7 @@ char	*get_cmd_path(char *cmd, t_list *env_list)
 			return (NULL);
 		cmd_path = find_path_in_envp(cmd, path_arr);
 	}
+	printf("cmd_path : %s\n", cmd_path);
 	return (cmd_path);
 }
 
