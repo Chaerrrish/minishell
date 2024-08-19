@@ -6,13 +6,13 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 12:41:39 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/19 15:07:21 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/19 19:35:01 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
-static t_env	*get_env()
+static t_env	*new_env_node()
 {
 	t_env	*result;
 
@@ -68,7 +68,7 @@ void	init_envp_list(t_list **lst, char **envp)
 	*lst = NULL;
 	while (*envp)
 	{
-		env = get_env();
+		env = new_env_node();
 		if (!env)
 		{
 			perror("envp init failed\n");

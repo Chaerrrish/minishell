@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/19 18:57:06 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/19 20:20:23 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ void	execute_heredoc(char *delimeter);
 
 // env_init.c
 void	init_envp_list(t_list **lst, char **envp);
-// env_expand.c
-char	*expand_env(t_list *env_list, char *origin);
 // env_util.c
 t_env	*find_by_key(t_list *env_list, char *target_key);
 int		is_valid(char *s, int i);
@@ -89,12 +87,8 @@ t_token		*new_token(char *line, int l, int r);
 void		add_token(t_token **token_lst, t_token *token);
 // tokenize_remove.c
 void		remove_quotes(t_token *token_lst);
-// tokenize_util1.c
-void		token_free(t_token *token);
-void		token_lst_free(t_token *token_lst);
+// tokenize_util.c
 t_token		*token_lst_last(t_token *token_lst);
-t_token		*expanded_new_token(char *line, int l, int r);
-// tokenize_util2.c
 int			is_whitespace(const char c);
 void		skip_whitespace(const char *input, t_token_iter *iter);
 int			is_quotation_str(char *str, int l, int r);
@@ -104,9 +98,10 @@ int 		is_builtin(const char *str);
 
 
 // cmd_list
-t_cmd_list	*create_cmd_list_from_tokens(t_token *token_list);
-void	add_cmd_node(t_cmd_list **cmd_list, t_cmd_list *new_cmd);
-t_cmd_list	*create_cmd_node(t_token *start_token, int argc);
+t_cmd_list	*create_cmd_list(t_token *token_list);
+t_cmd_list	*new_cmd_node(t_token *start_token, int argc);
+void		add_cmd_node(t_cmd_list **cmd_list, t_cmd_list *new_cmd);
+t_token		*recreate_token(char **argv, int argc);
 
 
 
@@ -124,7 +119,7 @@ void	free_cmd_list(t_cmd_list *cmd_list);
 void	free_token_list(t_token *token_list);
 void	free_env(void *content);
 
-
+char	**list_to_array(t_list *list);
 
 void	split_free(char **str);
 int		ft_strcmp(const char *s1, const char *s2);
