@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 13:29:32 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/19 20:26:22 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/20 14:44:10 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ int parsing(t_shell *minishell, char *input)
     t_token *token_list;
 
     token_list = NULL;
-    if (tokenize(minishell, &token_list, input) != 0)
+	if (tokenize(minishell, &token_list, input) != 0)
         return (-1);
 	minishell->cmd_list = create_cmd_list(token_list);
+
 	// // !!!!! test !!!!!
 	// t_cmd_list *current_cmd = minishell->cmd_list;
 	// while (current_cmd != NULL)
@@ -43,5 +44,6 @@ int parsing(t_shell *minishell, char *input)
 	// 	printf("=========================================================\n");
 	// 	current_cmd = current_cmd->next;	
 	// }
-    return (0);
+    
+	return (0);
 }

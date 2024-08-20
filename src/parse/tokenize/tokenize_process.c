@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 20:25:43 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/19 13:48:59 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:43:48 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ void	process_token(t_shell *mini, t_token **token_lst, char *line, t_token_iter 
 
 	if (iter->end > iter->start) // 토큰의 길이가 0보다 크다면
 	{
-		current_token = new_token(line, iter->start, iter->end); // 새로운 토큰 생성
-		add_token(token_lst, current_token); // 토큰 리스트에 추가
+		current_token = new_token(line, iter->start, iter->end);
+		if (!tokenize_expand(mini, token_lst, current_token)) // 토큰 확장에 실패하면
+			add_token(token_lst, current_token);
 	}
 }
 
@@ -59,6 +60,36 @@ t_token	*new_token(char *line, int start, int end)
 	}
 	return (result); // 새로운 토큰 반환
 }
+
+int	tokenize_expand(t_shell *mini, t_token **token_lst, t_token *token)
+{
+	t_token	*last_token;
+	char	*new_line;
+	char	**splited;
+	t_token	*token_tmp;
+	int		i;
+
+	last_token = token_lst_last(*token_lst);
+	if ((last_token && last_token->type == T_REDIR_HERE) || (token->type == T_SINGLE_QUOTE))
+		return (0); // 리다이렉션이나 작은따옴표면 안해
+	new_line = expand_env(mini->env_list, token->str);
+	if (ft_strcmp(token->str, new_line) == 0)
+	{
+		free(new_line);
+		return (0); // add token으로 나간다
+	}
+	splited = ft_split(new_line, ' ');
+	i = 0;
+	while (splited[i])
+	{
+		token_tmp = expanded_new_token(splited[i], 0, ft_strlen(splited[i]));
+		add_token(token_lst, token_tmp);
+		i++;
+	}
+	token_free(token);
+	return (1);
+}
+
 
 // token 리스트에 새로운 token을 추가하는 함수
 void	add_token(t_token **token_lst, t_token *token)
