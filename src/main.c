@@ -44,7 +44,6 @@ static void	minishell(char **envp)
 		add_history(input);
 		free(input);
 	}
-	// system("leaks minishell");
 }
 
 int	main(int argc, char **argv, char **envp)

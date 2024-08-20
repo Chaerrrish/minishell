@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:36:49 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/19 19:05:48 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:41:21 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 t_cmd_list	*new_cmd_node(t_token *start_token, int argc)
 {
 	t_cmd_list	*new_cmd;
-	t_token 	*temp_token;
+	t_token		*temp_token;
 	int			i;
 
-	new_cmd = malloc(sizeof(t_cmd_list));
+	new_cmd = ft_calloc(1, (sizeof(t_cmd_list)));
 	if (!new_cmd)
-		return (NULL);
+		return (NULL);	
 	new_cmd->token_list = start_token;
 	new_cmd->argc = argc;
-	new_cmd->argv = malloc((argc + 1) * sizeof(char *));
+	new_cmd->argv = ft_calloc((argc + 1), sizeof(char *));
 	if (!new_cmd->argv)
 		return (NULL);
 	temp_token = start_token;
@@ -40,7 +40,7 @@ t_cmd_list	*new_cmd_node(t_token *start_token, int argc)
 
 void	add_cmd_node(t_cmd_list **cmd_list, t_cmd_list *new_cmd)
 {
-	t_cmd_list *current_cmd;
+	t_cmd_list	*current_cmd;
 
 	new_cmd->token_list = recreate_token(new_cmd->argv, new_cmd->argc);
 	current_cmd = *cmd_list;
@@ -56,9 +56,9 @@ void	add_cmd_node(t_cmd_list **cmd_list, t_cmd_list *new_cmd)
 
 t_token	*recreate_token(char **argv, int argc)
 {
-	t_token *result;
-	t_token *current_token;
-	t_token *new_token;
+	t_token	*result;
+	t_token	*current_token;
+	t_token	*new_token;
 	int		i;
 
 	result = NULL;
@@ -66,7 +66,7 @@ t_token	*recreate_token(char **argv, int argc)
 	i = 0;
 	while (i < argc)
 	{
-		new_token = malloc(sizeof(t_token));
+		new_token = ft_calloc(1, (sizeof(t_token)));
 		if (!new_token)
 			return (NULL);
 		new_token->str = strdup(argv[i]);

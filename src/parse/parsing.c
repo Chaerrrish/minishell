@@ -12,16 +12,32 @@
 
 #include "minishell.h"
 
-int parsing(t_shell *minishell, char *input)
+t_token	*is_redirection(t_token *token_list);
+
+
+
+int	parsing(t_shell *minishell, char *input)
 {
-    t_token *token_list;
-
-    token_list = NULL;
+	t_token	*token_list;
+	t_token *free_temp;
+	
+	token_list = NULL;
 	if (tokenize(minishell, &token_list, input) != 0)
-        return (-1);
-	minishell->cmd_list = create_cmd_list(token_list);
+		return (-1);
+	token_list = is_redirection(token_list);
+	// t_token *ptr = token_list;
+	// while (ptr)
+	// {
+	// 	printf("-----------------\n");
+	// 	printf("str: %s\n", ptr->str);
+	// 	printf("len: %d\n", ft_strlen(ptr->str));
+	// 	printf("type: %d\n", ptr->type);
+	// 	ptr = ptr->next;
+	// }
 
-	// !!!!! test !!!!!
+	minishell->cmd_list = create_cmd_list(token_list);
+	
+	// // !!!!! test !!!!!
 	// t_cmd_list *current_cmd = minishell->cmd_list;
 	// while (current_cmd != NULL)
 	// {
@@ -42,8 +58,35 @@ int parsing(t_shell *minishell, char *input)
 	// 		i++;
 	// 	}
 	// 	printf("=========================================================\n");
-	// 	current_cmd = current_cmd->next;	
+	// 	current_cmd = current_cmd->next;
 	// }
-    
 	return (0);
+}
+
+t_token	*is_redirection(t_token *token_list)
+{
+	t_token *result;
+
+	result = token_list;
+	while (result)
+	{
+		if (ft_strlen(result->str) != 2 && ft_strncmp(result->str, "<<", 2) == 0)
+		{
+			int	i = 0;
+			t_token *add;
+			while (result->str[i])
+				i++;
+			add = ft_calloc(1, sizeof(t_token));
+			add->str = ft_strdup(ft_substr(result->str, 2, i - 2));
+			add->type = T_WORD;
+
+			result->str = ft_substr(result->str, 0, 2);
+			result->type = T_REDIR_HERE;
+			
+			add->next = result->next;
+			result->next = add;
+		}
+		result = result->next;
+	}
+	return (token_list);
 }

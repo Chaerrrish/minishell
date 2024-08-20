@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:29:50 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/19 18:47:24 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/20 19:09:24 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	free_cmd_list(t_cmd_list *cmd_list)
 				free(cmd_list->argv[i]);
 				i++;
 			}
+			free(cmd_list->argv);
 		}
 		if (cmd_list->path)
 			free(cmd_list->path);

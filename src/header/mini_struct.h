@@ -18,8 +18,8 @@ typedef struct s_token_iter
 {
 	int	start;
 	int	end;
-	int	in_squote;
-	int	in_dquote;
+	int	in_sq;
+	int	in_dq;
 }	t_token_iter;
 
 // 환경변수(리스트)

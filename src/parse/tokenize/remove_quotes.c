@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenize_remove.c                                  :+:      :+:    :+:   */
+/*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:14:50 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/20 13:05:35 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:21:13 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../header/minishell.h"
 
 static void	do_remove(t_token *token);
 
@@ -36,8 +36,10 @@ static void	do_remove(t_token *token)
 	new_str = (char *)ft_calloc(length + 1, sizeof(char));
 	while (i < length)
 	{
-		if (((token->type != T_SINGLE_QUOTE && token->type != T_DOUBLE_QUOTE) && (token->str[i] != '\'' || token->str[i] != '\"'))
-			|| ((token->str[i] != '\'' && token->type == T_SINGLE_QUOTE) || (token->str[i] != '"' && token->type == T_DOUBLE_QUOTE)))
+		if (((token->type != T_SINGLE_QUOTE && token->type != T_DOUBLE_QUOTE)
+				&& (token->str[i] != '\'' || token->str[i] != '\"'))
+			|| ((token->str[i] != '\'' && token->type == T_SINGLE_QUOTE)
+				|| (token->str[i] != '"' && token->type == T_DOUBLE_QUOTE)))
 		{
 			new_str[j++] = token->str[i];
 		}
