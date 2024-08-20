@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:15:06 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/20 13:00:51 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:50:17 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static void	minishell(char **envp)
 		add_history(input);
 		free(input);
 	}
-	// system("leaks minishell");
 }
 
 int	main(int argc, char **argv, char **envp)

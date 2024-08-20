@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/20 13:11:09 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:49:55 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ char	*get_env_value(t_list *env_list, char *key);
 t_token	*expanded_new_token(char *line, int l, int r);
 char	*expand_env(t_list *env_list, char *origin);
 void	token_free(t_token *token);
+void	sum_splited_env(t_token **token_lst, char *new_line);
+
 
 
 
@@ -91,7 +93,7 @@ int add_cmd_list(t_shell *minishell, t_token *token_list);
 // tokenize.c
 int			tokenize(t_shell *minishell, t_token **token_lst, char *input);
 // tokenize_process.c
-void		process_quotes(const char c, t_token_iter *iter);
+void		process_quotes(char *input, t_token_iter *iter);
 void		process_token(t_shell *mini, t_token **token_lst, char *line, t_token_iter *iter);
 t_token		*new_token(char *line, int l, int r);
 int	tokenize_expand(t_shell *mini, t_token **token_lst, t_token *token);
@@ -101,11 +103,12 @@ void		remove_quotes(t_token *token_lst);
 // tokenize_util.c
 t_token		*token_lst_last(t_token *token_lst);
 int			is_whitespace(const char c);
-void		skip_whitespace(const char *input, t_token_iter *iter);
-int			is_quotation_str(char *str, int l, int r);
+int	is_quotation_str(char *str, int start, int end);
 int			check_token_type(char c);
 int			get_token_type(const char *str);
 int 		is_builtin(const char *str);
+t_token	*get_quote_str(t_token *result, char *input, int start, int end);
+
 
 
 // cmd_list
