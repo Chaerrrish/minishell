@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:16:18 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/20 13:00:59 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:36:34 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,24 @@ void	execute_cmd(t_cmd_list *cmd, t_shell *shell)
 
 	envp = list_to_array(shell->env_list);
 	if (cmd->next != NULL)
-		cmd->pid = fork();
+	{
+		if (pipe(cmd->pipe_fd) == -1)
+		{
+			perror("pipe");
+			exit(1);
+		}
+	}
+	cmd->pid = fork();
 	if (cmd->pid == -1)
 		return ;
-	else if (cmd->pid == 0)
+	else if (cmd->pid == 0)	//자식 프로세스
 	{
+		if (cmd->next != NULL)
+		{
+			dup2(cmd->pipe_fd[1], STDOUT_FILENO);
+			close(cmd->pipe_fd[1]);
+			close(cmd->pipe_fd[0]);
+		}
 		if (cmd->token_list->type == T_BULTIN)
 		{
 			execute_builtin(shell);
@@ -50,8 +63,14 @@ void	execute_cmd(t_cmd_list *cmd, t_shell *shell)
 			exit(0);
 		}
 	}
-	else
+	else	//부모 프로세스
 	{
+		if (cmd->next != NULL)
+		{
+			dup2(cmd->pipe_fd[0], STDIN_FILENO);
+			close(cmd->pipe_fd[0]);
+			close(cmd->pipe_fd[1]);
+		}
 		waitpid(cmd->pid, NULL, 0);
 	}
 	split_free(envp);
@@ -63,7 +82,10 @@ void	execute_child(t_cmd_list *cmd, t_shell *shell, char  **envp)
 	{
 		set_cmd_path(cmd, shell->env_list);
 		if (cmd->path == NULL)
+		{
 			print_cmd_error(cmd->argv[0]);
+			exit(1);
+		}
 		if (execve(cmd->path, cmd->argv, envp) < 0)
 		{
 			perror("execve");
