@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/19 20:37:03 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/20 13:11:09 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ int		is_valid(char *s, int i);
 int		find_start_pos(char *s);
 int		find_end_pos(char *s, int i);
 char	*get_env_value(t_list *env_list, char *key);
+t_token	*expanded_new_token(char *line, int l, int r);
+char	*expand_env(t_list *env_list, char *origin);
+void	token_free(t_token *token);
 
 
 
@@ -91,6 +94,7 @@ int			tokenize(t_shell *minishell, t_token **token_lst, char *input);
 void		process_quotes(const char c, t_token_iter *iter);
 void		process_token(t_shell *mini, t_token **token_lst, char *line, t_token_iter *iter);
 t_token		*new_token(char *line, int l, int r);
+int	tokenize_expand(t_shell *mini, t_token **token_lst, t_token *token);
 void		add_token(t_token **token_lst, t_token *token);
 // tokenize_remove.c
 void		remove_quotes(t_token *token_lst);
