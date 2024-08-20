@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 20:38:25 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/19 21:18:47 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/20 17:21:09 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,7 @@ void	ft_echo(t_cmd_list *list, t_list *env_list)
 	}
 	while (list->argv[i])
 	{
-		if (list->argv[i][0] == '$')
-			show_env(env_list, list->argv[i], &flag);
-		else if (ft_strcmp(list->argv[i], "-n") == 0)
+		if (ft_strcmp(list->argv[i], "-n") == 0)
 		{
 			i++;
 			continue;

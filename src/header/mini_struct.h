@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_struct.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 19:41:05 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/20 15:49:57 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/20 19:27:56 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct s_cmd_list
 	char				**argv;
 	char				*path;
 	int					pipe_cnt;
+	int					input_fd;
+	char				*heredoc_file;
 	int					pipe_fd[2];
 	pid_t				pid;
 	struct s_cmd_list	*next;			// 다음 cmd_list
