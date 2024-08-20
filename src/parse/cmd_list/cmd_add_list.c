@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:36:49 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/20 20:41:21 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/20 21:05:54 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_cmd_list	*new_cmd_node(t_token *start_token, int argc)
 	new_cmd = ft_calloc(1, (sizeof(t_cmd_list)));
 	if (!new_cmd)
 		return (NULL);	
+	new_cmd->input_fd = -1;
 	new_cmd->token_list = start_token;
 	new_cmd->argc = argc;
 	new_cmd->argv = ft_calloc((argc + 1), sizeof(char *));
@@ -95,6 +96,7 @@ t_cmd_list	*create_cmd_list(t_token *token_list)
 	{
 		if (token_list->type == T_PIPE)
 		{
+			printf("%s\n", token_list->str);
 			add_cmd_node(&cmd_list, new_cmd_node(start_token, argc));
 			start_token = token_list->next;
 			argc = 0;

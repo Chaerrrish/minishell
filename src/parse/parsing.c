@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 13:29:32 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/20 14:58:39 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/20 21:04:11 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	parsing(t_shell *minishell, char *input)
 	if (tokenize(minishell, &token_list, input) != 0)
 		return (-1);
 	token_list = is_redirection(token_list);
+	
 	// t_token *ptr = token_list;
 	// while (ptr)
 	// {
@@ -41,15 +42,14 @@ int	parsing(t_shell *minishell, char *input)
 	// t_cmd_list *current_cmd = minishell->cmd_list;
 	// while (current_cmd != NULL)
 	// {
-	// 	printf("=========================================================\n");
 	// 	t_token *current_token = current_cmd->token_list;
+	// 	printf("=========================================================\n");
 	// 	while (current_token != NULL)
 	// 	{
 	// 		printf("str: %s\n", current_token->str);
 	// 		printf("type: %d\n", current_token->type);
 	// 		current_token = current_token->next;
 	// 	}
-
 	// 	int i = 0;
 	// 	printf("argc: %d\n", current_cmd->argc);
 	// 	while (current_cmd->argv[i])
@@ -60,6 +60,7 @@ int	parsing(t_shell *minishell, char *input)
 	// 	printf("=========================================================\n");
 	// 	current_cmd = current_cmd->next;
 	// }
+	
 	return (0);
 }
 
