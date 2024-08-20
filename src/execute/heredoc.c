@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:26:21 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/19 21:23:21 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/20 20:23:46 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	check_heredoc(t_cmd_list *list, t_token *token)
 	delimeter = ft_strdup(token->next->str);
 	if (delimeter == NULL)
 		return ;
-	execute_heredoc(delimeter);
+	execute_heredoc(delimeter, list);
 	free(delimeter);
 }
 
@@ -69,7 +69,7 @@ char	*make_tmp_file(void)
 	}
 }
 
-void	execute_heredoc(char *delimeter)
+void	execute_heredoc(char *delimeter, t_cmd_list *cmd)
 {
 	int	fd;
 	char	*filename;
@@ -84,44 +84,42 @@ void	execute_heredoc(char *delimeter)
 	}
 	heredoc_parent(fd, delimeter);
 	close(fd);
-	if (fork() == 0)
+	if (cmd->input_fd != -1)
+		close(cmd->input_fd);
+	printf("filename : %s\n", filename);
+	cmd->input_fd = open(filename, O_RDONLY);
+	printf("cmd->input_fd : %d\n", cmd->input_fd);
+	if (cmd->input_fd == -1)
 	{
-		fd = open(filename, O_RDONLY);
-		if (fd == -1)
-		{
-			perror("open");
-			free(filename);
-			exit(1);
-		}
-		dup2(fd, STDIN_FILENO);
-		close(fd);
-	}
-	wait(NULL);
-	// unlink(filename);
-	 
-	// free(filename);
+		perror("open");
+		free(filename);
+		return ;
+	}	
+	if (cmd->heredoc_file)
+		free(cmd->heredoc_file);
+	cmd->heredoc_file = filename;
 }
 
 void	heredoc_parent(int fd, char *delimeter)
 {
 	char	*line;
+	
 	while (1)
 	{
 		line = readline("> ");
-		if (line)
+		if (line == NULL)
 		{
-			if (ft_strcmp(line, delimeter) != 0)
-			{
-				write(fd, line, ft_strlen(line));
-				write(fd, "\n", 1);
-				free(line);
-			}
-			else
-			{
-				free(line);
-				return ;
-			}
+			write(2, "readline error\n", 12);
+			break ;
 		}
+		if (ft_strcmp(line, delimeter) == 0)
+		{
+			free(line);
+			break ;
+		}
+		write(fd, line, ft_strlen(line));
+		write(fd, "\n", 1);
+		free(line);
 	}
 }
 

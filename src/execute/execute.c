@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:16:18 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/20 17:36:34 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/20 20:29:02 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,18 @@ void	execute_cmd(t_cmd_list *cmd, t_shell *shell)
 	}
 	cmd->pid = fork();
 	if (cmd->pid == -1)
-		return ;
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
 	else if (cmd->pid == 0)	//자식 프로세스
 	{
+		if (cmd->input_fd != -1)
+		{
+			printf("input_fd\n");
+			dup2(cmd->input_fd, STDIN_FILENO);
+			close(cmd->input_fd);
+		}
 		if (cmd->next != NULL)
 		{
 			dup2(cmd->pipe_fd[1], STDOUT_FILENO);
@@ -65,13 +74,24 @@ void	execute_cmd(t_cmd_list *cmd, t_shell *shell)
 	}
 	else	//부모 프로세스
 	{
-		if (cmd->next != NULL)
+		if (cmd->input_fd != -1)
+		{
+			close(cmd->input_fd);
+			cmd->input_fd = -1;
+		}
+		if (cmd->next != NULL) //다음 명령어가 있을 경우
 		{
 			dup2(cmd->pipe_fd[0], STDIN_FILENO);
 			close(cmd->pipe_fd[0]);
 			close(cmd->pipe_fd[1]);
 		}
 		waitpid(cmd->pid, NULL, 0);
+		if (cmd->heredoc_file)
+		{
+			unlink(cmd->heredoc_file);
+			free(cmd->heredoc_file);
+			cmd->heredoc_file = NULL;
+		}
 	}
 	split_free(envp);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/20 13:11:09 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/20 19:29:19 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	unset(t_cmd_list *list, t_list **env_list);
 void	heredoc(t_cmd_list *list);
 void	heredoc_parent(int fd, char *delimeter);
 void	check_heredoc(t_cmd_list *list, t_token *token);
-void	execute_heredoc(char *delimeter);
+void	execute_heredoc(char *delimeter, t_cmd_list *cmd);
 
 /* execute */
 //set_path.c
