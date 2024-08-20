@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_add_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:36:49 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/20 21:05:54 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/20 21:10:47 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ t_cmd_list	*create_cmd_list(t_token *token_list)
 	{
 		if (token_list->type == T_PIPE)
 		{
-			printf("%s\n", token_list->str);
 			add_cmd_node(&cmd_list, new_cmd_node(start_token, argc));
 			start_token = token_list->next;
 			argc = 0;
