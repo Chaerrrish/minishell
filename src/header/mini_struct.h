@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 19:41:05 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/19 15:35:21 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:49:57 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ typedef struct s_token_iter
 {
 	int	start;
 	int	end;
-	int	in_squote;
-	int	in_dquote;
+	int	in_sq;
+	int	in_dq;
 }	t_token_iter;
 
 // 환경변수(리스트)
