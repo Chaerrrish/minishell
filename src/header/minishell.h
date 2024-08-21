@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/21 18:03:05 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/21 20:18:38 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	execute_heredoc(char *delimeter, t_cmd_list *cmd);
 
 //redir.c
 void	redirection(t_cmd_list *cmd);
+void	redir_in(t_cmd_list *cmd, t_token *token);
 void	redir_out(t_cmd_list *cmd, t_token *token);
 /*   ---------------- parsing ----------------*/
 

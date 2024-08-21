@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:59:33 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/21 20:11:10 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/21 20:24:33 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ void	redir_out(t_cmd_list *cmd, t_token *token)
 	if (cmd->out_fd != -1)
 		close(cmd->out_fd);
 	cmd->out_fd = redir_fd;
-	if (cmd->pipe_fd[1] == -1)
-	{
-		dup2(cmd->out_fd, STDOUT_FILENO);
-		close(cmd->out_fd);
-	}
+	// if (cmd->pipe_fd[1] == -1)
+	// {
+	// 	dup2(cmd->out_fd, STDOUT_FILENO);
+	// 	close(cmd->out_fd);
+	// }
 }
 
 void	redir_in(t_cmd_list *cmd, t_token *token)
@@ -80,11 +80,11 @@ void	redir_in(t_cmd_list *cmd, t_token *token)
 	if (cmd->in_fd != -1)
 		close(cmd->in_fd);
 	cmd->in_fd = redir_fd;
-	if (cmd->pipe_fd[0] == -1)
-	{
-		dup2(cmd->in_fd, STDIN_FILENO);
-		close(cmd->in_fd);
-	}
+	// if (cmd->pipe_fd[0] == -1)
+	// {
+	// 	dup2(cmd->in_fd, STDIN_FILENO);
+	// 	close(cmd->in_fd);
+	// }
 }
 
 
