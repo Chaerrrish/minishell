@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:26:21 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/20 20:23:46 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/21 13:47:40 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,7 @@ void	execute_heredoc(char *delimeter, t_cmd_list *cmd)
 	close(fd);
 	if (cmd->input_fd != -1)
 		close(cmd->input_fd);
-	printf("filename : %s\n", filename);
 	cmd->input_fd = open(filename, O_RDONLY);
-	printf("cmd->input_fd : %d\n", cmd->input_fd);
 	if (cmd->input_fd == -1)
 	{
 		perror("open");
