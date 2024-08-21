@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 13:29:32 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/20 21:10:36 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/21 09:25:32 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*is_redirection(t_token *token_list);
+t_token	*detach_redirection(t_token *token_list);
+void	detach(t_token *result, int junction, int cur_type);
 
 
 
@@ -24,9 +25,9 @@ int	parsing(t_shell *minishell, char *input)
 	token_list = NULL;
 	if (tokenize(minishell, &token_list, input) != 0)
 		return (-1);
-	token_list = is_redirection(token_list);
+	t_token *ptr = token_list;
+	token_list = detach_redirection(token_list);
 	
-	// t_token *ptr = token_list;
 	// while (ptr)
 	// {
 	// 	printf("-----------------\n");
@@ -64,7 +65,7 @@ int	parsing(t_shell *minishell, char *input)
 	return (0);
 }
 
-t_token	*is_redirection(t_token *token_list)
+t_token	*detach_redirection(t_token *token_list)
 {
 	t_token *result;
 
@@ -72,22 +73,31 @@ t_token	*is_redirection(t_token *token_list)
 	while (result)
 	{
 		if (ft_strlen(result->str) != 2 && ft_strncmp(result->str, "<<", 2) == 0)
-		{
-			int	i = 0;
-			t_token *add;
-			while (result->str[i])
-				i++;
-			add = ft_calloc(1, sizeof(t_token));
-			add->str = ft_strdup(ft_substr(result->str, 2, i - 2));
-			add->type = T_WORD;
-
-			result->str = ft_substr(result->str, 0, 2);
-			result->type = T_REDIR_HERE;
-			
-			add->next = result->next;
-			result->next = add;
-		}
+			detach(result, 2, T_REDIR_HERE);
+		else if (ft_strlen(result->str) != 2 && ft_strncmp(result->str, ">>", 2) == 0)
+			detach(result, 2, T_REDIR_APPEND);
+		else if (ft_strlen(result->str) != 1 && ft_strncmp(result->str, ">", 1) == 0)
+			detach(result, 1, T_REDIR_OUT);
+		else if (ft_strlen(result->str) != 1 && ft_strncmp(result->str, "<", 1) == 0)
+			detach(result, 1, T_REDIR_IN);
 		result = result->next;
 	}
 	return (token_list);
+}
+
+void	detach(t_token *result, int junction, int cur_type)
+{
+	int		i;
+	t_token	*add;
+
+	i = 0;
+	while (result->str[i])
+		i++;
+	add = ft_calloc(1, sizeof(t_token));
+	add->str = ft_strdup(ft_substr(result->str, junction, i - junction));
+	add->type = T_WORD;
+	result->str = ft_substr(result->str, 0, junction);
+	result->type = cur_type;
+	add->next = result->next;
+	result->next = add;
 }
