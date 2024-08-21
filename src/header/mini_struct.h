@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 19:41:05 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/20 19:27:56 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/21 17:41:55 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ typedef struct s_cmd_list
 	char				**argv;
 	char				*path;
 	int					pipe_cnt;
-	int					input_fd;
+	int					in_fd;
+	int					out_fd;
 	char				*heredoc_file;
 	int					pipe_fd[2];
 	pid_t				pid;

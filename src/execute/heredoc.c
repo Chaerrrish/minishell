@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:26:21 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/21 13:47:40 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/21 17:49:03 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,12 @@ void	execute_heredoc(char *delimeter, t_cmd_list *cmd)
 		free(filename);
 		return ;
 	}
-	heredoc_parent(fd, delimeter);
+	heredoc_main(fd, delimeter);
 	close(fd);
-	if (cmd->input_fd != -1)
-		close(cmd->input_fd);
-	cmd->input_fd = open(filename, O_RDONLY);
-	if (cmd->input_fd == -1)
+	if (cmd->in_fd != -1)
+		close(cmd->in_fd);
+	cmd->in_fd = open(filename, O_RDONLY);
+	if (cmd->in_fd == -1)
 	{
 		perror("open");
 		free(filename);
@@ -98,7 +98,7 @@ void	execute_heredoc(char *delimeter, t_cmd_list *cmd)
 	cmd->heredoc_file = filename;
 }
 
-void	heredoc_parent(int fd, char *delimeter)
+void	heredoc_main(int fd, char *delimeter)
 {
 	char	*line;
 	
