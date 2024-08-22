@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:16:18 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/21 18:02:26 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/22 15:36:31 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	execute_cmd(t_cmd_list *cmd, t_shell *shell)
 		perror("fork");
 		exit(EXIT_FAILURE);
 	}
-	else if (cmd->pid == 0)	//자식 프로세스
+	else if (cmd->pid == 0)
 	{
 		change_inout(cmd);
 		if (cmd->token_list->type == T_BULTIN)
@@ -61,10 +61,8 @@ void	execute_cmd(t_cmd_list *cmd, t_shell *shell)
 			exit(0);
 		}
 	}
-	else	//부모 프로세스
-	{
+	else
 		execute_parent(cmd);
-	}
 	split_free(envp);
 }
 
@@ -83,23 +81,7 @@ void	change_inout(t_cmd_list *cmd)
 		dup2(heredoc_fd, STDIN_FILENO);
 		close(heredoc_fd);
 	}
-	else if (cmd->in_fd != -1)
-	{
-		dup2(cmd->in_fd, STDIN_FILENO);
-		close(cmd->in_fd);
-	}
-	redir_out(cmd, cmd->token_list);
-	if (cmd->next != NULL)
-	{
-		dup2(cmd->pipe_fd[1], STDOUT_FILENO);
-		close(cmd->pipe_fd[1]);
-		close(cmd->pipe_fd[0]);
-	}
-	if (cmd->out_fd != -1)
-	{
-		dup2(cmd->out_fd, STDOUT_FILENO);
-		close(cmd->out_fd);
-	}
+	set_redir_inout(cmd);
 }
 
 void	execute_parent(t_cmd_list *cmd)
@@ -109,7 +91,7 @@ void	execute_parent(t_cmd_list *cmd)
 		close(cmd->in_fd);
 		cmd->in_fd = -1;
 	}
-	if (cmd->next != NULL) //다음 명령어가 있을 경우
+	if (cmd->next != NULL)
 	{
 		dup2(cmd->pipe_fd[0], STDIN_FILENO);
 		close(cmd->pipe_fd[0]);
@@ -124,7 +106,7 @@ void	execute_parent(t_cmd_list *cmd)
 	}
 }
 
-void	execute_child(t_cmd_list *cmd, t_shell *shell, char  **envp)
+void	execute_child(t_cmd_list *cmd, t_shell *shell, char **envp)
 {
 	if (cmd->token_list->type == T_WORD)
 	{

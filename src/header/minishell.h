@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/21 20:18:38 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/22 15:38:51 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # include "mini_struct.h"
 # include "mini_signal.h"
 
-
+int	g_exit_status;
 
 
 /* builtins */
@@ -72,8 +72,10 @@ void	execute_heredoc(char *delimeter, t_cmd_list *cmd);
 
 //redir.c
 void	redirection(t_cmd_list *cmd);
+void	set_redir_inout(t_cmd_list *cmd);
 void	redir_in(t_cmd_list *cmd, t_token *token);
 void	redir_out(t_cmd_list *cmd, t_token *token);
+t_token	*get_last_redir(t_token *token);
 /*   ---------------- parsing ----------------*/
 
 // env_init.c
@@ -88,6 +90,7 @@ t_token	*expanded_new_token(char *line, int l, int r);
 char	*expand_env(t_list *env_list, char *origin);
 void	token_free(t_token *token);
 void	sum_splited_env(t_token **token_lst, char *new_line);
+void	change_to_value(char *result, char *front, char *env_value, char *back);
 
 
 
