@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:36:49 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/22 13:29:44 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:02:41 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,22 @@ t_cmd_list	*create_cmd_list(t_token *total_token_list)
 	t_cmd_list	*cmd_return;
 	t_token		*current_token;
 
+	new_cmd = ft_calloc(1, (sizeof(t_cmd_list)));
+	if (!new_cmd)
+		return (NULL);	
+	new_cmd->in_fd = -1;
+	new_cmd->out_fd = -1;
+	new_cmd->heredoc_file = NULL;
+	new_cmd->token_list = start_token;
+	new_cmd->pipe_fd[0] = -1;
+	new_cmd->pipe_fd[1] = -1;
+	new_cmd->argc = argc;
+	new_cmd->argv = ft_calloc((argc + 1), sizeof(char *));
+	if (!new_cmd->argv)
+		return (NULL);
+	temp_token = start_token;
+	i = 0;
+	while (temp_token && i < argc)
 	cmd_list = init_cmd_node();
 	cmd_return = cmd_list;
 	current_token = cmd_list->token_list;

@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/22 12:40:54 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/21 20:18:38 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,6 @@ void	ft_exit(t_cmd_list *list, t_list *env_list);
 void	unset(t_cmd_list *list, t_list **env_list);
 
 
-void	heredoc(t_cmd_list *list);
-void	heredoc_parent(int fd, char *delimeter);
-void	check_heredoc(t_cmd_list *list, t_token *token);
-void	execute_heredoc(char *delimeter, t_cmd_list *cmd);
-
 /* execute */
 //set_path.c
 void	set_cmd_path(t_cmd_list *list, t_list *env_list);
@@ -65,7 +60,20 @@ void	set_cmd_path(t_cmd_list *list, t_list *env_list);
 void	execute(t_shell	*shell);
 void	execute_cmd(t_cmd_list *cmd, t_shell *shell);
 void	execute_child(t_cmd_list *cmd, t_shell *shell, char  **envp);
+void	execute_parent(t_cmd_list *cmd);
+void	change_inout(t_cmd_list *cmd);
 
+//heredoc.c
+void	heredoc(t_cmd_list *list);
+void	heredoc_main(int fd, char *delimeter);
+void	check_heredoc(t_cmd_list *list, t_token *token);
+void	execute_heredoc(char *delimeter, t_cmd_list *cmd);
+
+
+//redir.c
+void	redirection(t_cmd_list *cmd);
+void	redir_in(t_cmd_list *cmd, t_token *token);
+void	redir_out(t_cmd_list *cmd, t_token *token);
 /*   ---------------- parsing ----------------*/
 
 // env_init.c

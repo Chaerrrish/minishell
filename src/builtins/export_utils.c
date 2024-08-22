@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 16:23:54 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/18 19:31:07 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/21 13:54:50 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,10 @@ void	print_export_list(t_list *env_list)
 	while (current != NULL)
 	{
 		node = (t_env *)current->content;
-		printf("declare -x %s\n", node->data);
+		if (ft_strlen(node->value) != 0)
+			printf("declare -x %s=\"%s\"\n", node->key, node->value);
+		else
+			printf("declare -x %s\n", node->key);
 		current = current->next;
 	}
 }
