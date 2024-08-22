@@ -3,108 +3,95 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_add_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:36:49 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/20 21:10:47 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/22 13:29:44 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_cmd_list	*new_cmd_node(t_token *start_token, int argc)
+t_cmd_list	*create_cmd_list(t_token *total_token_list)
 {
-	t_cmd_list	*new_cmd;
-	t_token		*temp_token;
-	int			i;
+	t_cmd_list	*cmd_list;
+	t_cmd_list	*cmd_return;
+	t_token		*current_token;
 
-	new_cmd = ft_calloc(1, (sizeof(t_cmd_list)));
-	if (!new_cmd)
-		return (NULL);	
-	new_cmd->input_fd = -1;
-	new_cmd->token_list = start_token;
-	new_cmd->argc = argc;
-	new_cmd->argv = ft_calloc((argc + 1), sizeof(char *));
-	if (!new_cmd->argv)
+	cmd_list = init_cmd_node();
+	cmd_return = cmd_list;
+	current_token = cmd_list->token_list;
+	while (total_token_list != NULL)
+	{
+		if (ft_strcmp(total_token_list->str, "|") == 0)
+		{
+			printf("cur_argc: %d\n", cmd_list->argc);
+			cmd_list->argv = get_argv(cmd_list->token_list, cmd_list->argc);
+			cmd_list->next = init_cmd_node();
+			cmd_list = cmd_list->next;
+			current_token = cmd_list->token_list;
+		}
+		else // 현재가 파이프가 아닐경우
+		{
+			current_token->str = ft_strdup(total_token_list->str);
+			current_token->type = get_token_type(current_token->str);
+
+			cmd_list->argc++;
+			if (ft_strcmp(current_token->str, "<") == 0 || ft_strcmp(current_token->str, ">") == 0
+				|| ft_strcmp(current_token->str, ">>") == 0 || ft_strcmp(current_token->str, "<<") == 0)
+			{
+				cmd_list->argc--;
+				if (total_token_list->next != NULL)
+					cmd_list->argc--;
+			}
+
+			if (total_token_list->next != NULL)
+			{
+				if (ft_strcmp(total_token_list->next->str, "|") != 0)
+				{
+					current_token->next = ft_calloc(1, sizeof(t_token));
+					current_token = current_token->next;
+				}
+			}
+		}
+		total_token_list = total_token_list->next;
+	}
+	cmd_list->argv = get_argv(cmd_list->token_list, cmd_list->argc);
+	return (cmd_return);
+}
+
+t_cmd_list *init_cmd_node(void)
+{
+	t_cmd_list *result;
+
+	result = ft_calloc(1, sizeof(t_cmd_list));
+	if (!result)
 		return (NULL);
-	temp_token = start_token;
-	i = 0;
-	while (temp_token && i < argc)
-	{
-		new_cmd->argv[i++] = ft_strdup(temp_token->str);
-		temp_token = temp_token->next;
-	}
-	new_cmd->argv[argc] = NULL;
-	new_cmd->next = NULL;
-	return (new_cmd);
-}
-
-void	add_cmd_node(t_cmd_list **cmd_list, t_cmd_list *new_cmd)
-{
-	t_cmd_list	*current_cmd;
-
-	new_cmd->token_list = recreate_token(new_cmd->argv, new_cmd->argc);
-	current_cmd = *cmd_list;
-	if (!current_cmd)
-		*cmd_list = new_cmd;
-	else
-	{
-		while (current_cmd->next)
-			current_cmd = current_cmd->next;
-		current_cmd->next = new_cmd;
-	}
-}
-
-t_token	*recreate_token(char **argv, int argc)
-{
-	t_token	*result;
-	t_token	*current_token;
-	t_token	*new_token;
-	int		i;
-
-	result = NULL;
-	current_token = NULL;
-	i = 0;
-	while (i < argc)
-	{
-		new_token = ft_calloc(1, (sizeof(t_token)));
-		if (!new_token)
-			return (NULL);
-		new_token->str = strdup(argv[i]);
-		new_token->type = get_token_type(argv[i]);
-		new_token->next = NULL;
-		if (!result)
-			result = new_token;
-		else
-			current_token->next = new_token;
-		current_token = new_token;
-		i++;
-	}
+	result->token_list = ft_calloc(1, sizeof(t_token));
+	result->argc = 0;
+	result->argv = NULL;
+	result->input_fd = -1;
 	return (result);
 }
 
-t_cmd_list	*create_cmd_list(t_token *token_list)
+char **get_argv(t_token *token_list, int size)
 {
-	t_cmd_list	*cmd_list;
-	t_token		*start_token;
-	int			argc;
+	t_token	*cur;
+	char	**result;
+	int		i;
 
-	cmd_list = NULL;
-	start_token = token_list;
-	argc = 0;
-	while (token_list)
+	result = ft_calloc(size + 1, sizeof(char *));
+	i = 0;
+	cur = token_list;
+	while (cur && i < size)
 	{
-		if (token_list->type == T_PIPE)
-		{
-			add_cmd_node(&cmd_list, new_cmd_node(start_token, argc));
-			start_token = token_list->next;
-			argc = 0;
-		}
-		else
-			argc++;
-		token_list = token_list->next;
+		if ((ft_strcmp(cur->str, ">") == 0) || (ft_strcmp(cur->str, "<") == 0)
+			|| ft_strcmp(cur->str, ">>") == 0 || ft_strcmp(cur->str, "<<") == 0)
+			cur = cur->next->next;
+		result[i] = ft_strdup(cur->str);
+		i++;
+		cur = cur->next;
 	}
-	if (start_token)
-		add_cmd_node(&cmd_list, new_cmd_node(start_token, argc));
-	return (cmd_list);
+	result[i] = NULL;
+	return (result);
 }
