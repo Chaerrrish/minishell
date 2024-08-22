@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   env_expand.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 16:00:19 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/20 18:27:16 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:39:35 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	change_to_value(char *result, char *front, char *env_value, char *back)
+void	change_to_value(char *result, char *front, char *env_value, char *back)
 {
 	int		i;
 	char	*front_str;
 	char	*back_str;
-	
+
 	front_str = front;
 	back_str = back;
 	i = 0;
@@ -49,7 +49,7 @@ static char	*make_expand_data(t_list *env_list, char *str, int start, int end)
 	if (!result)
 		memory_error();
 	change_to_value(result, ft_substr(str, 0, start), value,
-					ft_substr(str, end + 1, ft_strlen(str)));
+		ft_substr(str, end + 1, ft_strlen(str)));
 	free(key);
 	free(value);
 	return (result);
@@ -63,10 +63,10 @@ char	*expand_env(t_list *env_list, char *token_str)
 	char	*expand_str;
 
 	expand_str = ft_strdup(token_str);
-	start = find_start_pos(expand_str); // $ 이후 유효한지 검사해서 start 찾기
+	start = find_start_pos(expand_str);
 	while (start != -1)
 	{
-		end = find_end_pos(expand_str, start + 1); //
+		end = find_end_pos(expand_str, start + 1);
 		temp = expand_str;
 		expand_str = make_expand_data(env_list, expand_str, start, end);
 		free(temp);

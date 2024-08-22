@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 20:38:25 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/20 17:21:09 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/22 15:43:31 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,17 @@ void	show_env(t_list *env_list, char *input, int *flag)
 	*flag = 0;
 }
 
-void	ft_echo(t_cmd_list *list, t_list *env_list)
+static void	echo_argv(t_cmd_list *list, int flag)
 {
 	int	i;
-	int	flag;
 
-	i = 1;
-	flag = 1;
-	if (ft_strcmp(list->argv[1], "-n") == 0)
-		flag = 0;
-	if (list->argc == 1)
-	{
-		printf("\n");
-		return ;
-	}
+	i = 0;
 	while (list->argv[i])
 	{
 		if (ft_strcmp(list->argv[i], "-n") == 0)
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		else
 			printf("%s", list->argv[i]);
@@ -60,6 +51,21 @@ void	ft_echo(t_cmd_list *list, t_list *env_list)
 			printf(" ");
 		i++;
 	}
+}
+
+void	ft_echo(t_cmd_list *list, t_list *env_list)
+{
+	int	flag;
+
+	flag = 1;
+	if (list->argc == 1)
+	{
+		printf("\n");
+		return ;
+	}
+	if (ft_strcmp(list->argv[1], "-n") == 0)
+		flag = 0;
+	echo_argv(list, flag);
 	if (flag == 1)
 		printf("\n");
 }

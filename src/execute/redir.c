@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:59:33 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/21 20:24:33 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/22 15:35:01 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	redirection(t_cmd_list *cmd)
 {
 	t_token	*token;
-	
+
 	token = cmd->token_list;
 	while (token)
 	{
@@ -25,7 +25,6 @@ void	redirection(t_cmd_list *cmd)
 			redir_in(cmd, token);
 		token = token->next;
 	}
-	
 }
 
 void	redir_out(t_cmd_list *cmd, t_token *token)
@@ -34,10 +33,12 @@ void	redir_out(t_cmd_list *cmd, t_token *token)
 
 	if (token->next == NULL)
 	{
-		ft_putendl_fd("tontoshell: syntax error near unexpected token `newline'", 2);
+		ft_putendl_fd(\
+				"tontoshell: syntax error near unexpected token `newline'", 2);
 		return ;
 	}
-	while (token->next && (token->next->type == T_REDIR_OUT || token->next->type == T_REDIR_APPEND))
+	while (token->next && (token->next->type == T_REDIR_OUT \
+			|| token->next->type == T_REDIR_APPEND))
 		token = token->next;
 	if (token->type == T_REDIR_OUT)
 		redir_fd = open(token->next->str, O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -51,24 +52,20 @@ void	redir_out(t_cmd_list *cmd, t_token *token)
 	if (cmd->out_fd != -1)
 		close(cmd->out_fd);
 	cmd->out_fd = redir_fd;
-	// if (cmd->pipe_fd[1] == -1)
-	// {
-	// 	dup2(cmd->out_fd, STDOUT_FILENO);
-	// 	close(cmd->out_fd);
-	// }
 }
 
 void	redir_in(t_cmd_list *cmd, t_token *token)
 {
-	int	redir_fd;
+	int		redir_fd;
+	t_token	*last;
 
-	if (token->next == NULL)
+	last = get_last_redir(token);
+	if (last == NULL || last->next == NULL)
 	{
-		write(2, "tontoshell: syntax error near unexpected token `newline'", 56);
+		write(2, \
+			"tontoshell: syntax error near unexpected token `newline'", 56);
 		return ;
 	}
-	while (token->next && token->next->type == T_REDIR_IN)
-		token = token->next;
 	redir_fd = open(token->next->str, O_RDONLY);
 	if (redir_fd == -1)
 	{
@@ -80,11 +77,36 @@ void	redir_in(t_cmd_list *cmd, t_token *token)
 	if (cmd->in_fd != -1)
 		close(cmd->in_fd);
 	cmd->in_fd = redir_fd;
-	// if (cmd->pipe_fd[0] == -1)
-	// {
-	// 	dup2(cmd->in_fd, STDIN_FILENO);
-	// 	close(cmd->in_fd);
-	// }
 }
 
+void	set_redir_inout(t_cmd_list *cmd)
+{
+	redirection(cmd);
+	if (cmd->in_fd != -1)
+	{
+		dup2(cmd->in_fd, STDIN_FILENO);
+		close(cmd->in_fd);
+	}
+	if (cmd->next != NULL)
+	{
+		dup2(cmd->pipe_fd[1], STDOUT_FILENO);
+		close(cmd->pipe_fd[1]);
+		close(cmd->pipe_fd[0]);
+	}
+	if (cmd->out_fd != -1)
+	{
+		dup2(cmd->out_fd, STDOUT_FILENO);
+		close(cmd->out_fd);
+	}
+}
 
+t_token	*get_last_redir(t_token *token)
+{
+	while (token)
+	{
+		if (token->type == T_REDIR_IN)
+			return (token);
+		token = token -> next;
+	}
+	return (NULL);
+}
