@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   mini_struct.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 19:41:05 by wonyocho          #+#    #+#             */
 /*   Updated: 2024/08/21 17:41:55 by chaoh            ###   ########.fr       */

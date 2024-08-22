@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
 /*   Updated: 2024/08/21 20:18:38 by chaoh            ###   ########.fr       */
@@ -116,18 +116,14 @@ int			check_token_type(char c);
 int			get_token_type(const char *str);
 int 		is_builtin(const char *str);
 t_token	*get_quote_str(t_token *result, char *input, int start, int end);
+int	is_redirection(const char *input, t_token_iter *iter);
 
 
 
 // cmd_list
 t_cmd_list	*create_cmd_list(t_token *token_list);
-t_cmd_list	*new_cmd_node(t_token *start_token, int argc);
-void		add_cmd_node(t_cmd_list **cmd_list, t_cmd_list *new_cmd);
-t_token		*recreate_token(char **argv, int argc);
-
-
-
-
+t_cmd_list *init_cmd_node(void);
+char **get_argv(t_token *token_list, int size);
 
 
 // signal.c

@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 12:42:32 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/20 19:32:14 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/21 14:47:33 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	init_iter(t_token_iter *token_iter);
 static void	skip_whitespace(const char *input, t_token_iter *iter);
+int	is_redirection(const char *input, t_token_iter *iter);
 
 int	tokenize(t_shell *minishell, t_token **token_lst, char *input)
 {
@@ -24,7 +25,8 @@ int	tokenize(t_shell *minishell, t_token **token_lst, char *input)
 	{
 		skip_whitespace(input, &iter);
 		iter.start = iter.end;
-		if (input[iter.end] == '|')
+		if (is_redirection(input, &iter));
+		else if (input[iter.end] == '|')
 			iter.end++;
 		else
 			process_quotes(input, &iter);
@@ -46,4 +48,16 @@ static void	skip_whitespace(const char *input, t_token_iter *iter)
 {
 	while (input[iter->end] && is_whitespace(input[iter->end]))
 		iter->end++;
+}
+
+int	is_redirection(const char *input, t_token_iter *iter)
+{
+	if (input[iter->end] == '<' || input[iter->end] == '>')
+	{
+		iter->end++;
+		if (input[iter->end] == input[iter->end - 1]) // << 또는 >> 처리
+			iter->end++;
+		return 1; // 리다이렉션이 발견됨
+	}
+	return 0; // 리다이렉션이 아님
 }
