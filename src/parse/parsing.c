@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 13:29:32 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/22 13:30:02 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/22 19:40:36 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ int	parsing(t_shell *minishell, char *input)
 		return (-1);
 	token_list = detach_redirection_front(token_list);
 	token_list = detach_redirection_back(token_list);
-
-
 	// t_token *ptr = token_list;
 	// while (ptr)
 	// {
@@ -38,6 +36,8 @@ int	parsing(t_shell *minishell, char *input)
 	// 	printf("type: %d\n", ptr->type);
 	// 	ptr = ptr->next;
 	// }
+
+
 	
 	minishell->cmd_list = create_cmd_list(token_list);
 	
@@ -123,6 +123,10 @@ t_token *detach_redirection_front(t_token *token_list)
 			i++;
 		if (is_back_redir(result, i - 1))
 		{
+			if (strlen(result->str) == 2
+				&& (ft_strcmp(result->str, ">>") != 0
+				&& ft_strcmp(result->str, "<<") != 0))
+				detach_back(result, 1);
 			if (ft_strlen(result->str) != 2 && ft_strlen(result->str) != 1)
 				detach_back(result, i - 1);
 		}
