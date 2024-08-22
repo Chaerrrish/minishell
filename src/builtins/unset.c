@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:32:07 by chaerin           #+#    #+#             */
-/*   Updated: 2024/08/19 13:40:58 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:23:10 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,22 @@
 
 int	check_builtin_argv(char	*str)
 {
-	if (str[0] == '-' || (str[0] >= 'a' && str[0] <= 'z') \
-		|| (str[0] >= 'A' && str[0] <= 'Z'))
-		return (1);
-	return (0);
+	int	i;
+
+	i = 1;
+	if (!(str[0] == '_' || (str[0] >= 'a' && str[0] <= 'z') \
+		|| (str[0] >= 'A' && str[0] <= 'Z')))
+		return (0);
+	while (str[i] && str[i] != '=')
+	{
+		if (!(str[i] >= 'a' && str[i] <= 'z' \
+		|| str[i] >= 'A' && str[i] <= 'Z' \
+		|| str[i] >= '0' && str[i] <='9' \
+		|| str[i] == '_'))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 void	remove_env_var(t_list **env_list, char *key)
