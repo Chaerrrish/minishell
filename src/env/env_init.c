@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 12:41:39 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/19 19:35:01 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:39:57 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
-static t_env	*new_env_node()
+static t_env	*new_env_node(void)
 {
 	t_env	*result;
 
@@ -64,7 +64,7 @@ void	init_envp_list(t_list **lst, char **envp)
 {
 	t_env	*env;
 	t_list	*tmp;
-	
+
 	*lst = NULL;
 	while (*envp)
 	{

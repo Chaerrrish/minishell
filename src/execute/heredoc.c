@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:26:21 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/20 20:23:46 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/22 15:36:02 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*make_tmp_file(void)
 
 void	execute_heredoc(char *delimeter, t_cmd_list *cmd)
 {
-	int	fd;
+	int		fd;
 	char	*filename;
 
 	filename = make_tmp_file();
@@ -82,14 +82,12 @@ void	execute_heredoc(char *delimeter, t_cmd_list *cmd)
 		free(filename);
 		return ;
 	}
-	heredoc_parent(fd, delimeter);
+	heredoc_main(fd, delimeter);
 	close(fd);
-	if (cmd->input_fd != -1)
-		close(cmd->input_fd);
-	printf("filename : %s\n", filename);
-	cmd->input_fd = open(filename, O_RDONLY);
-	printf("cmd->input_fd : %d\n", cmd->input_fd);
-	if (cmd->input_fd == -1)
+	if (cmd->in_fd != -1)
+		close(cmd->in_fd);
+	cmd->in_fd = open(filename, O_RDONLY);
+	if (cmd->in_fd == -1)
 	{
 		perror("open");
 		free(filename);
@@ -100,10 +98,10 @@ void	execute_heredoc(char *delimeter, t_cmd_list *cmd)
 	cmd->heredoc_file = filename;
 }
 
-void	heredoc_parent(int fd, char *delimeter)
+void	heredoc_main(int fd, char *delimeter)
 {
 	char	*line;
-	
+
 	while (1)
 	{
 		line = readline("> ");
@@ -122,5 +120,3 @@ void	heredoc_parent(int fd, char *delimeter)
 		free(line);
 	}
 }
-
-

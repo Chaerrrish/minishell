@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_add_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:36:49 by wonyocho          #+#    #+#             */
 /*   Updated: 2024/08/22 19:25:10 by wonyocho         ###   ########.fr       */
@@ -25,7 +25,6 @@ t_cmd_list	*create_cmd_list(t_token *total_token_list)
 	{
 		if (ft_strcmp(total_token_list->str, "|") == 0)
 		{
-			printf("cur_argc: %d\n", cmd_list->argc);
 			cmd_list->argv = get_argv(cmd_list->token_list, cmd_list->argc);
 			cmd_list->next = init_cmd_node();
 			cmd_list = cmd_list->next;
@@ -70,7 +69,13 @@ t_cmd_list *init_cmd_node(void)
 	result->token_list = ft_calloc(1, sizeof(t_token));
 	result->argc = 0;
 	result->argv = NULL;
-	result->input_fd = -1;
+	result->in_fd = -1;
+	result->out_fd = -1;
+	result->pipe_fd[0] = -1;
+	result->pipe_fd[1] = -1;
+	result->heredoc_file = NULL;
+	result->path = NULL;
+	result->pid = 0;
 	return (result);
 }
 

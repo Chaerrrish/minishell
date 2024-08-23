@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+         #
+#    By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 17:59:08 by wonyocho          #+#    #+#              #
 #    Updated: 2024/08/22 19:15:26 by wonyocho         ###   ########.fr        #

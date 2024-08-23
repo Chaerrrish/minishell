@@ -5,11 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/08/19 14:12:43 by chaoh            ###   ########.fr       */
+/*   Created: 2024/08/22 15:33:14 by chaoh             #+#    #+#             */
+/*   Updated: 2024/08/22 15:33:47 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../header/minishell.h"
 
@@ -102,9 +101,9 @@ char	*get_cmd_path(char *cmd, t_list *env_list)
 
 void	set_cmd_path(t_cmd_list *list, t_list *env_list)
 {
-	t_cmd_list *current;
+	t_cmd_list	*current;
 	t_token		*token;
-	
+
 	current = list;
 	while (current)
 	{

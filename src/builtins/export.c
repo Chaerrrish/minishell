@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:27:13 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/18 19:51:50 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/22 16:24:17 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	check_update_env(t_list *env_list, char **split_input, char *input)
 {
 	t_env	*new_env;
-	t_list 	*current;
+	t_list	*current;
 
 	current = env_list;
 	while (current)
@@ -50,16 +50,17 @@ t_env	*add_env(t_list *env_list, char **split_input, char	*input)
 		return (NULL);
 	}
 	new_env->key = ft_strdup(split_input[0]);
-	if (split_input[1] != NULL)
+	if (split_input[1] == NULL)
 	{
-		temp = ft_strjoin("\"", split_input[1]);
-		new_env->value = ft_strjoin(temp, "\"");
-		free(temp);
+		new_env->value = ft_strdup("");
+		new_env->data = ft_strdup(new_env->key);
 	}
 	else
-		new_env->value = ft_strdup("");
-	temp = ft_strjoin(split_input[0], "=");
-	new_env->data = ft_strjoin(temp, new_env->value);
+	{
+		new_env->value = ft_strdup(split_input[1]);
+		temp = ft_strjoin(new_env->key, "=");
+		new_env->data = ft_strjoin(temp, new_env->value);
+	}
 	free(temp);
 	return (new_env);
 }
@@ -122,19 +123,8 @@ void	export(t_cmd_list *list, t_list *env_list)
 	export_list = copy_env_list(env_list);
 	sort_export_list(export_list);
 	if (list->argc == 1)
-		print_export_list(export_list);	
+		print_export_list(export_list);
 	else
 		argv_export(list, &env_list);
 	ft_lstclear(&export_list, free_env);
 }
-
-// int	main(int ac, char **av, char **envp)
-// {
-// 	t_list *lst;
-
-// 	init_envp_lst(&lst, envp);
-// 	// export(lst);
-// 	show_env(lst, "HI=hi");
-// 	return (0);
-// }
-
