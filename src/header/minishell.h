@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/24 19:05:11 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/24 21:52:40 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,6 @@ void	init_signal(void);
 
 
 // utils
-void	tonto_is_free(t_shell *minishell);
 void	free_env_list(t_list *lst);
 void	free_cmd_list(t_cmd_list *cmd_list);
 void	free_token_list(t_token *token_list);
