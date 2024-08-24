@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 14:08:07 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/24 17:58:45 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/24 19:15:19 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 // SIGINT 신호를 처리하는 함수 (사용자가 Ctrl+C를 눌렀을 때)
 void sig_shell(int sig)
 {
+    (void)sig;
     // 새로운 줄을 출력하여 프롬프트가 새로운 줄에서 시작되도록 함
     printf("\n");
     // Readline 라이브러리를 사용하여 새로운 줄을 표시
@@ -45,6 +46,7 @@ void sig_shell(int sig)
 // SIGINT 신호를 처리하는 함수 (heredoc 처리 중 사용자가 Ctrl+C를 눌렀을 때)
 void sig_heredoc(int sig)
 {
+    (void)sig;
     // Readline 라이브러리를 사용하여 새로운 줄을 표시
     rl_on_new_line();
     // 현재 줄을 빈 문자열로 대체

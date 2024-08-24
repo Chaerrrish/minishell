@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:16:18 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/24 18:00:14 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/24 18:56:21 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void	execute(t_shell	*shell)
 	while (current)
 	{
 		if (current->next == NULL && current->token_list->type == T_BULTIN)
-			execute_builtin(shell);
+		{
+			if (execute_builtin(shell) == 0)
+				exit(2);
+		}
 		else
 			execute_cmd(current, shell);
 		current = current->next;
@@ -117,7 +120,8 @@ void	execute_child(t_cmd_list *cmd, t_shell *shell, char **envp)
 		if (cmd->path == NULL)
 		{
 			print_cmd_error(cmd->argv[0]);
-			exit(1);
+			g_status_code = 127;
+			exit(127);
 		}
 		if (execve(cmd->path, cmd->argv, envp) < 0)
 		{

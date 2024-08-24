@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:27:13 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/24 17:48:50 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/24 19:07:11 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,12 @@ int	check_update_env(t_list *env_list, char **split_input, char *input)
 	return (1);
 }
 
-t_env	*add_env(t_list *env_list, char **split_input, char	*input)
+t_env	*add_env(char **split_input)
 {
 	t_env	*new_env;
 	char	*temp;
 
+	temp = NULL;
 	new_env = (t_env *)malloc(sizeof(t_env));
 	if (!new_env)
 	{
@@ -76,7 +77,7 @@ void	export_main(t_list **env_list, char *input)
 		return ;
 	if (check_update_env(*env_list, split_input, input) == 0)
 		return ;
-	new_env = add_env(*env_list, split_input, input);
+	new_env = add_env(split_input);
 	if (new_env == NULL)
 		return ;
 	new_node = ft_lstnew(new_env);
@@ -119,7 +120,6 @@ void	argv_export(t_cmd_list *list, t_list **env_list)
 void	export(t_cmd_list *list, t_list *env_list)
 {
 	t_list	*export_list;
-	t_env	*node;
 
 	export_list = copy_env_list(env_list);
 	sort_export_list(export_list);

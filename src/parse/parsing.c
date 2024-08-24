@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 13:29:32 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/22 19:40:36 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/24 19:12:40 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ t_token *detach_redirection_front(t_token *token_list)
 {
 	t_token *result;
 	int		i;
-	int		flag;
 	
 	i = 0;
 	result = token_list;

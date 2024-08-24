@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:59:33 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/24 16:01:38 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/24 19:11:46 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	redir_out(t_cmd_list *cmd, t_token *token)
 {
 	int	redir_fd;
 
+	redir_fd = -1;
 	if (token->next == NULL)
 	{
 		ft_putendl_fd(\

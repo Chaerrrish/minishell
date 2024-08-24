@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/24 17:56:42 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/24 19:05:11 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 int		execute_builtin(t_shell *minishell);
 void	pwd(void);
 void	cd(t_cmd_list *list, t_list *env_list);
-void	ft_echo(t_cmd_list *list, t_list *env_list);
+void	ft_echo(t_cmd_list *list);
 void	env(t_cmd_list *list, t_list *env_list);
 t_list	*copy_env_list(t_list *env_list);
 t_env	*copy_env(t_env *env);
@@ -46,7 +46,7 @@ void	swap_content(t_list *a, t_list *b);
 void	export(t_cmd_list *list, t_list *env_list);
 void	print_export_list(t_list *env_list);
 int	    check_builtin_argv(char	*str);
-void	ft_exit(t_cmd_list *list, t_list *env_list);
+void	ft_exit(t_cmd_list *list);
 void	unset(t_cmd_list *list, t_list **env_list);
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tonto_is_free.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:29:50 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/20 19:09:24 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/24 19:15:53 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	tonto_is_free(t_shell *minishell)
 void	free_env_list(t_list *lst)
 {
 	t_list	*tmp;
-	t_env	*env;
 
 	while (lst != NULL)
 	{
@@ -35,7 +34,6 @@ void	free_env_list(t_list *lst)
 void	free_cmd_list(t_cmd_list *cmd_list)
 {
 	t_cmd_list	*tmp;
-	t_token		*token;
 	int		i;
 	
 	while (cmd_list)
