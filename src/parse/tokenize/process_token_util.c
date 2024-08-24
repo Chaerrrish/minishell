@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 17:22:43 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/20 20:24:49 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/24 19:04:06 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_token	*get_quote_str(t_token *result, char *input, int start, int end)
 {
 	char	*tmp;
-	
+
 	result->type = check_token_type(input[start]);
 	tmp = result->str;
 	if (start + 1 == end)
