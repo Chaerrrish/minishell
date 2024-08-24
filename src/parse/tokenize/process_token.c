@@ -6,11 +6,13 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 20:25:43 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/20 18:27:12 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/24 18:41:13 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_token	*token_lst_last(t_token *token_lst);
 
 void	process_token(t_shell *mini, t_token **token_lst, char *input,
 						t_token_iter *iter)
@@ -72,4 +74,13 @@ void	add_token(t_token **token_lst, t_token *token)
 	}
 	back = token_lst_last(*token_lst);
 	back->next = token;
+}
+
+t_token	*token_lst_last(t_token *token_lst)
+{
+	if (token_lst == NULL)
+		return (NULL);
+	while (token_lst->next != NULL)
+		token_lst = token_lst->next;
+	return (token_lst);
 }

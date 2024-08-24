@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/22 15:38:51 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/24 19:20:26 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ void	set_redir_inout(t_cmd_list *cmd);
 void	redir_in(t_cmd_list *cmd, t_token *token);
 void	redir_out(t_cmd_list *cmd, t_token *token);
 t_token	*get_last_redir(t_token *token);
-/*   ---------------- parsing ----------------*/
+
+/*   -------------------------------- parsing --------------------------------------*/
 
 // env_init.c
 void	init_envp_list(t_list **lst, char **envp);
@@ -94,43 +95,60 @@ void	change_to_value(char *result, char *front, char *env_value, char *back);
 
 
 
+// parsing_util.c
+t_token *detach_redirection(t_token *token_list);
+int		is_back_redir(t_token *result, int end);
+void 	detach(t_token *result, int end);
+
+
+// create_cmd_list.c
+t_cmd_list	*create_cmd_list(t_token *token_list);
+t_cmd_list	*init_cmd_node(void);
+// get_cmd_data.c
+void 	get_cmd_data(t_token **current, t_token *total, t_cmd_list *cmd);
+void	get_argc(t_cmd_list *cmd_list, t_token *lst, t_token *total);
+char	**get_argv(t_token *token_list, int size);
+void	get_pipe_data(t_cmd_list **cmd_list, t_token **current_token);
+
 
 // parsing.c
-int	parsing(t_shell *minishell, char *input);
-int add_cmd_list(t_shell *minishell, t_token *token_list);
+int		parsing(t_shell *minishell, char *input);
+int 	add_cmd_list(t_shell *minishell, t_token *token_list);
 
 
-
-// tokenize.c
-int			tokenize(t_shell *minishell, t_token **token_lst, char *input);
-// tokenize_process.c
-void		process_quotes(char *input, t_token_iter *iter);
-void		process_token(t_shell *mini, t_token **token_lst, char *line, t_token_iter *iter);
-t_token		*new_token(char *line, int l, int r);
-int	tokenize_expand(t_shell *mini, t_token **token_lst, t_token *token);
-void		add_token(t_token **token_lst, t_token *token);
-// tokenize_remove.c
-void		remove_quotes(t_token *token_lst);
-// tokenize_util.c
-t_token		*token_lst_last(t_token *token_lst);
-int			is_whitespace(const char c);
-int	is_quotation_str(char *str, int start, int end);
-int			check_token_type(char c);
-int			get_token_type(const char *str);
-int 		is_builtin(const char *str);
+// get_token_type.c
+int		get_token_type(const char *str);
+int		is_builtin(const char *str);
+// process_quotes.c
+void	process_quotes(char *input, t_token_iter *iter);
+// process_token_util.c
 t_token	*get_quote_str(t_token *result, char *input, int start, int end);
-int	is_redirection(const char *input, t_token_iter *iter);
+void	sum_splited_env(t_token **token_lst, char *new_line);
+// process_token.c
+void	process_token(t_shell *mini, t_token **token_lst, char *input, t_token_iter *iter);
+t_token	*new_token(char *input, int start, int end);
+int		tokenize_expand(t_shell *mini, t_token **token_lst, t_token *token);
+void	add_token(t_token **token_lst, t_token *token);
+// remove_quotes.c
+void	remove_quotes(t_token *token_lst);
+// tokenize_util.c
+int		check_token_type(char c);
+void	skip_whitespace(const char *input, t_token_iter *iter);
+int		is_quotation_str(char *str, int start, int end);
+int		is_redirection(const char *input, t_token_iter *iter);
+int		is_whitespace(const char c);
+// tokenize.c
+int		tokenize(t_shell *minishell, t_token **token_lst, char *input);
 
 
 
-// cmd_list
-t_cmd_list	*create_cmd_list(t_token *token_list);
-t_cmd_list *init_cmd_node(void);
-char **get_argv(t_token *token_list, int size);
 
 
+// signal
 // signal.c
 void	init_signal(void);
+
+
 
 
 // utils
