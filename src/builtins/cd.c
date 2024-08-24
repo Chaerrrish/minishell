@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 21:04:39 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/24 19:03:58 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/24 21:59:23 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ char	*cd_home(t_list *env_list, char *current_path)
 	if (!(current_path))
 	{
 		ft_putendl_fd("tontoshell: cd: HOME not set", 2);
+		g_status_code = 1;
 		return (NULL);
 	}
 	return (current_path);
@@ -98,8 +99,13 @@ void	cd(t_cmd_list *list, t_list *env_list)
 		if (current_path == NULL)
 			return ;
 	}
+	if (list->pid  == 0)
+		return ;
 	if (chdir(current_path) != 0)
+	{
 		perror("tontoshell: cd");
+		g_status_code = 1;
+	}
 	update_pwd(env_list, current_path, old_path);
 	if (current_path)
 		free(current_path);
