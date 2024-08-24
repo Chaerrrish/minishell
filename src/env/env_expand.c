@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 16:00:19 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/24 17:45:02 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/24 19:10:56 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ char	*expand_env(t_list *env_list, char *token_str)
 t_token	*expanded_new_token(char *line, int start, int end)
 {
 	t_token	*token;
-	char	*tmp;
 
 	token = (t_token *)ft_calloc(1, sizeof(t_token));
 	if (token == NULL)

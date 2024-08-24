@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:57:02 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/24 17:36:17 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/24 17:30:36 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,3 +25,4 @@ void	print_cmd_error(char *str)
 	write(2, str, ft_strlen(str));
 	ft_putendl_fd(": command not found", 2);
 }
+

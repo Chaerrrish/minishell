@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_free.c                                       :+:      :+:    :+:   */
+/*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/10 16:36:56 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/24 19:15:33 by chaoh            ###   ########.fr       */
+/*   Created: 2024/08/24 17:34:14 by chaoh             #+#    #+#             */
+/*   Updated: 2024/08/24 17:59:17 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
-void	split_free(char **str)
+void	set_status_code(int status)
 {
-	int	i;
-
-	i = 0;
-	if (str == NULL)
-		return ;
-	while (str[i] != NULL)
+	g_status_code = WEXITSTATUS(status);
+	if (WIFSIGNALED(status))
 	{
-		free(str[i]);
-		i++;
+		if (WTERMSIG(status) == SIGINT)
+		{
+			g_status_code = 130;
+		}
+		else if (WTERMSIG(status) == SIGQUIT)
+		{
+			g_status_code = 131;
+		}
+		else
+			g_status_code = 128 + status;
 	}
-	free(str);
-}
-
-void	token_free(t_token *token)
-{
-	if (token->str)
-		free(token->str);
-	free(token);
 }

@@ -6,14 +6,13 @@
 #    By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 17:59:08 by wonyocho          #+#    #+#              #
-#    Updated: 2024/08/22 19:15:26 by wonyocho         ###   ########.fr        #
+#    Updated: 2024/08/24 19:16:23 by chaoh            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I/opt/homebrew/opt/readline/include
-CFLAGS = -I/opt/homebrew/opt/readline/include
-LDFLAGS = -L/opt/homebrew/opt/readline/lib -lreadline
+CFLAGS = -Wall -Wextra -Werror -I/Users/$(User)/.brew/opt/readline/include
+LDFLAGS = -L/Users/$(USER)/.brew/opt/readline/lib -lreadline
 
 LIBFT_DIR = Libft
 LIBFT = $(LIBFT_DIR)/libft.a

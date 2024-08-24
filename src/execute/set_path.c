@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 15:33:14 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/22 15:33:47 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/24 19:12:21 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ char	*get_absolute_path(char *cmd)
 char	*get_cmd_path(char *cmd, t_list *env_list)
 {
 	char	*cmd_path;
-	char	*current_path;
 	char	**path_arr;
 
 	if (cmd == NULL)

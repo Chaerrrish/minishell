@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:59:33 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/22 15:35:01 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/24 19:11:46 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	redir_out(t_cmd_list *cmd, t_token *token)
 {
 	int	redir_fd;
 
+	redir_fd = -1;
 	if (token->next == NULL)
 	{
 		ft_putendl_fd(\
@@ -86,12 +87,6 @@ void	set_redir_inout(t_cmd_list *cmd)
 	{
 		dup2(cmd->in_fd, STDIN_FILENO);
 		close(cmd->in_fd);
-	}
-	if (cmd->next != NULL)
-	{
-		dup2(cmd->pipe_fd[1], STDOUT_FILENO);
-		close(cmd->pipe_fd[1]);
-		close(cmd->pipe_fd[0]);
 	}
 	if (cmd->out_fd != -1)
 	{

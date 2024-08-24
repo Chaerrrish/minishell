@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 21:04:39 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/20 16:45:13 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/24 19:03:58 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	check_path(char *path, char *old_path)
 	return (1);
 }
 
-char	*cd_home(t_cmd_list *list, t_list *env_list, char *current_path)
+char	*cd_home(t_list *env_list, char *current_path)
 {
 	current_path = get_env_value(env_list, "HOME");
 	if (!(current_path))
@@ -88,7 +88,7 @@ void	cd(t_cmd_list *list, t_list *env_list)
 	old_path = getcwd(NULL, 0);
 	if (list->argc == 1 || ft_strcmp(list->argv[1], "~") == 0)
 	{
-		current_path = cd_home(list, env_list, current_path);
+		current_path = cd_home(env_list, current_path);
 		if (current_path == NULL)
 			return ;
 	}

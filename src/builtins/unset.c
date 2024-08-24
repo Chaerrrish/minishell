@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:32:07 by chaerin           #+#    #+#             */
-/*   Updated: 2024/08/22 16:23:10 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/24 19:10:26 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ int	check_builtin_argv(char	*str)
 		return (0);
 	while (str[i] && str[i] != '=')
 	{
-		if (!(str[i] >= 'a' && str[i] <= 'z' \
-		|| str[i] >= 'A' && str[i] <= 'Z' \
-		|| str[i] >= '0' && str[i] <='9' \
-		|| str[i] == '_'))
+		if (!((str[i] >= 'a' && str[i] <= 'z') \
+		|| (str[i] >= 'A' && str[i] <= 'Z') \
+		|| (str[i] >= '0' && str[i] <='9') \
+		|| (str[i] == '_')))
 			return (0);
 		i++;
 	}

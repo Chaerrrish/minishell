@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:38:01 by chaerin           #+#    #+#             */
-/*   Updated: 2024/08/21 20:50:21 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/24 19:05:08 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	check_exit(t_cmd_list *cmd)
 	int	i;
 	int	j;
 
-	i = 0;
+	i = 1;
 	while (cmd->argv[i])
 	{
 		j = 0;
@@ -32,9 +32,13 @@ int	check_exit(t_cmd_list *cmd)
 	return (1);
 }
 
-void	ft_exit(t_cmd_list *cmd, t_list *env_list)
+void	ft_exit(t_cmd_list *cmd)
 {
+	int	exit_num;
+
 	printf("exit\n");
+	if (cmd->argv[1] == NULL)
+		exit(g_status_code);
 	if (check_exit(cmd) == 0)
 	{
 		write(2, "tontoshell: exit: ", 18);
@@ -44,7 +48,13 @@ void	ft_exit(t_cmd_list *cmd, t_list *env_list)
 	}
 	else if (check_exit(cmd) && cmd->argc > 2)
 	{
-		printf("exit\n");
 		ft_putendl_fd("tontoshell: exit: too many arguments", 2);
+		g_status_code = 1;
+		exit(1);
 	}
+	exit_num = ft_atoi(cmd->argv[1]);
+	if (exit_num > 255)
+		exit_num = 255;
+	g_status_code = exit_num;
+	exit(exit_num);
 }
