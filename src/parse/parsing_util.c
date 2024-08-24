@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 19:07:46 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/24 19:23:50 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/24 19:41:31 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ t_token	*detach_redirection(t_token *token_list)
 {
 	t_token	*result;
 	int		i;
-	int		flag;
 
 	i = 0;
 	result = token_list;

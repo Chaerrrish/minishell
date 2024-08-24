@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/24 19:05:11 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/24 20:53:28 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 
 
 /* builtins */
-int		execute_builtin(t_shell *minishell);
+int	execute_builtin(t_shell *minishell, t_cmd_list *cmd);
 void	pwd(void);
 void	cd(t_cmd_list *list, t_list *env_list);
 void	ft_echo(t_cmd_list *list);
@@ -56,16 +56,16 @@ void	set_cmd_path(t_cmd_list *list, t_list *env_list);
 
 //execute.c
 void	execute(t_shell	*shell);
-void	execute_cmd(t_cmd_list *cmd, t_shell *shell);
+void	make_process(t_cmd_list *cmd, t_shell *shell);
 void	execute_child(t_cmd_list *cmd, t_shell *shell, char  **envp);
 void	execute_parent(t_cmd_list *cmd);
 void	change_inout(t_cmd_list *cmd);
 void	set_status_code(int status);
 
 //heredoc.c
-void	heredoc(t_cmd_list *list);
+int		heredoc(t_cmd_list *list);
 void	heredoc_main(int fd, char *delimeter);
-void	check_heredoc(t_cmd_list *list, t_token *token);
+int		check_heredoc(t_cmd_list *list, t_token *token);
 void	execute_heredoc(char *delimeter, t_cmd_list *cmd);
 
 
