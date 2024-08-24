@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 20:38:25 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/22 15:43:31 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/24 17:47:53 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	echo_argv(t_cmd_list *list, int flag)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	while (list->argv[i])
 	{
 		if (ft_strcmp(list->argv[i], "-n") == 0)

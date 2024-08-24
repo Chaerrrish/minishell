@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/14 15:57:02 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/24 17:30:36 by chaoh            ###   ########.fr       */
+/*   Created: 2024/08/24 17:34:14 by chaoh             #+#    #+#             */
+/*   Updated: 2024/08/24 17:59:17 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../header/minishell.h"
 
-void	memory_error(void)
+void	set_status_code(int status)
 {
-	ft_putendl_fd("error: memory allocation error", STDERR_FILENO);
-	g_status_code = 137;
-	exit(137);
+	g_status_code = WEXITSTATUS(status);
+	if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == SIGINT)
+		{
+			g_status_code = 130;
+		}
+		else if (WTERMSIG(status) == SIGQUIT)
+		{
+			g_status_code = 131;
+		}
+		else
+			g_status_code = 128 + status;
+	}
 }
-
-void	print_cmd_error(char *str)
-{
-	write(2, "tontoshell : ", 13);
-	write(2, str, ft_strlen(str));
-	ft_putendl_fd(": command not found", 2);
-}
-

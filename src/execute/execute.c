@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:16:18 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/22 15:36:31 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/24 18:00:14 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,22 +82,25 @@ void	change_inout(t_cmd_list *cmd)
 		close(heredoc_fd);
 	}
 	set_redir_inout(cmd);
+	if (cmd->next != NULL)
+	{
+		dup2(cmd->pipe_fd[1], STDOUT_FILENO);
+		close(cmd->pipe_fd[0]);
+		close(cmd->pipe_fd[1]);
+	}
 }
 
 void	execute_parent(t_cmd_list *cmd)
 {
+	int	status;
+
 	if (cmd->in_fd != -1)
 	{
 		close(cmd->in_fd);
 		cmd->in_fd = -1;
 	}
-	if (cmd->next != NULL)
-	{
-		dup2(cmd->pipe_fd[0], STDIN_FILENO);
-		close(cmd->pipe_fd[0]);
-		close(cmd->pipe_fd[1]);
-	}
-	waitpid(cmd->pid, NULL, 0);
+	waitpid(cmd->pid, &status, WUNTRACED);
+	set_status_code(status);
 	if (cmd->heredoc_file)
 	{
 		unlink(cmd->heredoc_file);

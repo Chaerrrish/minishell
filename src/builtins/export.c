@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:27:13 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/22 16:24:17 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/24 17:48:50 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	argv_export(t_cmd_list *list, t_list **env_list)
 			write(2, "tontoshell: export: ", 20);
 			write(2, list->argv[i], ft_strlen(list->argv[i]));
 			ft_putendl_fd(": not a valid identifier", 2);
+			g_status_code = 1;
 			i++;
 			continue ;
 		}

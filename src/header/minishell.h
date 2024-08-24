@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/22 15:38:51 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/24 17:56:42 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@
 # include "mini_macro.h"
 # include "mini_struct.h"
 # include "mini_signal.h"
-
-int	g_exit_status;
 
 
 /* builtins */
@@ -62,6 +60,7 @@ void	execute_cmd(t_cmd_list *cmd, t_shell *shell);
 void	execute_child(t_cmd_list *cmd, t_shell *shell, char  **envp);
 void	execute_parent(t_cmd_list *cmd);
 void	change_inout(t_cmd_list *cmd);
+void	set_status_code(int status);
 
 //heredoc.c
 void	heredoc(t_cmd_list *list);
