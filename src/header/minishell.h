@@ -151,7 +151,6 @@ void	init_signal(void);
 
 
 // utils
-void	tonto_is_free(t_shell *minishell);
 void	free_env_list(t_list *lst);
 void	free_cmd_list(t_cmd_list *cmd_list);
 void	free_token_list(t_token *token_list);

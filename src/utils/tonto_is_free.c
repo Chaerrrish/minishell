@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tonto_is_free.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:29:50 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/24 19:15:53 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/24 21:52:36 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
-
-void	tonto_is_free(t_shell *minishell)
-{
-	free_env_list(minishell->env_list);
-	free_cmd_list(minishell->cmd_list);
-}
 
 void	free_env_list(t_list *lst)
 {
@@ -40,7 +34,7 @@ void	free_cmd_list(t_cmd_list *cmd_list)
 	{
 		tmp = cmd_list;
 		free_token_list(cmd_list->token_list);
-		if (cmd_list->argc) // argc가 0이 아니면 argv가 있는거겟죠?
+		if (cmd_list->argc) // argc가 0이 아니면 argv가 있는거겟죠? 
 		{
 			i = 0;
 			while (cmd_list->argv[i])
