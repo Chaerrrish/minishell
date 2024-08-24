@@ -6,12 +6,11 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:53:43 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/20 17:21:38 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/24 19:03:34 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 int	get_token_type(const char *str)
 {
