@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 13:29:32 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/25 16:37:23 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/25 20:45:05 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	parsing(t_shell *minishell, char *input)
 	}
 	token_list = detach_redirection(token_list);
 	minishell->cmd_list = create_cmd_list(token_list);
+
 	free_token_list(token_list);
 	return (0);
 }
