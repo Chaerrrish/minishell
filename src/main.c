@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:15:06 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/25 15:28:56 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 16:36:09 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,23 @@ static void	minishell(char **envp)
 			free(input);
 			continue;
 		}
-		if (parsing(&minishell, input) == -1) // parsing 에러시 -1
+		if (parsing(&minishell, input) == -1)
 		{
-			perror("parsing error");
+			printf("tontoshell: syntax error: enexpected end of file\n");
+			g_status_code = 258; // parsing에서 syntax error시
+			free_cmd_list(minishell.cmd_list);
 			free(input);
 			continue;
 		}
 		execute(&minishell, envp);
 		dup2(fd_backup[0], STDIN_FILENO);	// 백업
-		dup2(fd_backup[1], STDOUT_FILENO);	// 백업 
+		dup2(fd_backup[1], STDOUT_FILENO);	// 백업
 		add_history(input);
 		free(input);
 		free_cmd_list(minishell.cmd_list);
 	}
 	free_env_list(minishell.env_list);
+	system("leaks minishell");
 }
 
 int	main(int argc, char **argv, char **envp)
