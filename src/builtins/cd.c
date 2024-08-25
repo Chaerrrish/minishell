@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 21:04:39 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/24 21:59:23 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 15:02:35 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void	update_pwd(t_list *env_list, char *current_path, char *old_path)
 	}
 }
 
-int	check_path(char *path, char *old_path)
+int	check_path(t_cmd_list *list, char *path, char *old_path)
 {
 	if (access(path, F_OK) != 0)
 	{
 		write(2, "tontoshell: cd: ", 16);
-		write(2, path, ft_strlen(path));
+		write(2, list->argv[1], ft_strlen(list->argv[1]));
 		ft_putendl_fd(": No such file or directory", 2);
 		free(old_path);
 		free(path);
@@ -75,8 +75,11 @@ char	*cd_path(t_cmd_list *list, char *current_path, char *old_path)
 		current_path = ft_strjoin(tmp, list->argv[1]);
 		free(tmp);
 	}
-	if (current_path && check_path(current_path, old_path) == 0)
+	if (current_path && check_path(list, current_path, old_path) == 0)
+	{
+		g_status_code = 1;
 		return (NULL);
+	}
 	return (current_path);
 }
 
@@ -88,25 +91,21 @@ void	cd(t_cmd_list *list, t_list *env_list)
 	current_path = NULL;
 	old_path = getcwd(NULL, 0);
 	if (list->argc == 1 || ft_strcmp(list->argv[1], "~") == 0)
-	{
 		current_path = cd_home(env_list, current_path);
-		if (current_path == NULL)
-			return ;
-	}
 	else
-	{
 		current_path = cd_path(list, current_path, old_path);
-		if (current_path == NULL)
-			return ;
-	}
-	if (list->pid  == 0)
+	if (current_path == NULL || list->pid == 0)
+	{
+		free(current_path);
 		return ;
+	}
 	if (chdir(current_path) != 0)
 	{
 		perror("tontoshell: cd");
 		g_status_code = 1;
+		return ;
 	}
 	update_pwd(env_list, current_path, old_path);
-	if (current_path)
-		free(current_path);
+	free(current_path);
+	free(old_path);
 }

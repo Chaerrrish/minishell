@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:16:18 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/24 21:14:11 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 14:59:24 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	execute(t_shell	*shell)
 	current = shell->cmd_list;
 	while (current)
 	{
-		if (current->next == NULL && current->token_list->type == T_BULTIN)
+		if (shell->cmd_list->next == NULL && current->token_list->type == T_BULTIN)
 		{
 			if (execute_builtin(shell, current) == 0)
 			{
