@@ -6,13 +6,13 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:16:18 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/24 21:14:11 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 15:32:24 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
-void	execute(t_shell	*shell)
+void	execute(t_shell	*shell, char **envp)
 {
 	t_cmd_list	*current;
 
@@ -24,25 +24,25 @@ void	execute(t_shell	*shell)
 	current = shell->cmd_list;
 	while (current)
 	{
-		if (current->next == NULL && current->token_list->type == T_BULTIN)
+		if (shell->cmd_list->next == NULL && current->token_list->type == T_BULTIN)
 		{
-			if (execute_builtin(shell, current) == 0)
+			if (execute_builtin(shell, current, envp) == 0)
 			{
 				g_status_code = 2;
 				exit(g_status_code);
 			}
 		}
 		else
-			make_process(current, shell);
+			make_process(current, shell, envp);
 		current = current->next;
 	}
 }
 
-void	make_process(t_cmd_list *cmd, t_shell *shell)
+void	make_process(t_cmd_list *cmd, t_shell *shell, char **envp)
 {
-	char	**envp;
+	char	**new_envp;
 
-	envp = list_to_array(shell->env_list);
+	new_envp = list_to_array(shell->env_list);
 	if (cmd->next != NULL)
 	{
 		if (pipe(cmd->pipe_fd) == -1)
@@ -64,7 +64,7 @@ void	make_process(t_cmd_list *cmd, t_shell *shell)
 		change_inout(cmd);
 		if (cmd->token_list->type == T_BULTIN)
 		{
-			execute_builtin(shell, cmd);
+			execute_builtin(shell, cmd, envp);
 			g_status_code = 0;
 			exit(g_status_code);
 		}
@@ -77,7 +77,7 @@ void	make_process(t_cmd_list *cmd, t_shell *shell)
 	}
 	else
 		execute_parent(cmd);
-	split_free(envp);
+	split_free(new_envp);
 }
 
 void	execute_parent(t_cmd_list *cmd)

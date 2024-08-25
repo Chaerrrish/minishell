@@ -40,7 +40,7 @@ static void	minishell(char **envp)
 			free(input);
 			continue;
 		}
-		execute(&minishell);
+		execute(&minishell, envp);
 		dup2(fd_backup[0], STDIN_FILENO);	// 백업
 		dup2(fd_backup[1], STDOUT_FILENO);	// 백업
 		add_history(input);

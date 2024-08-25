@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/24 20:53:28 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 16:31:09 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 
 
 /* builtins */
-int	execute_builtin(t_shell *minishell, t_cmd_list *cmd);
+int		execute_builtin(t_shell *minishell, t_cmd_list *cmd, char **envp);
 void	pwd(void);
 void	cd(t_cmd_list *list, t_list *env_list);
 void	ft_echo(t_cmd_list *list);
@@ -43,11 +43,15 @@ t_list	*copy_env_list(t_list *env_list);
 t_env	*copy_env(t_env *env);
 void	sort_export_list(t_list *export_list);
 void	swap_content(t_list *a, t_list *b);
-void	export(t_cmd_list *list, t_list *env_list);
+void	export(t_cmd_list *list, t_list *env_list, char **envp);
 void	print_export_list(t_list *env_list);
-int	    check_builtin_argv(char	*str);
 void	ft_exit(t_cmd_list *list);
 void	unset(t_cmd_list *list, t_list **env_list);
+
+//check_argv.c
+int	    check_export_argv(char	*str);
+int 	check_unset_argv(char *str);
+int		check_exit_argv(t_cmd_list *cmd);
 
 
 /* execute */
@@ -55,8 +59,8 @@ void	unset(t_cmd_list *list, t_list **env_list);
 void	set_cmd_path(t_cmd_list *list, t_list *env_list);
 
 //execute.c
-void	execute(t_shell	*shell);
-void	make_process(t_cmd_list *cmd, t_shell *shell);
+void	execute(t_shell	*shell, char **envp);
+void	make_process(t_cmd_list *cmd, t_shell *shell, char **envp);
 void	execute_child(t_cmd_list *cmd, t_shell *shell, char  **envp);
 void	execute_parent(t_cmd_list *cmd);
 void	change_inout(t_cmd_list *cmd);
@@ -130,6 +134,7 @@ int		tokenize_expand(t_shell *mini, t_token **token_lst, t_token *token);
 void	add_token(t_token **token_lst, t_token *token);
 // remove_quotes.c
 void	remove_quotes(t_token *token_lst);
+void	do_remove(t_token *token);
 // tokenize_util.c
 int		check_token_type(char c);
 void	skip_whitespace(const char *input, t_token_iter *iter);

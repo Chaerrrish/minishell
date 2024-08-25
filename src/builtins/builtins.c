@@ -6,13 +6,13 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:26:10 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/24 20:23:41 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 15:30:42 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
-int	execute_builtin(t_shell *minishell, t_cmd_list *cmd)
+int	execute_builtin(t_shell *minishell, t_cmd_list *cmd, char **envp)
 {
 	if (ft_strcmp(cmd->argv[0], "cd") == 0)
 		cd(cmd, minishell->env_list);
@@ -25,7 +25,7 @@ int	execute_builtin(t_shell *minishell, t_cmd_list *cmd)
 	else if (ft_strcmp(cmd->argv[0], "exit") == 0)
 		ft_exit(cmd);
 	else if (ft_strcmp(cmd->argv[0], "export") == 0)
-		export(cmd, minishell->env_list);
+		export(cmd, minishell->env_list, envp);
 	else if (!(ft_strcmp(cmd->argv[0], "pwd")) \
 				|| ft_strcmp(cmd->argv[0], "PWD") == 0)
 		pwd();

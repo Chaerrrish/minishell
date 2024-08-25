@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:27:13 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/24 19:07:11 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 15:44:48 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	argv_export(t_cmd_list *list, t_list **env_list)
 	i = 1;
 	while (list->argv[i] != NULL)
 	{
-		if (check_builtin_argv(list->argv[i]) == 0)
+		if (check_export_argv(list->argv[i]) == 0)
 		{
 			write(2, "tontoshell: export: ", 20);
 			write(2, list->argv[i], ft_strlen(list->argv[i]));
@@ -117,11 +117,15 @@ void	argv_export(t_cmd_list *list, t_list **env_list)
 	}
 }
 
-void	export(t_cmd_list *list, t_list *env_list)
+void	export(t_cmd_list *list, t_list *env_list, char **envp)
 {
 	t_list	*export_list;
 
 	export_list = copy_env_list(env_list);
+	if (list->pid == 0)
+		init_envp_list(&export_list, envp);
+	else
+		export_list = copy_env_list(env_list);
 	sort_export_list(export_list);
 	if (list->argc == 1)
 		print_export_list(export_list);

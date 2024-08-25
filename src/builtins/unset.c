@@ -6,31 +6,11 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:32:07 by chaerin           #+#    #+#             */
-/*   Updated: 2024/08/24 19:10:26 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 15:55:13 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
-
-int	check_builtin_argv(char	*str)
-{
-	int	i;
-
-	i = 1;
-	if (!(str[0] == '_' || (str[0] >= 'a' && str[0] <= 'z') \
-		|| (str[0] >= 'A' && str[0] <= 'Z')))
-		return (0);
-	while (str[i] && str[i] != '=')
-	{
-		if (!((str[i] >= 'a' && str[i] <= 'z') \
-		|| (str[i] >= 'A' && str[i] <= 'Z') \
-		|| (str[i] >= '0' && str[i] <='9') \
-		|| (str[i] == '_')))
-			return (0);
-		i++;
-	}
-	return (1);
-}
 
 void	remove_env_var(t_list **env_list, char *key)
 {
@@ -67,11 +47,12 @@ void	unset(t_cmd_list *list, t_list **env_list)
 	i = 1;
 	while (list->argv[i] != NULL)
 	{
-		if (!check_builtin_argv(list->argv[i]))
+		if (!check_unset_argv(list->argv[i]))
 		{
-			write(2, "tontoshell: unset: ", 19);
+			write(2, "tontoshell: unset: `", 20);
 			write(2, list->argv[i], ft_strlen(list->argv[i]));
-			ft_putendl_fd(": not a valid identifier", 2);
+			ft_putendl_fd("': not a valid identifier", 2);
+			g_status_code = 1;
 			i++;
 			continue ;
 		}
