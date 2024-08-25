@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:59:33 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/24 19:11:46 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/24 21:10:32 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	redir_out(t_cmd_list *cmd, t_token *token)
 	if (redir_fd == -1)
 	{
 		perror("open");
-		return ;
+		g_status_code = 1;
+		exit(g_status_code);
 	}
 	if (cmd->out_fd != -1)
 		close(cmd->out_fd);
@@ -65,7 +66,8 @@ void	redir_in(t_cmd_list *cmd, t_token *token)
 	{
 		write(2, \
 			"tontoshell: syntax error near unexpected token `newline'", 56);
-		return ;
+		g_status_code = 1;
+		exit(g_status_code);
 	}
 	redir_fd = open(token->next->str, O_RDONLY);
 	if (redir_fd == -1)
@@ -73,7 +75,8 @@ void	redir_in(t_cmd_list *cmd, t_token *token)
 		write(2, "tontoshell: ", 12);
 		write(2, token->next->str, ft_strlen(token->next->str));
 		ft_putendl_fd(": No such file or directory", 2);
-		return ;
+		g_status_code = 1;
+		exit(g_status_code);
 	}
 	if (cmd->in_fd != -1)
 		close(cmd->in_fd);

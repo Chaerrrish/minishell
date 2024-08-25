@@ -6,13 +6,13 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:26:21 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/22 15:36:02 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/24 19:49:20 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
-void	heredoc(t_cmd_list *list)
+int	heredoc(t_cmd_list *list)
 {
 	t_cmd_list	*current;
 	t_token		*token;
@@ -24,14 +24,18 @@ void	heredoc(t_cmd_list *list)
 		while (token)
 		{
 			if (token->type == T_REDIR_HERE)
-				check_heredoc(current, token);
+			{
+				if (check_heredoc(current, token) == 0)
+					return (0);
+			}	
 			token = token->next;
 		}
 		current = current->next;
 	}
+	return (1);
 }
 
-void	check_heredoc(t_cmd_list *list, t_token *token)
+int	check_heredoc(t_cmd_list *list, t_token *token)
 {
 	char	*delimeter;
 	char	*err_str;
@@ -40,13 +44,15 @@ void	check_heredoc(t_cmd_list *list, t_token *token)
 	if (token->next == NULL)
 	{
 		ft_putendl_fd(err_str, 2);
-		return ;
+		g_status_code = 258;
+		return (0);
 	}
 	delimeter = ft_strdup(token->next->str);
 	if (delimeter == NULL)
-		return ;
+		return (0);
 	execute_heredoc(delimeter, list);
 	free(delimeter);
+	return (1);
 }
 
 char	*make_tmp_file(void)

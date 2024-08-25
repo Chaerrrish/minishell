@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:38:01 by chaerin           #+#    #+#             */
-/*   Updated: 2024/08/24 19:05:08 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/24 22:07:23 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,30 @@ void	ft_exit(t_cmd_list *cmd)
 {
 	int	exit_num;
 
-	printf("exit\n");
-	if (cmd->argv[1] == NULL)
-		exit(g_status_code);
+	if (cmd->pid > 0)
+		printf("exit\n");
 	if (check_exit(cmd) == 0)
 	{
 		write(2, "tontoshell: exit: ", 18);
 		write(2, cmd->argv[1], ft_strlen(cmd->argv[1]));
 		write(2, ": numeric argument required\n", 28);
-		exit(EXIT_FAILURE);
+		g_status_code = 255;
+		if (cmd->pid == 0)
+			return ;
+		exit(255);
 	}
 	else if (check_exit(cmd) && cmd->argc > 2)
 	{
 		ft_putendl_fd("tontoshell: exit: too many arguments", 2);
 		g_status_code = 1;
+		if (cmd->pid == 0)
+			return ;
 		exit(1);
 	}
+	if (cmd->pid == 0)
+		return ;
+	if (cmd->argv[1] == NULL)
+		exit(g_status_code);
 	exit_num = ft_atoi(cmd->argv[1]);
 	if (exit_num > 255)
 		exit_num = 255;
