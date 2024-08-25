@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:27:13 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/25 15:44:48 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 19:54:20 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	export_main(t_list **env_list, char *input)
 	}
 	ft_lstadd_back(env_list, new_node);
 	split_free(split_input);
-	sort_export_list(*env_list);
+	sort_env_list(*env_list);
 }
 
 void	argv_export(t_cmd_list *list, t_list **env_list)
@@ -126,9 +126,9 @@ void	export(t_cmd_list *list, t_list *env_list, char **envp)
 		init_envp_list(&export_list, envp);
 	else
 		export_list = copy_env_list(env_list);
-	sort_export_list(export_list);
+	sort_env_list(export_list);
 	if (list->argc == 1)
-		print_export_list(export_list);
+		print_export_list(list, export_list);
 	else
 		argv_export(list, &env_list);
 	ft_lstclear(&export_list, free_env);

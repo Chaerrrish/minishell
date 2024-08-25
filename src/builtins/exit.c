@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:38:01 by chaerin           #+#    #+#             */
-/*   Updated: 2024/08/25 16:38:05 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 19:52:41 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_exit(t_cmd_list *cmd)
 	int	exit_num;
 
 	if (cmd->pid > 0)
-		printf("exit\n");
+		write(cmd->out_fd, "exit\n", 5);
 	check_exit(cmd);
 	if (cmd->argv[1] == NULL)
 		exit(g_status_code);

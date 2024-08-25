@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:26:21 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/24 19:49:20 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 20:03:44 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	execute_heredoc(char *delimeter, t_cmd_list *cmd)
 	}
 	heredoc_main(fd, delimeter);
 	close(fd);
-	if (cmd->in_fd != -1)
+	if (cmd->in_fd != STDIN_FILENO)
 		close(cmd->in_fd);
 	cmd->in_fd = open(filename, O_RDONLY);
 	if (cmd->in_fd == -1)

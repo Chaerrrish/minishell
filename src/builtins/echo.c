@@ -6,28 +6,39 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 20:38:25 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/24 19:04:33 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 19:50:11 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
-static void	echo_argv(t_cmd_list *list, int flag)
+static int	check_option(char *str)
 {
 	int	i;
 
+	if (str[0] != '-')
+		return (0);
 	i = 1;
+	while (str[i])
+	{
+		if (str[i] != 'n')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+static void	echo_argv(t_cmd_list *list, int start_index)
+{
+	int	i;
+
+	i = start_index;
 	while (list->argv[i])
 	{
-		if (ft_strcmp(list->argv[i], "-n") == 0)
-		{
-			i++;
-			continue ;
-		}
-		else
-			printf("%s", list->argv[i]);
-		if (flag && list->argv[i + 1] != NULL)
-			printf(" ");
+		printf("%s", list->argv[i]);
+		write(list->out_fd, list->argv[i], ft_strlen(list->argv[i]));
+		if (list->argv[i + 1] != NULL)
+			write(list->out_fd, " ", 1);
 		i++;
 	}
 }
@@ -35,16 +46,22 @@ static void	echo_argv(t_cmd_list *list, int flag)
 void	ft_echo(t_cmd_list *list)
 {
 	int	flag;
+	int	i;
 
 	flag = 1;
+	i = 1;
 	if (list->argc == 1)
 	{
-		printf("\n");
+		write(list->out_fd, "\n", 1);
 		return ;
 	}
-	if (ft_strcmp(list->argv[1], "-n") == 0)
+	while (list->argv[i] && check_option(list->argv[i]))
+	{
 		flag = 0;
-	echo_argv(list, flag);
+		i++;
+	}
+	echo_argv(list, i);
 	if (flag == 1)
-		printf("\n");
+		write(list->out_fd, "\n", 1);
+	g_status_code = 0;
 }

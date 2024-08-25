@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 16:23:54 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/21 13:54:50 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 19:57:04 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	swap_content(t_list *a, t_list *b)
 	*(t_env *)b->content = tmp;
 }
 
-void	sort_export_list(t_list *export_list)
+void	sort_env_list(t_list *export_list)
 {
 	t_list	*i;
 	t_list	*j;
@@ -90,7 +90,7 @@ t_list	*copy_env_list(t_list *env_list)
 	return (new_list);
 }
 
-void	print_export_list(t_list *env_list)
+void	print_export_list(t_cmd_list *list, t_list *env_list)
 {
 	t_list	*current;
 	t_env	*node;
@@ -100,9 +100,19 @@ void	print_export_list(t_list *env_list)
 	{
 		node = (t_env *)current->content;
 		if (ft_strlen(node->value) != 0)
-			printf("declare -x %s=\"%s\"\n", node->key, node->value);
+		{
+			write(list->out_fd, "declare -x ", 11);
+			write(list->out_fd, node->key, ft_strlen(node->key));
+			write(list->out_fd, "=\"", 2);
+			write(list->out_fd, node->value, ft_strlen(node->value));
+			write(list->out_fd, "\"\n", 2);
+		}
 		else
-			printf("declare -x %s\n", node->key);
+		{
+			write(list->out_fd, "declare -x ", 11);
+			write(list->out_fd, node->key, ft_strlen(node->key));
+			write(list->out_fd, "\n", 1);
+		}
 		current = current->next;
 	}
 }

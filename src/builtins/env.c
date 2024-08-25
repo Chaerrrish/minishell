@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:33:11 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/25 16:28:39 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 19:51:52 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,12 @@ void	env(t_cmd_list *list, t_list *env_list)
 	{
 		env = (t_env *)current->content;
 		if (ft_strlen(env->value) != 0)
-			printf("%s=%s\n", env->key, env->value);
+		{
+			write(list->out_fd, env->key, ft_strlen(env->key));
+			write(list->out_fd, "=", 1);
+			write(list->out_fd, env->value, ft_strlen(env->value));
+			write(list->out_fd, "\n", 1);
+		}
 		current = current->next;
 	}
 }

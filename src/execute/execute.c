@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:16:18 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/25 15:32:24 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 20:14:12 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ void	execute(t_shell	*shell, char **envp)
 			}
 		}
 		else
+		{
 			make_process(current, shell, envp);
+		}
 		current = current->next;
 	}
 }
@@ -84,7 +86,7 @@ void	execute_parent(t_cmd_list *cmd)
 {
 	int	status;
 
-	if (cmd->in_fd != -1)
+	if (cmd->in_fd != -1 && cmd->in_fd != STDIN_FILENO)
 	{
 		close(cmd->in_fd);
 		cmd->in_fd = -1;

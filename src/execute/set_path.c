@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 15:33:14 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/24 19:12:21 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 19:11:50 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ void	set_cmd_path(t_cmd_list *list, t_list *env_list)
 	t_token		*token;
 
 	current = list;
+	if (ft_strlen(current->argv[0]) == 0)
+		return ;
 	while (current)
 	{
 		token = current->token_list;
