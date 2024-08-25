@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:15:06 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/25 16:36:09 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/25 19:04:18 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	minishell(char **envp)
 		fd_backup[0] = dup(STDIN_FILENO);	// 표준 입력 백업
 		fd_backup[1] = dup(STDOUT_FILENO);	// 표준 출력 백업
 		input = readline("tontoshell ༼⍤༽ $ ");
-		if (!input) // EOF(Ctrl + D) or readline 오류시 에러핸들링
+		if (!input)
 			break;
 		if (ft_strlen(input) == 0)
 		{
@@ -35,7 +35,7 @@ static void	minishell(char **envp)
 		if (parsing(&minishell, input) == -1)
 		{
 			printf("tontoshell: syntax error: enexpected end of file\n");
-			g_status_code = 258; // parsing에서 syntax error시
+			g_status_code = 258;
 			free_cmd_list(minishell.cmd_list);
 			free(input);
 			continue;
