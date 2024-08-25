@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:36:49 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/25 14:47:01 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 16:34:15 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ t_cmd_list	*init_cmd_node(void)
 	result->pipe_fd[1] = -1;
 	result->heredoc_file = NULL;
 	result->path = NULL;
-	result->pid = -1;
+	result->pid = 1;
 	return (result);
 }

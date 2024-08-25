@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:33:11 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/22 15:43:40 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 16:28:39 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	env(t_cmd_list *list, t_list *env_list)
 		write(2, "env: ", 5);
 		write(2, list->argv[1], ft_strlen(list->argv[1]));
 		ft_putendl_fd(": No such file or directory", 2);
+		g_status_code = 127;
 		return ;
 	}
 	while (current != NULL)

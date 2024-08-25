@@ -6,39 +6,15 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:38:01 by chaerin           #+#    #+#             */
-/*   Updated: 2024/08/24 22:07:23 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 16:38:05 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
-int	check_exit(t_cmd_list *cmd)
+void	check_exit(t_cmd_list *cmd)
 {
-	int	i;
-	int	j;
-
-	i = 1;
-	while (cmd->argv[i])
-	{
-		j = 0;
-		while (cmd->argv[i][j] != '\0')
-		{
-			if (!(cmd->argv[i][j] > '0' && cmd->argv[i][j] < '9'))
-				return (0);
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
-
-void	ft_exit(t_cmd_list *cmd)
-{
-	int	exit_num;
-
-	if (cmd->pid > 0)
-		printf("exit\n");
-	if (check_exit(cmd) == 0)
+	if (check_exit_argv(cmd) == 0)
 	{
 		write(2, "tontoshell: exit: ", 18);
 		write(2, cmd->argv[1], ft_strlen(cmd->argv[1]));
@@ -48,7 +24,7 @@ void	ft_exit(t_cmd_list *cmd)
 			return ;
 		exit(255);
 	}
-	else if (check_exit(cmd) && cmd->argc > 2)
+	else if (check_exit_argv(cmd) && cmd->argc > 2)
 	{
 		ft_putendl_fd("tontoshell: exit: too many arguments", 2);
 		g_status_code = 1;
@@ -56,8 +32,15 @@ void	ft_exit(t_cmd_list *cmd)
 			return ;
 		exit(1);
 	}
-	if (cmd->pid == 0)
-		return ;
+}
+
+void	ft_exit(t_cmd_list *cmd)
+{
+	int	exit_num;
+
+	if (cmd->pid > 0)
+		printf("exit\n");
+	check_exit(cmd);
 	if (cmd->argv[1] == NULL)
 		exit(g_status_code);
 	exit_num = ft_atoi(cmd->argv[1]);

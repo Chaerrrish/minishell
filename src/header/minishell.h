@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/25 15:56:29 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 16:31:09 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	unset(t_cmd_list *list, t_list **env_list);
 //check_argv.c
 int	    check_export_argv(char	*str);
 int 	check_unset_argv(char *str);
+int		check_exit_argv(t_cmd_list *cmd);
 
 
 /* execute */
