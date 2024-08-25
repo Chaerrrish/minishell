@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:37:55 by chaerin           #+#    #+#             */
-/*   Updated: 2024/08/18 17:25:20 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/25 19:27:39 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
-void	pwd(void)
+void	pwd(t_cmd_list *cmd)
 {
 	char	*str;
 
 	str = getcwd(NULL, 0);
 	if (str != NULL)
 	{
-		printf("%s\n", str);
+		ft_putendl_fd(str, cmd->out_fd);
 	}
 	else
 		perror("pwd");

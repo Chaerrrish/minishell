@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:16:18 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/25 19:11:57 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 19:31:21 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ void	execute(t_shell	*shell, char **envp)
 			}
 		}
 		else
+		{
 			make_process(current, shell, envp);
+		}
 		current = current->next;
 	}
 }

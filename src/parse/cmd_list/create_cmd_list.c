@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:36:49 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/25 16:34:15 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 19:33:23 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ t_cmd_list	*init_cmd_node(void)
 	result->token_list = ft_calloc(1, sizeof(t_token));
 	result->argc = 0;
 	result->argv = NULL;
-	result->in_fd = -1;
-	result->out_fd = -1;
+	result->in_fd = STDIN_FILENO;
+	result->out_fd = STDOUT_FILENO;
 	result->pipe_fd[0] = -1;
 	result->pipe_fd[1] = -1;
 	result->heredoc_file = NULL;
