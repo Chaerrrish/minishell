@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 16:23:54 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/21 13:54:50 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 18:44:36 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	swap_content(t_list *a, t_list *b)
 	*(t_env *)b->content = tmp;
 }
 
-void	sort_export_list(t_list *export_list)
+void	sort_env_list(t_list *export_list)
 {
 	t_list	*i;
 	t_list	*j;
