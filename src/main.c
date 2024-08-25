@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:15:06 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/24 19:42:02 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/25 15:28:56 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	minishell(char **envp)
 			free(input);
 			continue;
 		}
-		execute(&minishell);
+		execute(&minishell, envp);
 		dup2(fd_backup[0], STDIN_FILENO);	// 백업
 		dup2(fd_backup[1], STDOUT_FILENO);	// 백업 
 		add_history(input);
