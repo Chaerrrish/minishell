@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 20:25:43 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/24 21:17:30 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/25 16:34:39 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	tokenize_expand(t_shell *mini, t_token **token_lst, t_token *token)
 	}
 	sum_splited_env(token_lst, new_line);
 	token_free(token);
+	free(new_line);
 	return (1);
 }
 

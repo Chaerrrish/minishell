@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:29:50 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/24 21:52:36 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/25 16:37:24 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	free_token_list(t_token *token_list)
 	while (token_list)
 	{
 		temp = token_list;
-		if (token_list->str)
-			free(token_list->str);
+		// if (token_list->str)
+		free(token_list->str);
 		token_list = token_list->next;
 		free(temp);
 	}

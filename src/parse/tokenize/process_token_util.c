@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 17:22:43 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/24 19:04:06 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/25 16:33:50 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,11 @@ void	sum_splited_env(t_token **token_lst, char *new_line)
 		add_token(token_lst, tmp);
 		i++;
 	}
+	i = 0;
+	while (splited[i])
+	{
+		free(splited[i]);
+		i++;
+	}
+	free(splited);
 }
