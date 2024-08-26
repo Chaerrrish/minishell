@@ -6,37 +6,11 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 17:34:14 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/26 22:11:17 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/26 22:18:15 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
-
-void	set_status_code(int status)
-{
-	int	signal_number;
-
-	if (WIFEXITED(status))
-	{
-		g_status_code = WEXITSTATUS(status);
-	}
-	else if (WIFSIGNALED(status))
-	{
-		signal_number = WTERMSIG(status);
-		if (signal_number == SIGINT)
-		{
-			g_status_code = 130;
-			printf("^C\n");
-		}
-		else if (signal_number == SIGQUIT)
-		{
-			g_status_code = 131;
-			printf("^\\Quit: 3\n");
-		}
-		else
-			g_status_code = 128 + status;
-	}
-}
 
 int	get_status(void)
 {
