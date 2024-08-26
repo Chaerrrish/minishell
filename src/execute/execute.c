@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:16:18 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/25 20:14:12 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/26 22:15:18 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ void	execute(t_shell	*shell, char **envp)
 		}
 		else
 		{
-			make_process(current, shell, envp);
+			make_process(current, shell);
 		}
 		current = current->next;
 	}
+	g_status_code = get_status();
 }
 
-void	make_process(t_cmd_list *cmd, t_shell *shell, char **envp)
+void	make_process(t_cmd_list *cmd, t_shell *shell)
 {
 	char	**new_envp;
 
@@ -66,33 +67,34 @@ void	make_process(t_cmd_list *cmd, t_shell *shell, char **envp)
 		change_inout(cmd);
 		if (cmd->token_list->type == T_BULTIN)
 		{
-			execute_builtin(shell, cmd, envp);
+			execute_builtin(shell, cmd, new_envp);
 			g_status_code = 0;
 			exit(g_status_code);
 		}
 		if (cmd->token_list->type == T_WORD)
 		{
-			execute_child(cmd, shell, envp);
+			execute_child(cmd, shell, new_envp);
 			g_status_code = 0;
+			split_free(new_envp);
 			exit(g_status_code);
 		}
 	}
 	else
+	{
+		if (cmd->pipe_fd[1] != -1)
+			close(cmd->pipe_fd[1]);
 		execute_parent(cmd);
+	}
 	split_free(new_envp);
 }
 
 void	execute_parent(t_cmd_list *cmd)
 {
-	int	status;
-
 	if (cmd->in_fd != -1 && cmd->in_fd != STDIN_FILENO)
 	{
 		close(cmd->in_fd);
 		cmd->in_fd = -1;
 	}
-	waitpid(cmd->pid, &status, WUNTRACED);
-	set_status_code(status);
 	if (cmd->next != NULL)
 	{
 		dup2(cmd->pipe_fd[0], STDIN_FILENO);

@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/25 19:54:50 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/26 22:11:56 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,12 @@ void	set_cmd_path(t_cmd_list *list, t_list *env_list);
 
 //execute.c
 void	execute(t_shell	*shell, char **envp);
-void	make_process(t_cmd_list *cmd, t_shell *shell, char **envp);
+void	make_process(t_cmd_list *cmd, t_shell *shell);
 void	execute_child(t_cmd_list *cmd, t_shell *shell, char  **envp);
 void	execute_parent(t_cmd_list *cmd);
 void	change_inout(t_cmd_list *cmd);
 void	set_status_code(int status);
+int	get_status(void);
 
 //heredoc.c
 int		heredoc(t_cmd_list *list);
