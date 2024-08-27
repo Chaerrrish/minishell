@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 14:08:07 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/27 15:29:16 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/27 16:31:36 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,13 @@ void sig_shell(int sig)
 // SIGINT 신호를 처리하는 함수 (heredoc 처리 중 사용자가 Ctrl+C를 눌렀을 때)
 void sig_heredoc(int sig)
 {
-    // (void)sig;
-    // printf("\n");
-    // g_status_code = 1;
-    // exit(1);
     if (sig == SIGINT)
 	{
+        g_status_code = 130;
+        ft_putstr_fd("\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		printf("\n");
-		exit(1);
 	}
 }
 

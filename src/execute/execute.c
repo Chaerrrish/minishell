@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:16:18 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/27 15:33:07 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/27 19:17:42 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ void	execute(t_shell	*shell, char **envp)
 			}
 		}
 		else
-		{
 			make_process(current, shell);
-		}
 		current = current->next;
 	}
 	g_status_code = get_status();
@@ -65,8 +63,8 @@ void	make_process(t_cmd_list *cmd, t_shell *shell)
 	}
 	else if (cmd->pid == 0)
 	{
-		change_inout(cmd);
 		set_signal(DEFAULT, DEFAULT);
+		change_inout(cmd);
 		if (cmd->token_list->type == T_BULTIN)
 		{
 			execute_builtin(shell, cmd, new_envp);
@@ -106,6 +104,7 @@ void	execute_parent(t_cmd_list *cmd)
 	}
 	if (cmd->heredoc_file)
 	{
+		waitpid(cmd->pid, NULL, 0);
 		unlink(cmd->heredoc_file);
 		free(cmd->heredoc_file);
 		cmd->heredoc_file = NULL;
