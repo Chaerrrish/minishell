@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:29:50 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/25 16:37:24 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:45:33 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ void	free_env_list(t_list *lst)
 void	free_cmd_list(t_cmd_list *cmd_list)
 {
 	t_cmd_list	*tmp;
-	int		i;
-	
+	int			i;
+
 	while (cmd_list)
 	{
 		tmp = cmd_list;
 		free_token_list(cmd_list->token_list);
-		if (cmd_list->argc) // argc가 0이 아니면 argv가 있는거겟죠? 
+		if (cmd_list->argc)
 		{
 			i = 0;
 			while (cmd_list->argv[i])
@@ -53,12 +53,11 @@ void	free_cmd_list(t_cmd_list *cmd_list)
 
 void	free_token_list(t_token *token_list)
 {
-	t_token *temp;
+	t_token	*temp;
 
 	while (token_list)
 	{
 		temp = token_list;
-		// if (token_list->str)
 		free(token_list->str);
 		token_list = token_list->next;
 		free(temp);
@@ -67,7 +66,7 @@ void	free_token_list(t_token *token_list)
 
 void	free_env(void *content)
 {
-	t_env *env;
+	t_env	*env;
 
 	env = (t_env *)content;
 	if (env)

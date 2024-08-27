@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:26:21 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/25 20:03:44 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/27 16:05:00 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	heredoc(t_cmd_list *list)
 	t_cmd_list	*current;
 	t_token		*token;
 
+	set_signal(HEREDOC, IGNORE);
 	current = list;
 	while (current)
 	{
