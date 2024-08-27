@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 17:34:14 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/27 20:17:08 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/27 20:46:28 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	get_status(void)
 			else if (WTERMSIG(status) == SIGINT && i++ == 0)
 			{
 				g_status_code = 130;
-				printf("^Chello\n");
+				printf("^C\n");
 			}
 		}
 	}
