@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 17:34:14 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/26 22:18:15 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/27 15:23:15 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	get_status(void)
 				g_status_code = 131;
 				printf("^\\Quit: 3\n");
 			}
-			else if (WTERMSIG(status) == 2 && i++ == 0)
+			else if (WTERMSIG(status) == SIGINT && i++ == 0)
 			{
 				g_status_code = 130;
 				printf("^C\n");

@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:16:18 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/26 22:15:18 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/27 15:33:07 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	execute(t_shell	*shell, char **envp)
 		current = current->next;
 	}
 	g_status_code = get_status();
+	set_signal(SHELL, SHELL);
 }
 
 void	make_process(t_cmd_list *cmd, t_shell *shell)
@@ -65,6 +66,7 @@ void	make_process(t_cmd_list *cmd, t_shell *shell)
 	else if (cmd->pid == 0)
 	{
 		change_inout(cmd);
+		set_signal(DEFAULT, DEFAULT);
 		if (cmd->token_list->type == T_BULTIN)
 		{
 			execute_builtin(shell, cmd, new_envp);
@@ -81,6 +83,7 @@ void	make_process(t_cmd_list *cmd, t_shell *shell)
 	}
 	else
 	{
+		set_signal(IGNORE, IGNORE);
 		if (cmd->pipe_fd[1] != -1)
 			close(cmd->pipe_fd[1]);
 		execute_parent(cmd);

@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:59:33 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/25 20:13:22 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/27 14:44:21 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ void	redir_in(t_cmd_list *cmd, t_token *token)
 
 void	set_redir_inout(t_cmd_list *cmd)
 {
+	set_signal(REDIR, DEFAULT);
 	redirection(cmd);
+	set_signal(SHELL, SHELL);
 	if (cmd->in_fd != STDIN_FILENO)
 	{
 		if (dup2(cmd->in_fd, STDIN_FILENO) == -1)

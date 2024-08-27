@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 14:08:07 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/26 21:09:22 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/27 15:29:16 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,18 @@ void sig_shell(int sig)
 // SIGINT 신호를 처리하는 함수 (heredoc 처리 중 사용자가 Ctrl+C를 눌렀을 때)
 void sig_heredoc(int sig)
 {
-    (void)sig;
-    // Readline 라이브러리를 사용하여 새로운 줄을 표시
-    rl_on_new_line();
-    // 현재 줄을 빈 문자열로 대체
-    rl_replace_line("", 0);
-    // 변경된 내용을 디스플레이
-    rl_redisplay();
-    // 새로운 줄을 출력
-    printf("\n");
-    // 프로그램을 종료 (상태 코드 1)
-    exit(1);
+    // (void)sig;
+    // printf("\n");
+    // g_status_code = 1;
+    // exit(1);
+    if (sig == SIGINT)
+	{
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		printf("\n");
+		exit(1);
+	}
 }
 
 // 신호 처리를 설정하는 함수

@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:26:21 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/25 20:03:44 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/27 14:54:05 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	heredoc(t_cmd_list *list)
 	t_cmd_list	*current;
 	t_token		*token;
 
+	set_signal(HEREDOC, DEFAULT);
 	current = list;
 	while (current)
 	{
@@ -32,6 +33,7 @@ int	heredoc(t_cmd_list *list)
 		}
 		current = current->next;
 	}
+	set_signal(SHELL, SHELL);
 	return (1);
 }
 
@@ -113,7 +115,7 @@ void	heredoc_main(int fd, char *delimeter)
 		line = readline("> ");
 		if (line == NULL)
 		{
-			write(2, "readline error\n", 12);
+			write(2, "readline error\n", 15);
 			break ;
 		}
 		if (ft_strcmp(line, delimeter) == 0)
