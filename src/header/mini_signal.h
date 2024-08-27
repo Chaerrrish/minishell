@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   mini_signal.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 13:27:59 by wonyocho          #+#    #+#             */
 /*   Updated: 2024/08/27 14:38:39 by chaoh            ###   ########.fr       */
