@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:15:06 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/25 19:04:18 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:05:03 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,18 @@ static void	minishell(char **envp)
 	char	*input;
 	int		fd_backup[2];
 
-	init_envp_list(&minishell.env_list, envp);	// 환경변수 리스트 초기화
-	minishell.cmd_list = NULL;			// cmd 리스트 초기화
+	init_envp_list(&minishell.env_list, envp);
+	minishell.cmd_list = NULL;
 	while (1)
 	{
-		fd_backup[0] = dup(STDIN_FILENO);	// 표준 입력 백업
-		fd_backup[1] = dup(STDOUT_FILENO);	// 표준 출력 백업
+		fd_backup[0] = dup(STDIN_FILENO);
+		fd_backup[1] = dup(STDOUT_FILENO);
 		input = readline("tontoshell ༼⍤༽ $ ");
 		if (!input)
+		{
+			printf("exit");
 			break;
+		}
 		if (ft_strlen(input) == 0)
 		{
 			free(input);
@@ -41,14 +44,14 @@ static void	minishell(char **envp)
 			continue;
 		}
 		execute(&minishell, envp);
-		dup2(fd_backup[0], STDIN_FILENO);	// 백업
-		dup2(fd_backup[1], STDOUT_FILENO);	// 백업
+		dup2(fd_backup[0], STDIN_FILENO);
+		dup2(fd_backup[1], STDOUT_FILENO);
 		add_history(input);
 		free(input);
 		free_cmd_list(minishell.cmd_list);
 	}
 	free_env_list(minishell.env_list);
-	system("leaks minishell");
+	// system("leaks minishell");
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -61,14 +64,14 @@ int	main(int argc, char **argv, char **envp)
 		printf("too many arguments!!!\n");
 		exit(0);
 	}  
-	if (tcgetattr(STDIN_FILENO, &term) != 0) // 터미널 속성 저장
+	if (tcgetattr(STDIN_FILENO, &term) != 0)
 	{
 		perror("tcgetattr error!!!\n");
 		exit(0);
 	}
-	init_signal(); // 시그널 초기화
-	minishell(envp); // 미니쉘 실행
-	if (tcsetattr(STDIN_FILENO, TCSANOW, &term) != 0) // 터미널 속성 복원
+	init_signal();
+	minishell(envp);
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &term) != 0)
 	{
 		perror("tcsetattr error!!!\n");
 		exit(0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_signal.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 13:27:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/24 19:14:44 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/27 15:08:30 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define IGNORE 12
 # define SHELL 13
 # define HEREDOC 14
+# define REDIR 15
 
 int	g_status_code;
 void	sig_shell(int sig);
