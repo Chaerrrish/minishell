@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 21:04:39 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/25 15:02:35 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/26 17:05:50 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	cd(t_cmd_list *list, t_list *env_list)
 		return ;
 	}
 	update_pwd(env_list, current_path, old_path);
+	g_status_code = 0;
 	free(current_path);
 	free(old_path);
 }

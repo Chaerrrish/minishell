@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 20:38:25 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/25 19:50:11 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/26 17:24:06 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static void	echo_argv(t_cmd_list *list, int start_index)
 	i = start_index;
 	while (list->argv[i])
 	{
-		printf("%s", list->argv[i]);
 		write(list->out_fd, list->argv[i], ft_strlen(list->argv[i]));
 		if (list->argv[i + 1] != NULL)
 			write(list->out_fd, " ", 1);

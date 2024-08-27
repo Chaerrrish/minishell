@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:14:50 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/25 20:42:32 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/26 17:05:00 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	remove_quotes(t_token *token_lst)
 {
 	while (token_lst)
 	{
-		printf("before: %s\n", token_lst->str);
+		// printf("before: %s\n", token_lst->str);
 		do_remove(token_lst);
-		printf("do_remove: %s\n", token_lst->str);
+		// printf("do_remove: %s\n", token_lst->str);
 		remove_leftover_dquote(token_lst);
-		printf("leftover: %s\n", token_lst->str);
+		// printf("leftover: %s\n", token_lst->str);
 		token_lst = token_lst->next;
 	}
 }

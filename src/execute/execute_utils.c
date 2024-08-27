@@ -6,29 +6,39 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 17:34:14 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/24 21:17:42 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/26 22:18:15 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
-void	set_status_code(int status)
+int	get_status(void)
 {
-	g_status_code = WEXITSTATUS(status);
-	if (WIFSIGNALED(status))
+	int	i;
+	int	status;
+
+	i = 0;
+	while (waitpid(-1, &status, 0) > 0)
 	{
-		if (WTERMSIG(status) == SIGINT)
+		if (WIFEXITED(status))
+			g_status_code = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
 		{
-			g_status_code = 130;
+			if (WTERMSIG(status) == SIGQUIT && i++ == 0)
+			{
+				g_status_code = 131;
+				printf("^\\Quit: 3\n");
+			}
+			else if (WTERMSIG(status) == 2 && i++ == 0)
+			{
+				g_status_code = 130;
+				printf("^C\n");
+			}
 		}
-		else if (WTERMSIG(status) == SIGQUIT)
-		{
-			g_status_code = 131;
-		}
-		else
-			g_status_code = 128 + status;
 	}
+	return (g_status_code);
 }
+
 
 void	change_inout(t_cmd_list *cmd)
 {
@@ -39,7 +49,7 @@ void	change_inout(t_cmd_list *cmd)
 		heredoc_fd = open(cmd->heredoc_file, O_RDONLY);
 		if (heredoc_fd == -1)
 		{
-			perror("open heeredoc file");
+			perror("open heredoc file");
 			g_status_code = 1;
 			exit(1);
 		}
