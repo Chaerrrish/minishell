@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 14:08:07 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/27 16:31:36 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/27 19:48:59 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void sig_heredoc(int sig)
     if (sig == SIGINT)
 	{
         g_status_code = 130;
-        ft_putstr_fd("\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
