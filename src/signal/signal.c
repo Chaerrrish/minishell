@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 14:08:07 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/27 19:49:58 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:48:59 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@ void	sig_shell(int sig)
 
 void	sig_heredoc(int sig)
 {
-	(void)sig;
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	printf("\n");
-	exit(1);
+    if (sig == SIGINT)
+	{
+        g_status_code = 130;
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }
 
 void	set_signal(int s_int, int s_quit)

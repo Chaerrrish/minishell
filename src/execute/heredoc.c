@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:26:21 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/27 16:05:00 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:50:47 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	heredoc(t_cmd_list *list)
 	t_cmd_list	*current;
 	t_token		*token;
 
-	set_signal(HEREDOC, IGNORE);
+	set_signal(HEREDOC, DEFAULT);
 	current = list;
 	while (current)
 	{
@@ -33,6 +33,7 @@ int	heredoc(t_cmd_list *list)
 		}
 		current = current->next;
 	}
+	set_signal(SHELL, SHELL);
 	return (1);
 }
 
@@ -81,6 +82,7 @@ void	execute_heredoc(char *delimeter, t_cmd_list *cmd)
 	int		fd;
 	char	*filename;
 
+	set_signal(HEREDOC, IGNORE);
 	filename = make_tmp_file();
 	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	if (fd == -1)
@@ -103,6 +105,7 @@ void	execute_heredoc(char *delimeter, t_cmd_list *cmd)
 	if (cmd->heredoc_file)
 		free(cmd->heredoc_file);
 	cmd->heredoc_file = filename;
+	set_signal(SHELL, SHELL);
 }
 
 void	heredoc_main(int fd, char *delimeter)
@@ -114,7 +117,10 @@ void	heredoc_main(int fd, char *delimeter)
 		line = readline("> ");
 		if (line == NULL)
 		{
-			write(2, "readline error\n", 12);
+			break ;
+		}
+		if (get_status() == 130)
+		{
 			break ;
 		}
 		if (ft_strcmp(line, delimeter) == 0)
