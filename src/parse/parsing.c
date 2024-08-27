@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 13:29:32 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/25 20:45:05 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:09:41 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	parsing(t_shell *minishell, char *input)
 	}
 	token_list = detach_redirection(token_list);
 	minishell->cmd_list = create_cmd_list(token_list);
-
 	free_token_list(token_list);
 	return (0);
 }
@@ -39,27 +38,27 @@ int	parsing(t_shell *minishell, char *input)
 // 	ptr = ptr->next;
 // }
 
-// // !!!!! test !!!!!
-// t_cmd_list *current_cmd = minishell->cmd_list;
-// while (current_cmd != NULL)
-// {
-// 	t_token *current_token = current_cmd->token_list;
-// 	printf("=========================================================\n");
-// 	printf("******************\n");
-// 	while (current_token != NULL)
-// 	{
-// 		printf("str: %s\n", current_token->str);
-// 		printf("type: %d\n", current_token->type);
-// 		current_token = current_token->next;
-// 	}
-// 	printf("******************\n");
-// 	printf("argc: %d\n", current_cmd->argc);
-// 	int i = 0;
-// 	while (current_cmd->argv[i])
-// 	{
-// 		printf("argv[%d]: %s\n", i, current_cmd->argv[i]);
-// 		i++;
-// 	}
-// 	printf("=========================================================\n");
-// 	current_cmd = current_cmd->next;
-// }
+	// // !!!!! test !!!!!
+	// t_cmd_list *current_cmd = minishell->cmd_list;
+	// while (current_cmd != NULL)
+	// {
+	// 	t_token *current_token = current_cmd->token_list;
+	// 	printf("=========================================================\n");
+	// 	printf("******************\n");
+	// 	while (current_token != NULL)
+	// 	{
+	// 		printf("str: %s\n", current_token->str);
+	// 		printf("type: %d\n", current_token->type);
+	// 		current_token = current_token->next;
+	// 	}
+	// 	printf("******************\n");
+	// 	printf("argc: %d\n", current_cmd->argc);
+	// 	int i = 0;
+	// 	while (current_cmd->argv[i])
+	// 	{
+	// 		printf("argv[%d]: %s\n", i, current_cmd->argv[i]);
+	// 		i++;
+	// 	}
+	// 	printf("=========================================================\n");
+	// 	current_cmd = current_cmd->next;
+	// }

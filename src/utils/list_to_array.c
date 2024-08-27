@@ -6,13 +6,13 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 19:39:21 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/19 20:08:31 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:44:26 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int count_list(t_list *list)
+int	count_list(t_list *list)
 {
 	int	count;
 
@@ -43,8 +43,8 @@ char	**list_to_array(t_list *list)
 		env = (t_env *)list->content;
 		len = ft_strlen(env->key) + ft_strlen(env->value) + 2;
 		result[i] = ft_strdup(env->data);
-		if (!result[i])	
-			return (NULL);
+		if (!result[i])
+			memory_error();
 		list = list->next;
 		i++;
 	}

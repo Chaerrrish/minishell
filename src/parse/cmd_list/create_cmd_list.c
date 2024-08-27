@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   create_cmd_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:36:49 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/25 19:33:23 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/27 19:21:34 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 t_cmd_list	*create_cmd_list(t_token *total_token_list)
 {
