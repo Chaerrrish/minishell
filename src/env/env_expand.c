@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 16:00:19 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/25 16:27:33 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/28 13:24:27 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,13 @@ char	*expand_env(t_list *env_list, char *token_str)
 	char	*expand_str;
 
 	expand_str = ft_strdup(token_str);
+	if (ft_strcmp(expand_str, "$") == 0 && ft_strlen(expand_str) == 1)
+		return (expand_str);
+	end = 0;
+	while (expand_str[end])
+		end++;
+	if (expand_str[end - 1] == '$')
+		return (expand_str);
 	start = find_start_pos(expand_str);
 	while (start != -1)
 	{

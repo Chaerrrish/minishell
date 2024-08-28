@@ -6,11 +6,25 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:15:06 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/27 19:05:03 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/28 13:27:29 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_semi_colon(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] == ';')
+			return (-1);
+		i++;
+	}
+	return (0);
+}
 
 static void	minishell(char **envp)
 {
@@ -32,6 +46,12 @@ static void	minishell(char **envp)
 		}
 		if (ft_strlen(input) == 0)
 		{
+			free(input);
+			continue;
+		}
+		if (is_semi_colon(input) == -1)
+		{
+			printf("tontoshell: syntax error\n");
 			free(input);
 			continue;
 		}
