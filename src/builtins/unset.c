@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:32:07 by chaerin           #+#    #+#             */
-/*   Updated: 2024/08/26 17:08:24 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/28 14:11:04 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ void	remove_env_var(t_list **env_list, char *key)
 				*env_list = current->next;
 			else
 				previous->next = current->next;
-			free(env->key);
-			free(env->value);
-			free(env);
+			free_env(env);
 			free(current);
 			break ;
 		}

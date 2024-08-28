@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 16:23:54 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/25 19:57:04 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/28 13:57:34 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,7 @@ t_env	*copy_env(t_env *env)
 	new_env->value = ft_strdup(env->value);
 	if (!new_env->data || !new_env->key || !new_env->value)
 	{
-		free(new_env->data);
-		free(new_env->key);
-		free(new_env->value);
-		free(new_env);
+		free_env(new_env);
 		return (NULL);
 	}
 	return (new_env);
@@ -80,10 +77,17 @@ t_list	*copy_env_list(t_list *env_list)
 	{
 		new_env = copy_env((t_env *)current->content);
 		if (new_env == NULL)
+		{
+			free_env_list(new_list);
 			return (NULL);
+		}
 		new_node = ft_lstnew(new_env);
 		if (new_node == NULL)
+		{
+			free_env(new_env);
+			free_env_list(new_list);
 			return (NULL);
+		}
 		ft_lstadd_back(&new_list, new_node);
 		current = current->next;
 	}
