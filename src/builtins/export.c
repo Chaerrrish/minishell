@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:27:13 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/27 19:13:01 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/28 14:01:44 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ t_env	*add_env(char **split_input)
 		new_env->value = ft_strdup(split_input[1]);
 		temp = ft_strjoin(new_env->key, "=");
 		new_env->data = ft_strjoin(temp, new_env->value);
+		free(temp);	
 	}
-	free(temp);
 	return (new_env);
 }
 
@@ -83,10 +83,7 @@ void	export_main(t_list **env_list, char *input)
 	new_node = ft_lstnew(new_env);
 	if (!new_node)
 	{
-		free(new_env->data);
-		free(new_env->key);
-		free(new_env->value);
-		free(new_env);
+		free_env(new_env);
 		split_free(split_input);
 		return ;
 	}
@@ -121,7 +118,6 @@ void	export(t_cmd_list *list, t_list *env_list, char **envp)
 {
 	t_list	*export_list;
 
-	export_list = copy_env_list(env_list);
 	if (list->pid == 0)
 		init_envp_list(&export_list, envp);
 	else
@@ -131,5 +127,6 @@ void	export(t_cmd_list *list, t_list *env_list, char **envp)
 		print_export_list(list, export_list);
 	else
 		argv_export(list, &env_list);
-	ft_lstclear(&export_list, free_env);
+	free_env_list(export_list);
+	g_status_code = 0;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:15:06 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/28 13:27:29 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/28 13:44:20 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	minishell(char **envp)
 		free_cmd_list(minishell.cmd_list);
 	}
 	free_env_list(minishell.env_list);
-	// system("leaks minishell");
+	system("leaks minishell");
 }
 
 int	main(int argc, char **argv, char **envp)
