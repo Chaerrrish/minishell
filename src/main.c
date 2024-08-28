@@ -6,13 +6,14 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:15:06 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/28 16:32:46 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/28 20:54:49 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	parse_and_excute(t_shell *minishell, char *input, char **envp)
+static void	parse_and_excute(t_shell *minishell, char *input, char **envp,
+								int *fd_backup)
 {
 	if (ft_strlen(input) == 0)
 		return ;
@@ -28,6 +29,8 @@ static void	parse_and_excute(t_shell *minishell, char *input, char **envp)
 		return ;
 	}
 	execute(minishell, envp);
+	dup2(fd_backup[0], STDIN_FILENO);
+	dup2(fd_backup[1], STDOUT_FILENO);
 }
 
 static void	minishell(char **envp)
@@ -48,13 +51,13 @@ static void	minishell(char **envp)
 			printf("exit\n");
 			break ;
 		}
-		parse_and_excute(&minishell, input, envp);
-		dup2(fd_backup[0], STDIN_FILENO);
-		dup2(fd_backup[1], STDOUT_FILENO);
+		parse_and_excute(&minishell, input, envp, fd_backup);
 		if (ft_strlen(input) != 0)
+		{
 			add_history(input);
+			free_cmd_list(minishell.cmd_list);
+		}
 		free(input);
-		free_cmd_list(minishell.cmd_list);
 	}
 	free_env_list(minishell.env_list);
 }
