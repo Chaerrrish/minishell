@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:14:50 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/27 19:41:27 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/28 13:14:47 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	remove_leftover_dquote(t_token *token)
 
 	dq_cnt = get_dq_count(token);
 	len = ft_strlen(token->str) - dq_cnt + 1;
-	tmp = (char *)ft_calloc(i - dq_cnt + 1, sizeof(char));
+	tmp = (char *)ft_calloc(len, sizeof(char));
 	if (!tmp)
 		memory_error();
 	i = 0;
@@ -87,6 +87,7 @@ static int	get_dq_count(t_token *token)
 	int	i;
 
 	count = 0;
+	i = 0;
 	while (token->str[i])
 	{
 		if (token->str[i] == '\"')
