@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:15:06 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/28 13:44:20 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/28 16:11:16 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	minishell(char **envp)
 		input = readline("tontoshell ༼⍤༽ $ ");
 		if (!input)
 		{
-			printf("exit");
+			printf("exit\n");
 			break;
 		}
 		if (ft_strlen(input) == 0)
@@ -71,7 +71,7 @@ static void	minishell(char **envp)
 		free_cmd_list(minishell.cmd_list);
 	}
 	free_env_list(minishell.env_list);
-	system("leaks minishell");
+	// system("leaks minishell");
 }
 
 int	main(int argc, char **argv, char **envp)

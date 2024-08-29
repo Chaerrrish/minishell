@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+ /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:16:18 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/27 21:46:58 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/29 15:33:39 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	execute(t_shell	*shell, char **envp)
 	current = shell->cmd_list;
 	while (current)
 	{
-		if (shell->cmd_list->next == NULL && current->token_list->type == T_BULTIN)
+		if (shell->pipe_flag == 0 && current->token_list->type == T_BULTIN)
 		{
 			if (execute_builtin(shell, current, envp) == 0)
 			{
@@ -63,15 +63,16 @@ void	make_process(t_cmd_list *cmd, t_shell *shell)
 	}
 	else if (cmd->pid == 0)
 	{
-		change_inout(cmd);
+		// change_inout(cmd);
 		if (cmd->token_list->type == T_BULTIN)
 		{
-			execute_builtin(shell, cmd, new_envp);
+			execute_builtin(shell, cmd->next, new_envp);
 			g_status_code = 0;
 			exit(g_status_code);
 		}
-		if (cmd->token_list->type == T_WORD)
+		else if (cmd->token_list->type == T_WORD)
 		{
+			change_inout(cmd);
 			set_signal(DEFAULT, DEFAULT);
 			execute_child(cmd, shell, new_envp);
 			g_status_code = 0;
@@ -81,6 +82,7 @@ void	make_process(t_cmd_list *cmd, t_shell *shell)
 	}
 	else
 	{
+		// change_inout(cmd);
 		set_signal(IGNORE, IGNORE);
 		if (cmd->pipe_fd[1] != -1)
 			close(cmd->pipe_fd[1]);
@@ -99,8 +101,8 @@ void	execute_parent(t_cmd_list *cmd)
 	if (cmd->next != NULL)
 	{
 		dup2(cmd->pipe_fd[0], STDIN_FILENO);
-		close(cmd->pipe_fd[0]);
 		close(cmd->pipe_fd[1]);
+		close(cmd->pipe_fd[0]);
 	}
 	if (cmd->heredoc_file)
 	{
