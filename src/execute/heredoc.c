@@ -6,13 +6,13 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:26:21 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/28 16:20:06 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/29 17:56:38 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
-int	heredoc(t_cmd_list *list)
+int	heredoc(t_cmd_list *list, t_shell *shell)
 {
 	t_cmd_list	*current;
 	t_token		*token;
@@ -26,7 +26,7 @@ int	heredoc(t_cmd_list *list)
 		{
 			if (token->type == T_REDIR_HERE)
 			{
-				if (check_heredoc(current, token) == 0)
+				if (check_heredoc(current, token, shell) == 0)
 					return (0);
 			}	
 			token = token->next;
@@ -37,7 +37,7 @@ int	heredoc(t_cmd_list *list)
 	return (1);
 }
 
-int	check_heredoc(t_cmd_list *list, t_token *token)
+int	check_heredoc(t_cmd_list *list, t_token *token, t_shell *shell)
 {
 	char	*delimeter;
 	char	*err_str;
@@ -52,7 +52,7 @@ int	check_heredoc(t_cmd_list *list, t_token *token)
 	delimeter = ft_strdup(token->next->str);
 	if (delimeter == NULL)
 		return (0);
-	execute_heredoc(delimeter, list);
+	execute_heredoc(delimeter, list, shell);
 	free(delimeter);
 	return (1);
 }
@@ -77,12 +77,18 @@ char	*make_tmp_file(void)
 	}
 }
 
-void	execute_heredoc(char *delimeter, t_cmd_list *cmd)
+void	execute_heredoc(char *delimeter, t_cmd_list *cmd, t_shell *shell)
 {
 	int		fd;
 	char	*filename;
 
 	filename = make_tmp_file();
+	if (shell->heredoc_cnt < 100)
+	{
+		shell->heredoc_files[shell->heredoc_cnt] = filename;
+		shell->heredoc_cnt++;
+	}
+	printf("heredoc_coutn : %d\n", shell->heredoc_cnt);
 	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	if (fd == -1)
 	{
@@ -101,8 +107,6 @@ void	execute_heredoc(char *delimeter, t_cmd_list *cmd)
 		free(filename);
 		return ;
 	}	
-	if (cmd->heredoc_file)
-		free(cmd->heredoc_file);
 	cmd->heredoc_file = filename;
 }
 

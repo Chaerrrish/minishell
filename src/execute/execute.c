@@ -16,7 +16,7 @@ void	execute(t_shell	*shell, char **envp)
 {
 	t_cmd_list	*current;
 
-	if (heredoc(shell->cmd_list) == 0)	
+	if (heredoc(shell->cmd_list, shell) == 0)	
 	{
 		g_status_code = 258;
 		exit(g_status_code);
@@ -38,6 +38,7 @@ void	execute(t_shell	*shell, char **envp)
 	}
 	g_status_code = get_status();
 	set_signal(SHELL, SHELL);
+	unlink_heredoc_files(shell);
 }
 
 void	make_process(t_cmd_list *cmd, t_shell *shell)
@@ -105,8 +106,6 @@ void	execute_parent(t_cmd_list *cmd)
 	if (cmd->heredoc_file)
 	{
 		waitpid(cmd->pid, NULL, 0);
-		unlink(cmd->heredoc_file);
-		free(cmd->heredoc_file);
 		cmd->heredoc_file = NULL;
 	}
 }

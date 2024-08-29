@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 13:29:32 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/29 15:58:14 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/29 17:37:17 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	parsing(t_shell *minishell, char *input)
 		minishell->pipe_flag = 1;
 	else
 		minishell->pipe_flag = 0;
+	minishell->heredoc_cnt = 0;
 	free_token_list(token_list);
 	return (0);
 }
