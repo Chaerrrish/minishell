@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/29 17:43:28 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/29 18:26:09 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,23 @@ void	set_cmd_path(t_cmd_list *list, t_list *env_list);
 //execute.c
 void	execute(t_shell	*shell, char **envp);
 void	make_process(t_cmd_list *cmd, t_shell *shell);
-void	execute_child(t_cmd_list *cmd, t_shell *shell, char  **envp);
-void	execute_parent(t_cmd_list *cmd);
+void	execute_exec(t_cmd_list *cmd, t_shell *shell, char **envp);
+void	child_process(t_cmd_list *cmd, t_shell *shell, char **new_envp);
+void	parent_process(t_cmd_list *cmd);
 void	change_inout(t_cmd_list *cmd);
+
+//execute_utils.c
 int		get_status(void);
 void	set_pipe_inout(t_cmd_list *cmd);
 void	unlink_heredoc_files(t_shell *shell);
+char	*make_tmp_file(void);
 
 //heredoc.c
 int		heredoc(t_cmd_list *list, t_shell *shell);
 void	heredoc_main(int fd, char *delimeter);
 int		check_heredoc(t_cmd_list *list, t_token *token, t_shell *shell);
 void	execute_heredoc(char *delimeter, t_cmd_list *cmd, t_shell *shell);
-
+int		create_heredoc_file(t_shell *shell, char **filename);
 
 //redir.c
 void	redirection(t_cmd_list *cmd);
@@ -116,7 +120,7 @@ int 	add_cmd_list(t_shell *minishell, t_token *token_list);
 t_token *detach_redirection(t_token *token_list);
 int		is_back_redir(t_token *result, int end);
 void 	detach(t_token *result, int end);
-int	is_semi_colon(char *input);
+int		is_semi_colon(char *input);
 
 
 // get_token_type.c

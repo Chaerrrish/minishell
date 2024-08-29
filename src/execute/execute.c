@@ -1,4 +1,4 @@
- /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:16:18 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/29 15:33:39 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/29 18:16:11 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	execute(t_shell	*shell, char **envp)
 {
 	t_cmd_list	*current;
 
-	if (heredoc(shell->cmd_list, shell) == 0)	
+	if (heredoc(shell->cmd_list, shell) == 0)
 	{
 		g_status_code = 258;
 		exit(g_status_code);
@@ -63,35 +63,36 @@ void	make_process(t_cmd_list *cmd, t_shell *shell)
 		exit(g_status_code);
 	}
 	else if (cmd->pid == 0)
-	{
-		if (cmd->token_list->type == T_BULTIN)
-		{
-			execute_builtin(shell, cmd, new_envp);
-			g_status_code = 0;
-			exit(g_status_code);
-		}
-		else if (cmd->token_list->type == T_WORD)
-		{
-			change_inout(cmd);
-			set_signal(DEFAULT, DEFAULT);
-			execute_child(cmd, shell, new_envp);
-			g_status_code = 0;
-			split_free(new_envp);
-			exit(g_status_code);
-		}
-	}
+		child_process(cmd, shell, new_envp);
 	else
-	{
-		set_signal(IGNORE, IGNORE);
-		if (cmd->pipe_fd[1] != -1)
-			close(cmd->pipe_fd[1]);
-		execute_parent(cmd);
-	}
+		parent_process(cmd);
 	split_free(new_envp);
 }
 
-void	execute_parent(t_cmd_list *cmd)
+void	child_process(t_cmd_list *cmd, t_shell *shell, char **new_envp)
 {
+	if (cmd->token_list->type == T_BULTIN)
+	{
+		execute_builtin(shell, cmd, new_envp);
+		g_status_code = 0;
+		exit(g_status_code);
+	}
+	else if (cmd->token_list->type == T_WORD)
+	{
+		change_inout(cmd);
+		set_signal(DEFAULT, DEFAULT);
+		execute_exec(cmd, shell, new_envp);
+		g_status_code = 0;
+		split_free(new_envp);
+		exit(g_status_code);
+	}
+}
+
+void	parent_process(t_cmd_list *cmd)
+{
+	set_signal(IGNORE, IGNORE);
+	if (cmd->pipe_fd[1] != -1)
+		close(cmd->pipe_fd[1]);
 	if (cmd->in_fd != -1 && cmd->in_fd != STDIN_FILENO)
 	{
 		close(cmd->in_fd);
@@ -110,7 +111,7 @@ void	execute_parent(t_cmd_list *cmd)
 	}
 }
 
-void	execute_child(t_cmd_list *cmd, t_shell *shell, char **envp)
+void	execute_exec(t_cmd_list *cmd, t_shell *shell, char **envp)
 {
 	if (cmd->token_list->type == T_WORD)
 	{

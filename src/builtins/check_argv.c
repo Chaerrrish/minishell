@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:45:58 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/25 19:14:45 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/29 18:06:52 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	check_export_argv(char	*str)
 	{
 		if (!((str[i] >= 'a' && str[i] <= 'z') \
 		|| (str[i] >= 'A' && str[i] <= 'Z') \
-		|| (str[i] >= '0' && str[i] <='9') \
+		|| (str[i] >= '0' && str[i] <= '9') \
 		|| (str[i] == '_')))
 			return (0);
 		i++;
@@ -32,7 +32,7 @@ int	check_export_argv(char	*str)
 	return (1);
 }
 
-int check_unset_argv(char *str)
+int	check_unset_argv(char *str)
 {
 	int	i;
 
@@ -44,7 +44,7 @@ int check_unset_argv(char *str)
 	{
 		if (!((str[i] >= 'a' && str[i] <= 'z') \
 		|| (str[i] >= 'A' && str[i] <= 'Z') \
-		|| (str[i] >= '0' && str[i] <='9') \
+		|| (str[i] >= '0' && str[i] <= '9') \
 		|| (str[i] == '_')))
 			return (0);
 		i++;
