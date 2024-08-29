@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 19:07:46 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/24 19:41:31 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/28 16:29:53 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,18 @@ void	detach(t_token *result, int end)
 	result->type = T_WORD;
 	add->next = result->next;
 	result->next = add;
+}
+
+int	is_semi_colon(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] == ';')
+			return (-1);
+		i++;
+	}
+	return (0);
 }

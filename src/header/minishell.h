@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/28 20:36:04 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/28 16:31:09 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,6 @@ void	sum_splited_env(t_token **token_lst, char *new_line);
 void	change_to_value(char *result, char *front, char *env_value, char *back);
 
 
-
-// parsing_util.c
-t_token *detach_redirection(t_token *token_list);
-int		is_back_redir(t_token *result, int end);
-void 	detach(t_token *result, int end);
-
-
 // create_cmd_list.c
 t_cmd_list	*create_cmd_list(t_token *token_list);
 t_cmd_list	*init_cmd_node(void);
@@ -118,6 +111,11 @@ void	get_pipe_data(t_cmd_list **cmd_list, t_token **current_token);
 // parsing.c
 int		parsing(t_shell *minishell, char *input);
 int 	add_cmd_list(t_shell *minishell, t_token *token_list);
+// parsing_util.c
+t_token *detach_redirection(t_token *token_list);
+int		is_back_redir(t_token *result, int end);
+void 	detach(t_token *result, int end);
+int	is_semi_colon(char *input);
 
 
 // get_token_type.c

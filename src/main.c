@@ -3,27 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:15:06 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/28 16:11:16 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/28 20:54:49 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_semi_colon(char *input)
+static void	parse_and_excute(t_shell *minishell, char *input, char **envp,
+								int *fd_backup)
 {
-	int	i;
-
-	i = 0;
-	while (input[i])
+	if (ft_strlen(input) == 0)
+		return ;
+	if (is_semi_colon(input) == -1)
 	{
-		if (input[i] == ';')
-			return (-1);
-		i++;
+		printf("tontoshell: syntax error\n");
+		return ;
 	}
-	return (0);
+	if (parsing(minishell, input) == -1)
+	{
+		printf("tontoshell: syntax error: unexpected end of file\n");
+		g_status_code = 258;
+		return ;
+	}
+	execute(minishell, envp);
+	dup2(fd_backup[0], STDIN_FILENO);
+	dup2(fd_backup[1], STDOUT_FILENO);
 }
 
 static void	minishell(char **envp)
@@ -42,33 +49,15 @@ static void	minishell(char **envp)
 		if (!input)
 		{
 			printf("exit\n");
-			break;
+			break ;
 		}
-		if (ft_strlen(input) == 0)
+		parse_and_excute(&minishell, input, envp, fd_backup);
+		if (ft_strlen(input) != 0)
 		{
-			free(input);
-			continue;
-		}
-		if (is_semi_colon(input) == -1)
-		{
-			printf("tontoshell: syntax error\n");
-			free(input);
-			continue;
-		}
-		if (parsing(&minishell, input) == -1)
-		{
-			printf("tontoshell: syntax error: enexpected end of file\n");
-			g_status_code = 258;
+			add_history(input);
 			free_cmd_list(minishell.cmd_list);
-			free(input);
-			continue;
 		}
-		execute(&minishell, envp);
-		dup2(fd_backup[0], STDIN_FILENO);
-		dup2(fd_backup[1], STDOUT_FILENO);
-		add_history(input);
 		free(input);
-		free_cmd_list(minishell.cmd_list);
 	}
 	free_env_list(minishell.env_list);
 	// system("leaks minishell");
@@ -77,13 +66,13 @@ static void	minishell(char **envp)
 int	main(int argc, char **argv, char **envp)
 {
 	struct termios	term;
-	
+
 	(void)argv;
 	if (argc >= 2)
 	{
 		printf("too many arguments!!!\n");
 		exit(0);
-	}  
+	}
 	if (tcgetattr(STDIN_FILENO, &term) != 0)
 	{
 		perror("tcgetattr error!!!\n");
