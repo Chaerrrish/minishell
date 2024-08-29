@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:26:21 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/29 17:56:38 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/29 18:22:42 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,24 +57,24 @@ int	check_heredoc(t_cmd_list *list, t_token *token, t_shell *shell)
 	return (1);
 }
 
-char	*make_tmp_file(void)
+int	create_heredoc_file(t_shell *shell, char **filename)
 {
-	char	*filename;
-	char	*itoa_num;
-	int		i;
+	int	fd;
 
-	i = 0;
-	while (1)
+	*filename = make_tmp_file();
+	if (shell->heredoc_cnt < 100)
 	{
-		itoa_num = ft_itoa(i);
-		filename = ft_strjoin("/tmp/heredoc_tmp", itoa_num);
-		free(itoa_num);
-		if (access(filename, F_OK) != 0)
-			return (filename);
-		else
-			free(filename);
-		i++;
+		shell->heredoc_files[shell->heredoc_cnt] = *filename;
+		shell->heredoc_cnt++;
 	}
+	fd = open(*filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
+	if (fd == -1)
+	{
+		perror("open");
+		free(*filename);
+		return (-1);
+	}
+	return (fd);
 }
 
 void	execute_heredoc(char *delimeter, t_cmd_list *cmd, t_shell *shell)
@@ -82,20 +82,9 @@ void	execute_heredoc(char *delimeter, t_cmd_list *cmd, t_shell *shell)
 	int		fd;
 	char	*filename;
 
-	filename = make_tmp_file();
-	if (shell->heredoc_cnt < 100)
-	{
-		shell->heredoc_files[shell->heredoc_cnt] = filename;
-		shell->heredoc_cnt++;
-	}
-	printf("heredoc_coutn : %d\n", shell->heredoc_cnt);
-	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
+	fd = create_heredoc_file(shell, &filename);
 	if (fd == -1)
-	{
-		perror("open");
-		free(filename);
 		return ;
-	}
 	heredoc_main(fd, delimeter);
 	close(fd);
 	if (cmd->in_fd != STDIN_FILENO)

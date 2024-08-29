@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:27:13 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/28 14:01:44 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/29 18:07:16 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_env	*add_env(char **split_input)
 		new_env->value = ft_strdup(split_input[1]);
 		temp = ft_strjoin(new_env->key, "=");
 		new_env->data = ft_strjoin(temp, new_env->value);
-		free(temp);	
+		free(temp);
 	}
 	return (new_env);
 }
