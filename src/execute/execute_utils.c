@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 17:34:14 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/29 16:23:04 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/29 17:45:31 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,22 @@ void	set_pipe_inout(t_cmd_list *cmd)
 		}
 		close(cmd->pipe_fd[1]);
 	}
+}
+
+void	unlink_heredoc_files(t_shell *shell)
+{
+	int	i;
+
+	i = 0;
+	while (i < shell->heredoc_cnt)
+	{
+		if (shell->heredoc_files[i])
+		{
+			unlink(shell->heredoc_files[i]);
+			free(shell->heredoc_files[i]);
+			shell->heredoc_files[i] = NULL;
+		}
+		i++;
+	}
+	shell->heredoc_cnt = 0;
 }

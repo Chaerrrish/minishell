@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 19:41:05 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/29 15:56:46 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/29 17:45:57 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ typedef struct s_shell
 	t_list			*env_list;
 	t_cmd_list		*cmd_list;
 	int				pipe_flag;
+	char			*heredoc_files[100];
+	int				heredoc_cnt;
 }	t_shell;
 
 #endif

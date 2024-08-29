@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/28 16:31:09 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/29 17:43:28 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,13 @@ void	execute_parent(t_cmd_list *cmd);
 void	change_inout(t_cmd_list *cmd);
 int		get_status(void);
 void	set_pipe_inout(t_cmd_list *cmd);
+void	unlink_heredoc_files(t_shell *shell);
 
 //heredoc.c
-int		heredoc(t_cmd_list *list);
+int		heredoc(t_cmd_list *list, t_shell *shell);
 void	heredoc_main(int fd, char *delimeter);
-int		check_heredoc(t_cmd_list *list, t_token *token);
-void	execute_heredoc(char *delimeter, t_cmd_list *cmd);
+int		check_heredoc(t_cmd_list *list, t_token *token, t_shell *shell);
+void	execute_heredoc(char *delimeter, t_cmd_list *cmd, t_shell *shell);
 
 
 //redir.c
