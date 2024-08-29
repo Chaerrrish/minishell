@@ -3,31 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:15:06 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/29 18:24:47 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/29 21:16:24 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	parse_and_excute(t_shell *minishell, char *input, char **envp,
-								int *fd_backup)
+static int	validate_input(t_shell *minishell, char *input)
 {
-	if (ft_strlen(input) == 0)
-		return ;
+	if (ft_strlen(input) == 0
+		|| only_whitespace(input) == -1 || check_redir_in_a_row(input) == -1)
+		return (-1);
+	if (input[0] == '|')
+	{
+		g_status_code = 258;
+		ft_putendl_fd(\
+				"tontoshell: syntax error near unexpected token '|'", 2);
+		return (-1);
+	}
 	if (is_semi_colon(input) == -1)
 	{
-		printf("tontoshell: syntax error\n");
-		return ;
+		g_status_code = 258;
+		ft_putendl_fd(\
+			"tontoshell: syntax error", 2);
+		return (-1);
 	}
 	if (parsing(minishell, input) == -1)
 	{
-		printf("tontoshell: syntax error: unexpected end of file\n");
+		ft_putendl_fd(\
+			"tontoshell: syntax error: unexpected end of file", 2);
 		g_status_code = 258;
-		return ;
+		return (-1);
 	}
+	return (0);
+}
+
+static void	parse_and_excute(t_shell *minishell, char *input, char **envp,
+								int *fd_backup)
+{
+	if (validate_input(minishell, input) == -1)
+		return ;
 	execute(minishell, envp);
 	dup2(fd_backup[0], STDIN_FILENO);
 	dup2(fd_backup[1], STDOUT_FILENO);
