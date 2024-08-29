@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/29 18:26:09 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/29 20:35:58 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,12 +164,13 @@ void	free_env_list(t_list *lst);
 void	free_cmd_list(t_cmd_list *cmd_list);
 void	free_token_list(t_token *token_list);
 void	free_env(void *content);
-
 char	**list_to_array(t_list *list);
-
+int		only_whitespace(char *input);
 void	split_free(char **str);
 int		ft_strcmp(const char *s1, const char *s2);
 void	memory_error(void);
 void	print_cmd_error(char *str);
+int check_redir_in_a_row(char *input);
+
 
 #endif 

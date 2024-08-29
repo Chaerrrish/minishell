@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_cmd_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:36:49 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/29 15:56:55 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/29 21:16:52 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,5 @@ t_cmd_list	*init_cmd_node(void)
 	result->heredoc_file = NULL;
 	result->path = NULL;
 	result->pid = -1;
-	
 	return (result);
 }
