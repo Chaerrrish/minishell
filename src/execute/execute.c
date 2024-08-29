@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:16:18 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/29 18:16:11 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/29 20:15:48 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,13 @@ void	child_process(t_cmd_list *cmd, t_shell *shell, char **new_envp)
 		g_status_code = 0;
 		split_free(new_envp);
 		exit(g_status_code);
+	}
+	else if (cmd->token_list->type == T_REDIR_IN \
+			|| cmd->token_list->type == T_REDIR_OUT \
+			|| cmd->token_list->type == T_REDIR_APPEND)
+	{
+		redirection(cmd);
+		exit(0);
 	}
 }
 
