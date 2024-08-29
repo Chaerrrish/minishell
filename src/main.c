@@ -60,6 +60,7 @@ static void	minishell(char **envp)
 		free(input);
 	}
 	free_env_list(minishell.env_list);
+	// system("leaks minishell");
 }
 
 int	main(int argc, char **argv, char **envp)

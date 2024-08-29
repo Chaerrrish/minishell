@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 17:34:14 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/27 20:46:28 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/29 16:23:04 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,19 @@ void	change_inout(t_cmd_list *cmd)
 		close(heredoc_fd);
 	}
 	set_redir_inout(cmd);
+	set_pipe_inout(cmd);
+}
+
+void	set_pipe_inout(t_cmd_list *cmd)
+{
 	if (cmd->next != NULL)
 	{
-		dup2(cmd->pipe_fd[1], STDOUT_FILENO);
+		if (dup2(cmd->pipe_fd[1], STDOUT_FILENO) == -1)
+		{
+			perror("dup2 pipe fd");
+			g_status_code = 1;
+			exit(g_status_code);	
+		}
 		close(cmd->pipe_fd[1]);
-		close(cmd->pipe_fd[0]);
 	}
 }

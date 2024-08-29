@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:14:59 by wonyocho          #+#    #+#             */
 /*   Updated: 2024/08/28 16:31:09 by wonyocho         ###   ########.fr       */
@@ -65,6 +65,7 @@ void	execute_child(t_cmd_list *cmd, t_shell *shell, char  **envp);
 void	execute_parent(t_cmd_list *cmd);
 void	change_inout(t_cmd_list *cmd);
 int		get_status(void);
+void	set_pipe_inout(t_cmd_list *cmd);
 
 //heredoc.c
 int		heredoc(t_cmd_list *list);
