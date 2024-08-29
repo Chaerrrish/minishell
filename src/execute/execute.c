@@ -63,10 +63,9 @@ void	make_process(t_cmd_list *cmd, t_shell *shell)
 	}
 	else if (cmd->pid == 0)
 	{
-		// change_inout(cmd);
 		if (cmd->token_list->type == T_BULTIN)
 		{
-			execute_builtin(shell, cmd->next, new_envp);
+			execute_builtin(shell, cmd, new_envp);
 			g_status_code = 0;
 			exit(g_status_code);
 		}
@@ -82,7 +81,6 @@ void	make_process(t_cmd_list *cmd, t_shell *shell)
 	}
 	else
 	{
-		// change_inout(cmd);
 		set_signal(IGNORE, IGNORE);
 		if (cmd->pipe_fd[1] != -1)
 			close(cmd->pipe_fd[1]);

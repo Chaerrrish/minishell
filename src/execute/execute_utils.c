@@ -6,7 +6,7 @@
 /*   By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 17:34:14 by chaoh             #+#    #+#             */
-/*   Updated: 2024/08/28 20:38:46 by chaoh            ###   ########.fr       */
+/*   Updated: 2024/08/29 16:23:04 by chaoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,5 @@ void	set_pipe_inout(t_cmd_list *cmd)
 			exit(g_status_code);	
 		}
 		close(cmd->pipe_fd[1]);
-		// close(cmd->pipe_fd[0]);
 	}
 }
