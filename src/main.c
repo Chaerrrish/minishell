@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:15:06 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/29 21:16:24 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/08/31 12:02:21 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,14 @@ static int	validate_input(t_shell *minishell, char *input)
 {
 	if (ft_strlen(input) == 0
 		|| only_whitespace(input) == -1 || check_redir_in_a_row(input) == -1)
+	{
+		minishell->cmd_list = NULL;
 		return (-1);
+	}
 	if (input[0] == '|')
 	{
 		g_status_code = 258;
+		minishell->cmd_list = NULL;
 		ft_putendl_fd(\
 				"tontoshell: syntax error near unexpected token '|'", 2);
 		return (-1);
@@ -27,15 +31,8 @@ static int	validate_input(t_shell *minishell, char *input)
 	if (is_semi_colon(input) == -1)
 	{
 		g_status_code = 258;
-		ft_putendl_fd(\
-			"tontoshell: syntax error", 2);
-		return (-1);
-	}
-	if (parsing(minishell, input) == -1)
-	{
-		ft_putendl_fd(\
-			"tontoshell: syntax error: unexpected end of file", 2);
-		g_status_code = 258;
+		minishell->cmd_list = NULL;
+		ft_putendl_fd("tontoshell: syntax error", 2);
 		return (-1);
 	}
 	return (0);
@@ -46,6 +43,12 @@ static void	parse_and_excute(t_shell *minishell, char *input, char **envp,
 {
 	if (validate_input(minishell, input) == -1)
 		return ;
+	if (parsing(minishell, input) == -1)
+	{
+		ft_putendl_fd("tontoshell: syntax error: unexpected end of file", 2);
+		g_status_code = 258;
+		return ;
+	}
 	execute(minishell, envp);
 	dup2(fd_backup[0], STDIN_FILENO);
 	dup2(fd_backup[1], STDOUT_FILENO);
@@ -71,10 +74,9 @@ static void	minishell(char **envp)
 		}
 		parse_and_excute(&minishell, input, envp, fd_backup);
 		if (ft_strlen(input) != 0)
-		{
 			add_history(input);
+		if (minishell.cmd_list != NULL)
 			free_cmd_list(minishell.cmd_list);
-		}
 		free(input);
 	}
 	free_env_list(minishell.env_list);
