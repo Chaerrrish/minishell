@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+         #
+#    By: chaoh <chaoh@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 17:59:08 by wonyocho          #+#    #+#              #
-#    Updated: 2024/08/24 21:51:58 by wonyocho         ###   ########.fr        #
+#    Updated: 2024/08/31 14:56:41 by chaoh            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror -I/Users/$(User)/.brew/opt/readline/include
 LDFLAGS = -L/Users/$(USER)/.brew/opt/readline/lib -lreadline
 
-LIBFT_DIR = Libft
+LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 INCLUDE = -I src/header -I $(LIBFT_DIR)
@@ -24,7 +24,10 @@ OBJ_FILES = $(SRC_FILES:.c=.o)
 
 NAME = minishell
 
-all: $(NAME)
+all: $(LIBFT) $(NAME)
+
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR)
 
 $(NAME): $(OBJ_FILES) $(LIBFT)
 	$(CC) $(OBJ_FILES) $(LIBFT) $(CFLAGS) $(LDFLAGS) -o $@
@@ -34,9 +37,11 @@ $(NAME): $(OBJ_FILES) $(LIBFT)
 
 clean:
 	rm -f $(OBJ_FILES)
+	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
