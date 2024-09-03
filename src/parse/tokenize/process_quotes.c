@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 17:17:02 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/24 18:42:32 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/09/02 20:38:38 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	process_quotes(char *input, t_token_iter *iter)
 {
 	while (input[iter->end]
 		&& (!is_whitespace(input[iter->end]) || iter->in_sq || iter->in_dq)
-		&& (input[iter->end] != '|' || iter->in_sq || iter->in_dq)
-		&& !is_redirection(input, iter))
+		&& (input[iter->end] != '|' || iter->in_sq || iter->in_dq))
 	{
 		if (input[iter->end] == '\'' && !iter->in_dq)
 			iter->in_sq = !iter->in_sq;

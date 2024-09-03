@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 16:00:19 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/28 13:24:27 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/09/02 20:59:55 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 void	change_to_value(char *result, char *front, char *env_value, char *back)
 {
-	int		i;
 	char	*front_str;
 	char	*back_str;
 
 	front_str = front;
 	back_str = back;
-	i = 0;
 	while (*front)
 		*(result++) = *(front++);
 	while (*env_value)

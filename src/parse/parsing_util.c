@@ -6,63 +6,94 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 19:07:46 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/31 11:50:35 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/09/02 22:50:22 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
+static void	detach_front(t_token *cur);
+static void	detach_back(t_token *cur);
+
 t_token	*detach_redirection(t_token *token_list)
 {
-	t_token	*result;
+	t_token	*cur;
 	int		i;
 
-	i = 0;
-	result = token_list;
-	while (result)
+	cur = token_list;
+	while (cur)
 	{
-		i = 0;
-		while (result->str[i])
-			i++;
-		if (is_back_redir(result, i - 1))
+		if (cur->type != T_WORD)
 		{
-			if (strlen(result->str) == 2
-				&& (ft_strcmp(result->str, ">>") != 0
-					&& ft_strcmp(result->str, "<<") != 0))
-				detach(result, 1);
-			if (ft_strlen(result->str) != 2 && ft_strlen(result->str) != 1)
-				detach(result, i - 1);
+			cur = cur->next;
+			continue ;
 		}
-		result = result->next;
+		i = 0;
+		while (cur->str[i])
+		{
+			if ((cur->str[i] != '>' && cur->str[i] != '<')
+				&& (cur->str[i + 1] == '>' || cur->str[i + 1] == '<'))
+				detach_front(cur);
+			if ((cur->str[i] == '>' || cur->str[i] == '<')
+				&& (cur->str[i + 1] != '>' && cur->str[i + 1] != '<'))
+				detach_back(cur);
+			i++;
+		}
+		cur = cur->next;
 	}
 	return (token_list);
 }
 
-int	is_back_redir(t_token *result, int end)
-{
-	if (result->str[0] != '<' || result->str[0] != '>')
-	{
-		if (result->str[end] == '<' || result->str[end] == '>')
-			return (1);
-	}
-	return (0);
-}
-
-void	detach(t_token *result, int end)
+static void	detach_front(t_token *cur)
 {
 	int		i;
-	t_token	*add;
+	int		end;
+	t_token	*new;
 
+	end = 0;
+	while (cur->str[end])
+		end++;
 	i = 0;
-	while (result->str[i] != '<' && result->str[i] != '>')
+	while (cur->str[i] != '<' && cur->str[i] != '>')
 		i++;
-	add = ft_calloc(1, sizeof(t_token));
-	add->str = ft_strdup(ft_substr(result->str, i, end));
-	add->type = get_token_type(add->str);
-	result->str = ft_substr(result->str, 0, i);
-	result->type = T_WORD;
-	add->next = result->next;
-	result->next = add;
+	new = ft_calloc(1, sizeof(t_token));
+	if (!new)
+		memory_error();
+	new->str = ft_strdup(ft_substr(cur->str, i, end - 1));
+	new->type = get_token_type(new->str);
+	cur->str = ft_substr(cur->str, 0, i);
+	cur->type = T_WORD;
+	if (cur->next != NULL)
+		new->next = cur->next;
+	else
+		new->next = NULL;
+	cur->next = new;
+}
+
+static void	detach_back(t_token *cur)
+{
+	int		i;
+	int		end;
+	t_token	*new;
+
+	end = 0;
+	while (cur->str[end])
+		end++;
+	i = 0;
+	while (cur->str[i] == '>' || cur->str[i] == '<')
+		i++;
+	new = ft_calloc(1, sizeof(t_token));
+	if (!new)
+		memory_error();
+	new->str = ft_strdup(ft_substr(cur->str, i, end));
+	new->type = T_WORD;
+	cur->str = ft_substr(cur->str, 0, i);
+	cur->type = get_token_type(cur->str);
+	if (cur->next != NULL)
+		new->next = cur->next;
+	else
+		new->next = NULL;
+	cur->next = new;
 }
 
 int	is_semi_colon(char *input)

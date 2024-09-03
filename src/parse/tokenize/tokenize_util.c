@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:28:16 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/24 19:05:12 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/09/03 13:56:30 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	skip_whitespace(const char *input, t_token_iter *iter)
 		iter->end++;
 }
 
-int	is_quotation_str(char *str, int start, int end)
+int	is_quote(char *str, int start, int end)
 {
 	if (str[start] == '\'' && str[end - 1] == '\'')
 		return (1);

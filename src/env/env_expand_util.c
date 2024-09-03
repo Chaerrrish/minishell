@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:59:20 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/27 19:12:32 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/09/02 20:56:39 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	find_end_pos(char *s, int i)
 	if (s[i] == '$')
 		return (i - 1);
 	if (s[i] == '?')
-		return (1);
+		return (i + 1);
 	while ((s[i] >= 'A' && s[i] <= 'Z') || (s[i] >= 'a' && s[i] <= 'z')
 		|| s[i] == '_' || (s[i] >= '0' && s[i] <= '9'))
 		i++;
