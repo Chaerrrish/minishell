@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 13:29:32 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/31 12:02:51 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/09/02 22:47:08 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	parsing(t_shell *minishell, char *input)
 	else
 		minishell->pipe_flag = 0;
 	minishell->heredoc_cnt = 0;
-	free_token_list(token_list);
+	if (token_list != NULL)
+		free_token_list(token_list);
 	return (0);
 }

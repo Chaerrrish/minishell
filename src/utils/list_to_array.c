@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 19:39:21 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/27 19:44:26 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:52:43 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ char	**list_to_array(t_list *list)
 	char	**result;
 	int		i;
 	t_env	*env;
-	int		len;
 
 	count = count_list(list);
 	result = malloc((count + 1) * sizeof(char *));
@@ -41,7 +40,6 @@ char	**list_to_array(t_list *list)
 	while (list)
 	{
 		env = (t_env *)list->content;
-		len = ft_strlen(env->key) + ft_strlen(env->value) + 2;
 		result[i] = ft_strdup(env->data);
 		if (!result[i])
 			memory_error();

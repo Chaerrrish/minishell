@@ -6,7 +6,7 @@
 /*   By: wonyocho <wonyocho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:29:50 by wonyocho          #+#    #+#             */
-/*   Updated: 2024/08/27 19:45:33 by wonyocho         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:56:41 by wonyocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	free_cmd_list(t_cmd_list *cmd_list)
 
 	while (cmd_list)
 	{
-		tmp = cmd_list;
+		tmp = cmd_list->next;
 		free_token_list(cmd_list->token_list);
-		if (cmd_list->argc)
+		if (cmd_list->argv)
 		{
 			i = 0;
 			while (cmd_list->argv[i])
@@ -46,8 +46,8 @@ void	free_cmd_list(t_cmd_list *cmd_list)
 		}
 		if (cmd_list->path)
 			free(cmd_list->path);
-		cmd_list = cmd_list->next;
-		free(tmp);
+		free(cmd_list);
+		cmd_list = tmp;
 	}
 }
 
@@ -57,10 +57,11 @@ void	free_token_list(t_token *token_list)
 
 	while (token_list)
 	{
-		temp = token_list;
-		free(token_list->str);
-		token_list = token_list->next;
-		free(temp);
+		temp = token_list->next;
+		if (token_list->str)
+			free(token_list->str);
+		free(token_list);
+		token_list = temp;
 	}
 }
 
